@@ -7,6 +7,7 @@ namespace Crowdfund
         static void Main(string[] args)
         {
             Console.WriteLine("Hello T6");
+            Console.WriteLine("Hello from spyros");
         }
     }
 }

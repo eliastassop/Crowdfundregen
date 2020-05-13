@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\elias\\.nuget\\packages\\": {}
+    "C:\\Users\\Spyros\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\elias\\Desktop\\Crowdfund\\Crowdfund\\Crowdfund.csproj",
+      "projectUniqueName": "C:\\Users\\Spyros\\Source\\Repos\\athens-pf-team6\\Crowdfund\\Crowdfund.csproj",
       "projectName": "Crowdfund",
-      "projectPath": "C:\\Users\\elias\\Desktop\\Crowdfund\\Crowdfund\\Crowdfund.csproj",
-      "packagesPath": "C:\\Users\\elias\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\elias\\Desktop\\Crowdfund\\Crowdfund\\obj\\",
+      "projectPath": "C:\\Users\\Spyros\\Source\\Repos\\athens-pf-team6\\Crowdfund\\Crowdfund.csproj",
+      "packagesPath": "C:\\Users\\Spyros\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Spyros\\Source\\Repos\\athens-pf-team6\\Crowdfund\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\elias\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Spyros\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
