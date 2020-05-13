@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\elias\\Desktop\\Crowdfundgit\\Crowdfund\\Crowdfund.csproj": {}
+    "C:\\Users\\elias\\Desktop\\Crowdfund\\Crowdfund\\Crowdfund.csproj": {}
   },
   "projects": {
-    "C:\\Users\\elias\\Desktop\\Crowdfundgit\\Crowdfund\\Crowdfund.csproj": {
+    "C:\\Users\\elias\\Desktop\\Crowdfund\\Crowdfund\\Crowdfund.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\elias\\Desktop\\Crowdfundgit\\Crowdfund\\Crowdfund.csproj",
+        "projectUniqueName": "C:\\Users\\elias\\Desktop\\Crowdfund\\Crowdfund\\Crowdfund.csproj",
         "projectName": "Crowdfund",
-        "projectPath": "C:\\Users\\elias\\Desktop\\Crowdfundgit\\Crowdfund\\Crowdfund.csproj",
+        "projectPath": "C:\\Users\\elias\\Desktop\\Crowdfund\\Crowdfund\\Crowdfund.csproj",
         "packagesPath": "C:\\Users\\elias\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\elias\\Desktop\\Crowdfundgit\\Crowdfund\\obj\\",
+        "outputPath": "C:\\Users\\elias\\Desktop\\Crowdfund\\Crowdfund\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\elias\\AppData\\Roaming\\NuGet\\NuGet.Config",
