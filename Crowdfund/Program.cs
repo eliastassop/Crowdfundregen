@@ -8,6 +8,7 @@ namespace Crowdfund
         {
             Console.WriteLine("Hello T6");
             Console.WriteLine("Hello from spyros");
+            Console.WriteLine("Hello from Alexandros");
         }
     }
 }
