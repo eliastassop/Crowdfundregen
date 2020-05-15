@@ -8,6 +8,7 @@ namespace Crowdfund
         static void Main(string[] args)
         {
             Console.WriteLine("New Commit");
+            Console.WriteLine("elias");
         }
     }
 }
