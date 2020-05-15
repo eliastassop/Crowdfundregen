@@ -33,7 +33,7 @@ namespace Crowdfund.Data
 
             modelBuilder
                 .Entity<RewardUser>()
-                .ToTable("RewardBacker");
+                .ToTable("RewardUser");
             modelBuilder
                 .Entity<StatusUpdate>()
                 .ToTable("StatusUpdate");

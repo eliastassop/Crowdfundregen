@@ -17,6 +17,7 @@ namespace Crowdfund.Models
         public List<Reward> AvailableRewards { get; set; }
         public List<RewardUser> RewardUsers { get; set; }
         public List<Media> Media { get; set; }
+        public List<StatusUpdate> StatusUpdate { get; set; }
         public Project()
         {
             AvailableRewards = new List<Reward>();
