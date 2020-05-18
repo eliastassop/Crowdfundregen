@@ -19,5 +19,10 @@ namespace Crowdfund.Models
             Projects = new List<Project>();
             UserCreated = DateTime.Now;
         }
+
+        public bool IsValidUsername(string username)
+        {
+            return string.IsNullOrWhiteSpace(username) && username.Length <= 30;
+        }
     }
 }
