@@ -1,6 +1,7 @@
 ﻿using Crowdfund.Data;
 using Crowdfund.Models;
 using Crowdfund.Services.Options;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Crowdfund.Services
             {
                 return false; //Request anti gia false
             }
-
+            var user = userService_.GetUserById(options.CreatorId);
             var project = new Project()
             {
                 Title = options.Title,
@@ -33,7 +34,8 @@ namespace Crowdfund.Services
                 Deadline = options.Deadline
             };
             //validation prin mpei sti vasi
-            context_.Add(project);
+            user.Projects.Add(project);
+            //context_.Add(user);
             if (context_.SaveChanges() > 0)
             {
                 return true;
@@ -101,11 +103,13 @@ namespace Crowdfund.Services
 
 
             if (options.CreatorId != null)
-            {                
-                var user = userService_.GetUserById(options.CreatorId); //na ginei var to user
-                query = query.Where(c => user.Projects.Contains(c)); //theloume to value?
+            {
+              
+                var user = userService_.GetUserById(options.CreatorId); 
+                
+                query = query.Where(c => user.Projects.Contains(c)); 
             }
-
+            
             query = query.Take(500);
             return query;            
         }

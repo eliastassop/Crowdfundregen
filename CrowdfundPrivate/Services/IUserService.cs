@@ -7,6 +7,6 @@ namespace Crowdfund.Services
 {
     public interface IUserService
     {
-        public User GetUserById(int? userId);
+       User GetUserById(int? userId);
     }
 }

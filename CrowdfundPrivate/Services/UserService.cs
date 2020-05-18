@@ -1,5 +1,6 @@
 ﻿using Crowdfund.Data;
 using Crowdfund.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace Crowdfund.Services
                  .Set<User>()
                  .AsQueryable()
                  .Where(c => c.UserId == userId)
+                 .Include(a => a.Projects)
                  .SingleOrDefault();
             return user;            
         }
