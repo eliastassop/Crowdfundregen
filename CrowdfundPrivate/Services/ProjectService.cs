@@ -126,7 +126,13 @@ namespace Crowdfund.Services
                 var user = userService_.GetUserById(options.CreatorId);
 
                 query = query.Where(c => user.Projects.Contains(c));
-            }          
+            }
+
+            if (options.RewardId != null)
+            {
+                query = query
+                    .Where(c => c.AvailableRewards.Any(a => a.RewardId == options.RewardId.Value));
+            }
 
             query = query.Take(500);
             return query;            
@@ -202,8 +208,19 @@ namespace Crowdfund.Services
             return false;
         }
 
-       
+        public Project GetProjectByRewardId(int? rewardId)
+        {
+            if (rewardId == null)
+            {
+                return null;
+            }
 
-
+            return SearchProjects(new SearchProjectOptions()
+            {
+                RewardId = rewardId
+            })                    
+                //.Include(a => a.AvailableRewards)
+                .SingleOrDefault();      
+        }
     }
 }

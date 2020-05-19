@@ -12,7 +12,8 @@ namespace Crowdfund.Services
         bool CreateRewardUser(CreateRewardUserOptions options);
         //bool UpdateRewardUser(UpdateRewardUserOptions options);
         IQueryable<Project> SearchProjectsFundedByUser(int? userId);
-        //RewardUser GetRewardUserById(int? rewardUserId);
-        //bool DeleteRewardUser(int? rewardUserId);
+        RewardUser GetRewardUserById(int? userId, int? rewardId);
+        bool UpdateRewardUser(UpdateRewardUserOptions options);
+        bool DeleteRewardUser(int? userId, int? rewardId);
     }
 }

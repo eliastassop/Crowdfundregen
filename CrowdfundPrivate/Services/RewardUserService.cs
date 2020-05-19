@@ -9,14 +9,14 @@ using System.Text;
 
 namespace Crowdfund.Services
 {
-    public class RewardUserService:IRewardUserService
+    public class RewardUserService : IRewardUserService
     {
         private CrowdfundDB context_;
         private IUserService userService_;
         private IProjectService projectService_;
         private IRewardService rewardService_;
         public RewardUserService(CrowdfundDB context, IUserService userService,
-            IProjectService projectService,IRewardService rewardService)
+            IProjectService projectService, IRewardService rewardService)
         {
             context_ = context;
             userService_ = userService;
@@ -32,7 +32,7 @@ namespace Crowdfund.Services
             }
             var user = userService_.GetUserById(options.UserId);
             var reward = rewardService_.GetRewardById(options.RewardId);
-            var project = rewardService_.GetProjectByRewardId(options.RewardId);
+            var project = projectService_.GetProjectByRewardId(options.RewardId);
             if (user == null || reward == null || project == null)
             {
                 return false;
@@ -41,8 +41,8 @@ namespace Crowdfund.Services
             var rewardUser = new RewardUser()
             {
                 User = user,
-                Reward=reward,
-                Quantity=options.Quantity
+                Reward = reward,
+                Quantity = options.Quantity
             };
 
             if (!rewardUser.IsValidQuantity(options.Quantity))
@@ -50,7 +50,7 @@ namespace Crowdfund.Services
                 return false;
             }
 
-            project.RewardUsers.Add(rewardUser);            
+            project.RewardUsers.Add(rewardUser);
             if (context_.SaveChanges() > 0)
             {
                 return true;
@@ -65,39 +65,65 @@ namespace Crowdfund.Services
                 return null; //Request anti gia false
             }
 
-
-            //var rewardUsers = context_
-            //    .Set<RewardUser>()
-            //    .AsQueryable()
-            //    .Where(c => c.UserId == userId)                
-            //    .ToList();
-
             var query = context_
-                 .Set<Project>()
-                 .AsQueryable()
-                 .Include(a => a.RewardUsers
-                 .Where(a => a.UserId == userId));
-
-            //var query = context_
-            //     .Set<Project>()
-            //     .AsQueryable()
-            //     .Include(a => a.RewardUsers)
-            //     .ThenInclude(b => b.UserId)                
-            //     .Where(a => a.RewardUsers. == userId);            
-
-            var query2 = context_
                 .Set<Project>()
                 .AsQueryable()
-                .Where(c => c.RewardUsers.Any(i => i.UserId == userId))
-                .Select(c => new
-                {
-                    c,
-                    RewardUsers = c.RewardUsers.Where(i => i.UserId == userId)
-                });
-
+                //.Include(a => a.RewardUsers)
+                //.ThenInclude(b=>b.Reward)
+                .Where(c => c.RewardUsers.Any(i => i.UserId == userId));
 
             return query;
+        }
 
+        public RewardUser GetRewardUserById(int? userId, int? rewardId)
+        {
+            if (userId == null || rewardId == null)
+            {
+                return null;
+            }
+            var rewardUser = context_
+                 .Set<RewardUser>()
+                 .AsQueryable()
+                 .Where(c => c.UserId == userId && c.RewardId == rewardId)
+                 .SingleOrDefault();
+            return rewardUser;
+        }
+
+        public bool UpdateRewardUser(UpdateRewardUserOptions options)
+        {
+            if (options == null)
+            {
+                return false;
+            }
+            var rewardUser = GetRewardUserById(options.UserId, options.RewardId);
+            if (rewardUser == null)
+            {
+                return false;
+            }
+            if (rewardUser.IsValidQuantity(options.Quantity))
+            {
+                rewardUser.Quantity = options.Quantity;
+            }
+            if (context_.SaveChanges() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteRewardUser(int? userId, int? rewardId)
+        {
+            if (userId == null || rewardId == null)
+            {
+                return false;
+            }
+            var rewardUser = GetRewardUserById(userId, rewardId);
+            context_.Remove(rewardUser);
+            if (context_.SaveChanges() > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

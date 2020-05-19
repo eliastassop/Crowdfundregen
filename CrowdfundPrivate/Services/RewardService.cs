@@ -160,20 +160,7 @@ namespace Crowdfund.Services
             return false;
         }
 
-        public Project GetProjectByRewardId(int? rewardId)
-        {
-            if (rewardId == null)
-            {
-                return null;
-            }
-            var query = context_
-                .Set<Project>()
-                .AsQueryable();
-            query = query
-                    .Include(a => a.AvailableRewards)
-                    .Where(c => c.AvailableRewards.Contains(GetRewardById(rewardId)));
-            return query.SingleOrDefault();  
-        }
+        
 
     }
 }

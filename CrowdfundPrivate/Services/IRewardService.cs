@@ -17,8 +17,6 @@ namespace Crowdfund.Services
 
         bool UpdateReward(UpdateRewardOptions options);
 
-        bool DeleteReward(int? rewardId);
-
-        Project GetProjectByRewardId(int? rewardId);
+        bool DeleteReward(int? rewardId);        
     }
 }
