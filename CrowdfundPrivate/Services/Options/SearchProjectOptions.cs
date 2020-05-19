@@ -18,5 +18,6 @@ namespace Crowdfund.Services.Options
         public ProjectCategory? Category { get; set; }
         public DateTime? CreatedFrom { get; set; }
         public DateTime? DeadlineFrom { get; set; }
+        public int? RewardId { get; set; }
     }
 }

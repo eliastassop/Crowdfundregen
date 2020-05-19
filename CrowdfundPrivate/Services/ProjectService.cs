@@ -13,10 +13,12 @@ namespace Crowdfund.Services
     {
         private CrowdfundDB context_;
         private IUserService userService_;
-        public ProjectService(CrowdfundDB context, IUserService userService)
+        private IRewardService rewardService_;
+        public ProjectService(CrowdfundDB context, IUserService userService,IRewardService rewardService)
         {
             context_ = context;
             userService_ = userService;
+            rewardService_ = rewardService;
         }
         public bool CreateProject(CreateProjectOptions options)
         {
@@ -33,6 +35,14 @@ namespace Crowdfund.Services
                 Category = options.Category,
                 Deadline = options.Deadline
             };
+            if (!project.IsValidCategory(options.Category) 
+                || !project.IsValidDeadline(options.Deadline) 
+                || !project.IsValidDescription(options.Description) 
+                || !project.IsValidTitle(options.Title) 
+                || !project.IsValidTotalFund(options.TotalFund))
+            {
+                return false;
+            }
             //validation prin mpei sti vasi
             user.Projects.Add(project);
             //context_.Add(user);
@@ -73,7 +83,8 @@ namespace Crowdfund.Services
 
             if (options.ProjectId != null)
             {
-                query = query.Where(c => c.ProjectId == options.ProjectId.Value); //theloume to value?
+                query = query.Where(c => c.ProjectId == options.ProjectId.Value)
+                    .Include(a=>a.AvailableRewards); //theloume to value?
             }
 
             if (options.DeadlineFrom != null)
@@ -109,7 +120,22 @@ namespace Crowdfund.Services
                 
                 query = query.Where(c => user.Projects.Contains(c)); 
             }
-            
+
+            if (options.BackerId != null)
+            {
+
+                var user = userService_.GetUserById(options.CreatorId);
+
+                query = query.Where(c => user.Projects.Contains(c));
+            }
+
+            if (options.RewardId != null)
+            {
+                query = query
+                    .Include(a=>a.AvailableRewards)
+                    .Where(c =>c.AvailableRewards.Contains(rewardService_.GetRewardById(options.RewardId)));
+            }
+
             query = query.Take(500);
             return query;            
         }
@@ -183,6 +209,21 @@ namespace Crowdfund.Services
             }
             return false;
         }
+
+        //public Project GetProjectByRewardId(int? rewardId)
+        //{
+        //    if (rewardId == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    var project= SearchProjects(new SearchProjectOptions()
+        //    {
+        //        RewardId=rew
+        //    }).SingleOrDefault();
+
+            
+        //}
 
            
     }
