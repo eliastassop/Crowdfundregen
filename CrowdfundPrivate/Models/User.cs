@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Crowdfund.Models
@@ -22,7 +23,29 @@ namespace Crowdfund.Models
 
         public bool IsValidUsername(string username)
         {
-            return string.IsNullOrWhiteSpace(username) && username.Length <= 30;
+            return !string.IsNullOrWhiteSpace(username) && username.Length <= 10;
+        }
+        public bool IsValidEmail(string email)//email validation checkonline
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return false;
+            }
+
+            email = email.Trim();
+
+            if (email.Contains("@") 
+                && email.EndsWith(".com") 
+                && email.EndsWith(".gr"))
+            {
+                var count = email.Count(x => x == '@');
+                if (count == 1)
+                {
+                    return true;
+                } 
+                
+            }
+            return false;
         }
     }
 }
