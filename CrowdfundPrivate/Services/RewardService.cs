@@ -1,6 +1,7 @@
 ﻿using Crowdfund.Data;
 using Crowdfund.Models;
 using Crowdfund.Services.Options;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,6 +158,21 @@ namespace Crowdfund.Services
                 return true;
             }
             return false;
+        }
+
+        public Project GetProjectByRewardId(int? rewardId)
+        {
+            if (rewardId == null)
+            {
+                return null;
+            }
+            var query = context_
+                .Set<Project>()
+                .AsQueryable();
+            query = query
+                    .Include(a => a.AvailableRewards)
+                    .Where(c => c.AvailableRewards.Contains(GetRewardById(rewardId)));
+            return query.SingleOrDefault();  
         }
 
     }

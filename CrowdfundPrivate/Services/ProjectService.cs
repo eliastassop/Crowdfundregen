@@ -13,12 +13,11 @@ namespace Crowdfund.Services
     {
         private CrowdfundDB context_;
         private IUserService userService_;
-        private IRewardService rewardService_;
-        public ProjectService(CrowdfundDB context, IUserService userService,IRewardService rewardService)
+        
+        public ProjectService(CrowdfundDB context, IUserService userService)
         {
             context_ = context;
-            userService_ = userService;
-            rewardService_ = rewardService;
+            userService_ = userService;            
         }
         public bool CreateProject(CreateProjectOptions options)
         {
@@ -127,14 +126,7 @@ namespace Crowdfund.Services
                 var user = userService_.GetUserById(options.CreatorId);
 
                 query = query.Where(c => user.Projects.Contains(c));
-            }
-
-            if (options.RewardId != null)
-            {
-                query = query
-                    .Include(a=>a.AvailableRewards)
-                    .Where(c =>c.AvailableRewards.Contains(rewardService_.GetRewardById(options.RewardId)));
-            }
+            }          
 
             query = query.Take(500);
             return query;            
@@ -210,21 +202,8 @@ namespace Crowdfund.Services
             return false;
         }
 
-        //public Project GetProjectByRewardId(int? rewardId)
-        //{
-        //    if (rewardId == null)
-        //    {
-        //        return null;
-        //    }
+       
 
-        //    var project= SearchProjects(new SearchProjectOptions()
-        //    {
-        //        RewardId=rew
-        //    }).SingleOrDefault();
 
-            
-        //}
-
-           
     }
 }

@@ -13,10 +13,6 @@ namespace Crowdfund.Services
         bool UpdateProject(UpdateProjectOptions options);
         IQueryable<Project> SearchProjects(SearchProjectOptions options);
         Project GetProjectById(int? projectId);
-        bool DeleteProject(int? projectId);
-
-
-
-
+        bool DeleteProject(int? projectId);  
     }
 }

@@ -107,9 +107,10 @@ namespace Crowdfund
             //    }
             using (var context = new CrowdfundDB())
             {
-                IUserService userService = new UserService(context);
+                IUserService userService = new UserService(context);                
             
                 IProjectService projectService = new ProjectService(context, userService);
+                IRewardService rewardService = new RewardService(context, projectService);
 
                 //var success = projectService.CreateProject(new CreateProjectOptions()
                 //{

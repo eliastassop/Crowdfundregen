@@ -13,5 +13,10 @@ namespace Crowdfund.Models
         public int Quantity { get; set; }
 
         //decimal moneyoffered??
+
+        public bool IsValidQuantity(int quantity)
+        {
+            return quantity > 0;
+        }
     }
 }
