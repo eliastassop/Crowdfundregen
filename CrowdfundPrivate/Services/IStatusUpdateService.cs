@@ -1,4 +1,5 @@
 ﻿using Crowdfund.Models;
+using Crowdfund.Services.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ namespace Crowdfund.Services
 {
     public interface IStatusUpdateService
     {
-        bool CreateStatusUpdate();
+        bool CreateStatusUpdate(CreateStatusUpdateOptions options);
 
-        bool UpdateStatusUpdate();
+        bool UpdateStatusUpdate(UpdateStatusUpdateOptions options);
 
-        bool DeleteStatusUpDate(int? statusUpdateId);
+        bool DeleteStatusUpdate(int? statusUpdateId);
 
         IQueryable<StatusUpdate> SearchStatusUpdateByProjectId(int? projectId);
 
