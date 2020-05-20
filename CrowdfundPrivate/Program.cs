@@ -99,21 +99,6 @@ namespace Crowdfund
                 //project.RewardUsers.Add(rewarduser);
                 //Crwdfunddb.SaveChanges();
 
-                using (var context = new CrowdfundDB())
-                {
-                    IUserService userService = new UserService(context);
-                    IProjectService projectService = new ProjectService(context, userService);
-                    IRewardService rewardService = new RewardService(context, projectService);
-                    IRewardUserService rewardUserService = new RewardUserService(context, userService, projectService, rewardService);
-                    var test = rewardUserService.SearchProjectsFundedByUser(1).ToList();
-                    var test2 = rewardUserService.SearchProjectsFundedByUser(2).ToList();
-                    
-                }
-
-
-
-
-
                 //var success = projectService.CreateProject(new CreateProjectOptions()
                 //{
                 //    CreatorId = 1,
@@ -130,6 +115,30 @@ namespace Crowdfund
                 //    CreatorId = 1,
                 //}).ToList();
 
+
+                using (var context = new CrowdfundDB())
+                {
+                    IUserService userService = new UserService(context);
+                    IProjectService projectService = new ProjectService(context, userService);
+                    IRewardService rewardService = new RewardService(context, projectService);
+                    IRewardUserService rewardUserService = new RewardUserService(context, userService, projectService, rewardService);
+
+                    var test = rewardUserService.DeleteRewardUser(3,1);
+                   
+
+                    
+                    //var test2 = projectService.CalculateCurrentFund(projectService.GetProjectById(1));
+                  
+
+
+
+                }
+
+
+
+
+
+                
 
             }
         }

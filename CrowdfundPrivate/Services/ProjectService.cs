@@ -148,7 +148,9 @@ namespace Crowdfund.Services
             return SearchProjects(new SearchProjectOptions()
             {
                 ProjectId = projectId
-            }).Include(a=> a.RewardUsers).ThenInclude(a=> a.Reward).SingleOrDefault();                
+            }).Include(a=> a.RewardUsers)
+            .ThenInclude(a=> a.Reward)
+            .SingleOrDefault();                
         }
 
         public bool UpdateProject(UpdateProjectOptions options)
@@ -218,8 +220,10 @@ namespace Crowdfund.Services
             return SearchProjects(new SearchProjectOptions()
             {
                 RewardId = rewardId
-            })                    
+            })
                 //.Include(a => a.AvailableRewards)
+                .Include(a => a.RewardUsers)
+                .ThenInclude(a => a.Reward)
                 .SingleOrDefault();      
         }
 

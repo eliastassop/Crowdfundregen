@@ -109,9 +109,8 @@ namespace Crowdfund.Services
             if (rewardUser.IsValidQuantity(options.Quantity))
             {
                 rewardUser.Quantity = options.Quantity + rewardUser.Quantity;
-                
-
             }
+
             projectService_.CalculateCurrentFund(project);
             
             if (context_.SaveChanges() > 0)
@@ -121,14 +120,26 @@ namespace Crowdfund.Services
             return false;
         }
 
-        public bool DeleteRewardUser(int? userId, int? rewardId)
+        public bool DeleteRewardUser(int? userId, int? rewardId) // refund
         {
             if (userId == null || rewardId == null)
             {
                 return false;
             }
+
+            
             var rewardUser = GetRewardUserById(userId, rewardId);
+            
+            
+
+            var project = projectService_.GetProjectByRewardId(rewardId);
+
+            project.RewardUsers.Remove(rewardUser);
             context_.Remove(rewardUser);
+            
+
+            projectService_.CalculateCurrentFund(project);
+
             if (context_.SaveChanges() > 0)
             {
                 return true;
