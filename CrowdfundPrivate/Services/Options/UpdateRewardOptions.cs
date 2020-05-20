@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Crowdfund.Services.Options
 {
-    public class UpdateRewardOptions
+    public class UpdateMediaOption
     {
         public int RewardId { get; set; }
         public string Title { get; set; }

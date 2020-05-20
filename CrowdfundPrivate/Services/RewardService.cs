@@ -124,7 +124,7 @@ namespace Crowdfund.Services
             return false;
         }
 
-        public bool UpdateReward(UpdateRewardOptions options)
+        public bool UpdateReward(UpdateMediaOption options)
         {
             if(options == null)
             {

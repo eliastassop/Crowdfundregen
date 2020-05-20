@@ -15,7 +15,7 @@ namespace Crowdfund.Services
         IQueryable<Reward> SearchRewardsByProjectId(int? projectId);
         Reward GetRewardById(int? rewardId);
 
-        bool UpdateReward(UpdateRewardOptions options);
+        bool UpdateReward(UpdateMediaOption options);
 
         bool DeleteReward(int? rewardId);        
     }
