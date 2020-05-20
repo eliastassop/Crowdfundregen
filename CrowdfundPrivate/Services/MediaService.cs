@@ -38,6 +38,11 @@ namespace Crowdfund.Services
                 return false;
             }
 
+            if (media.IsValidCategory(options.Category))
+            {
+                return false;
+            }
+
             project.Media.Add(media);
 
             if (context_.SaveChanges() > 0)
