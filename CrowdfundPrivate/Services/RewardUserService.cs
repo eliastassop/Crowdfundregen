@@ -50,7 +50,11 @@ namespace Crowdfund.Services
                 return false;
             }
 
+
             project.RewardUsers.Add(rewardUser);
+
+            projectService_.CalculateCurrentFund(project);
+            
             if (context_.SaveChanges() > 0)
             {
                 return true;
@@ -96,14 +100,20 @@ namespace Crowdfund.Services
                 return false;
             }
             var rewardUser = GetRewardUserById(options.UserId, options.RewardId);
+            var project = projectService_.GetProjectByRewardId(options.RewardId);
+            
             if (rewardUser == null)
             {
                 return false;
             }
             if (rewardUser.IsValidQuantity(options.Quantity))
             {
-                rewardUser.Quantity = options.Quantity;
+                rewardUser.Quantity = options.Quantity + rewardUser.Quantity;
+                
+
             }
+            projectService_.CalculateCurrentFund(project);
+            
             if (context_.SaveChanges() > 0)
             {
                 return true;

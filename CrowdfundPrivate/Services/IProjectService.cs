@@ -15,5 +15,6 @@ namespace Crowdfund.Services
         Project GetProjectById(int? projectId);
         bool DeleteProject(int? projectId);
         Project GetProjectByRewardId(int? rewardId);
+        decimal? CalculateCurrentFund(Project project);
     }
 }

@@ -148,7 +148,7 @@ namespace Crowdfund.Services
             return SearchProjects(new SearchProjectOptions()
             {
                 ProjectId = projectId
-            }).SingleOrDefault();                
+            }).Include(a=> a.RewardUsers).ThenInclude(a=> a.Reward).SingleOrDefault();                
         }
 
         public bool UpdateProject(UpdateProjectOptions options)
@@ -221,6 +221,31 @@ namespace Crowdfund.Services
             })                    
                 //.Include(a => a.AvailableRewards)
                 .SingleOrDefault();      
+        }
+
+        public decimal? CalculateCurrentFund(Project project)
+        {
+           
+            if (project == null)
+            {
+                return null;
+
+            }
+
+            decimal sum = 0m;
+
+            foreach(var rw in project.RewardUsers)
+            {
+                sum = sum + rw.Quantity * rw.Reward.Price;
+            }
+
+            project.CurrentFund = sum;
+
+            if (context_.SaveChanges() > 0)
+            {
+                return project.CurrentFund;
+            }
+            return null;
         }
     }
 }
