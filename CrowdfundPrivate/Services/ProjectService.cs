@@ -128,7 +128,7 @@ namespace Crowdfund.Services
             if (options.CreatorId != null)
             {
               
-                var user = userService_.GetUserById(options.CreatorId); 
+                var user = userService_.GetUserById(options.CreatorId.Value); 
                 
                 query = query.Where(c => user.Projects.Contains(c)); 
             }
@@ -136,7 +136,7 @@ namespace Crowdfund.Services
             if (options.BackerId != null)
             {
 
-                var user = userService_.GetUserById(options.CreatorId);
+                var user = userService_.GetUserById(options.CreatorId.Value);
 
                 query = query.Where(c => user.Projects.Contains(c));
             }
@@ -151,12 +151,8 @@ namespace Crowdfund.Services
             return query;            
         }
 
-        public Project GetProjectById(int? projectId)
+        public Project GetProjectById(int projectId)
         {
-            if (projectId == null)
-            {
-                return null;
-            }
 
             return SearchProjects(new SearchProjectOptions()
             {
@@ -166,18 +162,18 @@ namespace Crowdfund.Services
             .SingleOrDefault();                
         }
 
-        public Result<bool> UpdateProject(UpdateProjectOptions options)
+        public Result<bool> UpdateProject(int projectId,UpdateProjectOptions options)
         {
             if (options == null)
             {
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
-            var project = GetProjectById(options.ProjectId);
+            var project = GetProjectById(projectId);
 
             if (project == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Project with {options.ProjectId} was not found");
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Project with {projectId} was not found");
             }
 
             if (project.IsValidTitle(options.Title))
@@ -219,12 +215,9 @@ namespace Crowdfund.Services
             return Result<bool>.CreateSuccessful(true);
         }
 
-        public Result<bool> DeleteProject(int? projectId)
+        public Result<bool> DeleteProject(int projectId)
         {
-            if(projectId == null)
-            {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
-            }
+            
             var project = GetProjectById(projectId);
             if (project == null)
             {
@@ -240,13 +233,8 @@ namespace Crowdfund.Services
             return Result<bool>.CreateSuccessful(true);
         }
 
-        public Project GetProjectByRewardId(int? rewardId)
+        public Project GetProjectByRewardId(int rewardId)
         {
-            if (rewardId == null)
-            {
-                return null;
-            }
-
             return SearchProjects(new SearchProjectOptions()
             {
                 RewardId = rewardId
