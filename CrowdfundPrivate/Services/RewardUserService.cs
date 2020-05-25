@@ -24,18 +24,19 @@ namespace Crowdfund.Services
             rewardService_ = rewardService;
         }
 
-        public bool CreateRewardUser(CreateRewardUserOptions options)
+        public Result<RewardUser> CreateRewardUser(CreateRewardUserOptions options)
         {
             if (options == null)
             {
-                return false; //Request anti gia false
+                return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
+            
             var user = userService_.GetUserById(options.UserId);
             var reward = rewardService_.GetRewardById(options.RewardId);
             var project = projectService_.GetProjectByRewardId(options.RewardId);
             if (user == null || reward == null || project == null)
             {
-                return false;
+                return Result<RewardUser>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
 
             var rewardUser = new RewardUser()
@@ -47,19 +48,22 @@ namespace Crowdfund.Services
 
             if (!rewardUser.IsValidQuantity(options.Quantity))
             {
-                return false;
+                return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, "Please check the options for quantity");
             }
 
 
             project.RewardUsers.Add(rewardUser);
 
             projectService_.CalculateCurrentFund(project);
-            
-            if (context_.SaveChanges() > 0)
+
+            if (context_.SaveChanges() <= 0)
             {
-                return true;
+                return Result<RewardUser>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Backer could not be created");
             }
-            return false;
+
+            return Result<RewardUser>.CreateSuccessful(rewardUser);
         }
 
         public IQueryable<Project> SearchProjectsFundedByUser(int? userId)
@@ -93,44 +97,48 @@ namespace Crowdfund.Services
             return rewardUser;
         }
 
-        public bool UpdateRewardUser(UpdateRewardUserOptions options)
+        public Result<bool> UpdateRewardUser(UpdateRewardUserOptions options)
         {
             if (options == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
             var rewardUser = GetRewardUserById(options.UserId, options.RewardId);
             var project = projectService_.GetProjectByRewardId(options.RewardId);
-            
+
             if (rewardUser == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Backer with {options.UserId} was not found");
             }
+            
             if (rewardUser.IsValidQuantity(options.Quantity))
             {
                 rewardUser.Quantity = options.Quantity + rewardUser.Quantity;
             }
 
             projectService_.CalculateCurrentFund(project);
-            
-            if (context_.SaveChanges() > 0)
+
+            if (context_.SaveChanges() == 0)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
-            return false;
+
+            return Result<bool>.CreateSuccessful(true);
         }
 
-        public bool DeleteRewardUser(int? userId, int? rewardId) // refund
+        public Result<bool> DeleteRewardUser(int? userId, int? rewardId) // refund
         {
             if (userId == null || rewardId == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
             }
 
-            
             var rewardUser = GetRewardUserById(userId, rewardId);
-            
-            
+
+            if (rewardUser == null)
+            {
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Backer was not found");
+            }
 
             var project = projectService_.GetProjectByRewardId(rewardId);
 
@@ -140,11 +148,12 @@ namespace Crowdfund.Services
 
             projectService_.CalculateCurrentFund(project);
 
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() == 0)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
-            return false;
+
+            return Result<bool>.CreateSuccessful(true);
         }
     }
 }

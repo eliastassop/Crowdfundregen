@@ -9,16 +9,17 @@ namespace Crowdfund.Services
 {
     public interface IMediaService
     {
-        bool CreateMedia(CreateMediaOptions options);
-
+        Result<Media> CreateMedia(CreateMediaOptions options);
+        Result<bool> UpdateMedia(UpdateMediaOptions options);
+        Result<bool> DeleteMedia(int? mediaId);
         IQueryable<Media> SearchMedia(SearchMediaOptions options);
+        Media GetMediaById(int? MediaId);
 
         //IQueryable<Media> SearchMediaByProjectId(int? projectId);
 
-        Media GetMediaById(int? MediaId);
 
-        bool UpdateMedia(UpdateMediaOptions options);
 
-        bool DeleteMedia(int? mediaId);
+
+
     }
 }

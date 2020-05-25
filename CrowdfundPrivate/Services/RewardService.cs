@@ -20,13 +20,18 @@ namespace Crowdfund.Services
             projectService_ = projectService;
         }
 
-        public bool CreateReward(CreateRewardOptions options)
+        public Result<Reward> CreateReward(CreateRewardOptions options)
         {
             if(options == null)
             {
-                return false;
+                return Result<Reward>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
             var project = projectService_.GetProjectById(options.ProjectId);
+
+            if (project == null)
+            {
+                return Result<Reward>.CreateFailed(StatusCode.BadRequest, $"Project with {options.ProjectId} was not found");
+            }
 
             var reward = new Reward()
             {
@@ -38,15 +43,18 @@ namespace Crowdfund.Services
                 || !reward.IsValidTitle(options.Title)
                 || !reward.IsValidPrice(options.Price))
             {
-                return false;
+                return Result<Reward>.CreateFailed(StatusCode.BadRequest, "Please check the validations");
             }
             project.AvailableRewards.Add(reward);
 
-            if(context_.SaveChanges() > 0)
+            if (context_.SaveChanges() <= 0)
             {
-                return true;
+                return Result<Reward>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Reward could not be created");
             }
-            return false;
+
+            return Result<Reward>.CreateSuccessful(reward);
         }
 
         public IQueryable<Reward> SearchRewards(SearchRewardOptions options) // SearchRewardByProjectId + TA ALLA
@@ -108,34 +116,38 @@ namespace Crowdfund.Services
             return reward;
         }
 
-        public bool DeleteReward(int? rewardId)
+        public Result<bool> DeleteReward(int? rewardId)
         {
-            if(rewardId == null)
+            if (rewardId == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
             }
             var reward = GetRewardById(rewardId);
-            
-            context_.Remove(reward);
-            if (context_.SaveChanges() > 0)
+            if (reward == null)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Reward with {rewardId} was not found");
             }
-            return false;
+
+            context_.Remove(reward);
+            if (context_.SaveChanges() == 0)
+            {
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+            }
+
+            return Result<bool>.CreateSuccessful(true);
         }
 
-        public bool UpdateReward(UpdateMediaOption options)
+        public Result<bool> UpdateReward(UpdateMediaOption options)
         {
-            if(options == null)
+            if (options == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
             var reward = GetRewardById(options.RewardId);
-
             if (reward == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Reward with {options.RewardId} was not found");
             }
 
             if (reward.IsValidTitle(options.Title))
@@ -153,11 +165,12 @@ namespace Crowdfund.Services
                 reward.Description = options.Description;
             }
 
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() == 0)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
-            return false;
+
+            return Result<bool>.CreateSuccessful(true);
         }
 
         

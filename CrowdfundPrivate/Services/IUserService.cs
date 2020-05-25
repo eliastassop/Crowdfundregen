@@ -9,11 +9,11 @@ namespace Crowdfund.Services
 {
     public interface IUserService
     {
-        bool CreateUser(CreateUserOptions options);
+        Result<User> CreateUser(CreateUserOptions options);
+        Result<bool> UpdateUser(int userId,UpdateUserOptions options);
+        Result<bool> DeleteUser(int userId);
         IQueryable<User> SearchUser(SearchUserOptions options);
-        User GetUserById(int? userId);
-        bool DeleteUser(int? userid);
-        bool UpdateUser(UpdateUserOptions options);
+        User GetUserById(int userId);
         bool CheckDuplicates(string email, string userName);
         //IQueryable SearchFundedProjectsByUser();
 

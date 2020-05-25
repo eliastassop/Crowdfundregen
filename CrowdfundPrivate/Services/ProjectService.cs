@@ -19,13 +19,21 @@ namespace Crowdfund.Services
             context_ = context;
             userService_ = userService;            
         }
-        public bool CreateProject(CreateProjectOptions options)
+        
+        public Result<Project> CreateProject(CreateProjectOptions options)
         {
             if (options == null)
             {
-                return false; //Request anti gia false
+                return Result<Project>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
+            
             var user = userService_.GetUserById(options.CreatorId);
+            if (user == null)
+            {
+                return Result<Project>.CreateFailed(StatusCode.BadRequest, $"User with {options.CreatorId} was not found");
+            }
+
+
             var project = new Project()
             {
                 Title = options.Title,
@@ -34,22 +42,27 @@ namespace Crowdfund.Services
                 Category = options.Category,
                 Deadline = options.Deadline
             };
+            
             if (!project.IsValidCategory(options.Category) 
                 || !project.IsValidDeadline(options.Deadline) 
                 || !project.IsValidDescription(options.Description) 
                 || !project.IsValidTitle(options.Title) 
                 || !project.IsValidTotalFund(options.TotalFund))
             {
-                return false;
+                return Result<Project>.CreateFailed(StatusCode.BadRequest, "Please check the validations");
+
             }
             //validation prin mpei sti vasi
             user.Projects.Add(project);
             //context_.Add(user);
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() <= 0)
             {
-                return true;
+                return Result<Project>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Project could not be created");
             }
-            return false;
+
+            return Result<Project>.CreateSuccessful(project);
 
         }        
 
@@ -153,29 +166,35 @@ namespace Crowdfund.Services
             .SingleOrDefault();                
         }
 
-        public bool UpdateProject(UpdateProjectOptions options)
+        public Result<bool> UpdateProject(UpdateProjectOptions options)
         {
             if (options == null)
             {
-                return false; //Request anti gia false
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
             var project = GetProjectById(options.ProjectId);
 
             if (project == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Project with {options.ProjectId} was not found");
             }
 
             if (project.IsValidTitle(options.Title))
             {
                 project.Title = options.Title;
             }
+            //else
+            {
+               // return Result<bool>.UpdateFailed(StatusCode.BadRequest, "The Tittle is not valid");
+
+            }
 
             if (project.IsValidCategory(options.Category))
             {
                 project.Category = options.Category;
             }
+            
 
             if (project.IsValidDeadline(options.Deadline))
             {
@@ -192,22 +211,33 @@ namespace Crowdfund.Services
                 project.TotalFund = options.TotalFund;
             }
 
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() == 0)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
-            return false;
+
+            return Result<bool>.CreateSuccessful(true);
         }
 
-        public bool DeleteProject(int? projectId)
+        public Result<bool> DeleteProject(int? projectId)
         {
-            var project = GetProjectById(projectId);
-            context_.Remove(project);
-            if (context_.SaveChanges() > 0)
+            if(projectId == null)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
             }
-            return false;
+            var project = GetProjectById(projectId);
+            if (project == null)
+            {
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Project with {projectId} was not found");
+            }
+
+            context_.Remove(project);
+            if (context_.SaveChanges() == 0)
+            {
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+            }
+
+            return Result<bool>.CreateSuccessful(true);
         }
 
         public Project GetProjectByRewardId(int? rewardId)

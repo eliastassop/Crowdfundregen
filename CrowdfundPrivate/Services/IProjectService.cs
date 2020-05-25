@@ -9,11 +9,11 @@ namespace Crowdfund.Services
 {
     public interface IProjectService
     {
-        bool CreateProject(CreateProjectOptions options);
-        bool UpdateProject(UpdateProjectOptions options);
+        Result<Project> CreateProject(CreateProjectOptions options);
+        Result<bool> UpdateProject(UpdateProjectOptions options);
+        Result<bool> DeleteProject(int? projectId);
         IQueryable<Project> SearchProjects(SearchProjectOptions options);
         Project GetProjectById(int? projectId);
-        bool DeleteProject(int? projectId);
         Project GetProjectByRewardId(int? rewardId);
         decimal? CalculateCurrentFund(Project project);
     }

@@ -9,14 +9,15 @@ namespace Crowdfund.Services
 {
     public interface IRewardService
     {
-        bool CreateReward(CreateRewardOptions options);
+        Result<Reward> CreateReward(CreateRewardOptions options);
+        Result<bool> UpdateReward(UpdateMediaOption options);
+        Result<bool> DeleteReward(int? rewardId);
         IQueryable<Reward> SearchRewards(SearchRewardOptions options);
-
         IQueryable<Reward> SearchRewardsByProjectId(int? projectId);
         Reward GetRewardById(int? rewardId);
 
-        bool UpdateReward(UpdateMediaOption options);
+        
 
-        bool DeleteReward(int? rewardId);        
+                
     }
 }

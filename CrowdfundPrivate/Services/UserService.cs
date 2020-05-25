@@ -16,14 +16,13 @@ namespace Crowdfund.Services
         {
             context_ = context;            
         }
-        public bool CreateUser(CreateUserOptions options)
+        public Result<User> CreateUser(CreateUserOptions options)
         {
             if (options == null)
             {
-                return false;
+                return Result<User>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
-            
             var user = new User()
             {
                 UserName = options.UserName,
@@ -31,42 +30,53 @@ namespace Crowdfund.Services
             };
             // check valid entries
             if (!user.IsValidUsername(options.UserName)
-                ||!user.IsValidUsername(options.Email))
+                ||!user.IsValidEmail(options.Email))
             {
-                return false;
+                return Result<User>.CreateFailed(StatusCode.BadRequest, "Please check the Username or Email options");
             }
 
 
             //check duplicate
             if (!CheckDuplicates(options.Email, options.UserName))
             {
-                return false;
+                return Result<User>.CreateFailed(StatusCode.BadRequest,"The username or Email already exists");
             }
                         
             context_.Add(user);
 
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() <= 0)
             {
-                return true;
+                return Result<User>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "User could not be created");
             }
-            return false;
 
-            
-            
+            return Result<User>.CreateSuccessful(user);
+
         }
-        public bool DeleteUser(int? userId)
+        public Result<bool> DeleteUser(int userId)
         {
             if (userId == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
             }
             var user = GetUserById(userId);
-            context_.Remove(user);
-            if (context_.SaveChanges() > 0)
+
+            if (user == null)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"User with {userId} was not found");
             }
-            return false;
+
+            context_.Remove(user);
+
+            if (context_.SaveChanges() == 0)
+            {
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+            }
+
+            return Result<bool>.CreateSuccessful(true);
+
+
         }
         public IQueryable<User> SearchUser(SearchUserOptions options)
         {
@@ -105,12 +115,9 @@ namespace Crowdfund.Services
             query = query.Take(500);
             return query;
         }
-        public User GetUserById(int? userId)
+        public User GetUserById(int userId)
         {
-            if (userId == null)
-            {
-                return null;
-            }
+            
             //var user = context_
             //     .Set<User>()
             //     .AsQueryable()
@@ -137,36 +144,42 @@ namespace Crowdfund.Services
             return true;
 
         }
-        public bool UpdateUser(UpdateUserOptions options)
+        public Result<bool> UpdateUser(int userId,UpdateUserOptions options)
         {
             if (options == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
-            var user = GetUserById(options.UserId);
+            
+            var user = GetUserById(userId);
+            
             if (user == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"User with {userId} was not found");
             }
 
             if (!CheckDuplicates(options.Email, options.UserName)) 
-            { 
-                return false;
+            {
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "The username or Email already exists");
             }
             
             if (user.IsValidUsername(options.UserName))
             {
                 user.UserName = options.UserName;
             }
+
             if (user.IsValidUsername(options.Email))
             {
                 user.Email = options.Email;
             }
-            if (context_.SaveChanges() > 0)
+            
+
+            if (context_.SaveChanges() == 0)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
-            return false;
+
+            return Result<bool>.CreateSuccessful(true);
         }
 
      

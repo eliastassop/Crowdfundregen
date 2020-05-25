@@ -19,13 +19,17 @@ namespace Crowdfund.Services
             projectService_ = projectService;
         }
 
-        public bool CreateMedia(CreateMediaOptions options)
+        public Result<Media> CreateMedia(CreateMediaOptions options)
         {
             if (options == null)
             {
-                return false;
+                return Result<Media>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
             var project = projectService_.GetProjectById(options.ProjectId);
+            if (project == null)
+            {
+                return Result<Media>.CreateFailed(StatusCode.BadRequest, $"Project with {options.ProjectId} was not found");
+            }
 
             var media = new Media()
             {
@@ -35,21 +39,24 @@ namespace Crowdfund.Services
             
             if(string.IsNullOrWhiteSpace(options.MediaLink))
             {
-                return false;
+                return Result<Media>.CreateFailed(StatusCode.BadRequest, "The link  was incorrect");
             }
 
             if (media.IsValidCategory(options.Category))
             {
-                return false;
+                return Result<Media>.CreateFailed(StatusCode.BadRequest, "Please check the available categories");
             }
 
             project.Media.Add(media);
 
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() <= 0)
             {
-                return true;
+                return Result<Media>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Media could not be created");
             }
-            return false;
+
+            return Result<Media>.CreateSuccessful(media);
 
         }
 
@@ -90,12 +97,12 @@ namespace Crowdfund.Services
                 return null;
             }
 
-            var rewardQuery = SearchMedia(new SearchMediaOptions()
+            var Query = SearchMedia(new SearchMediaOptions()
             {
                 ProjectId = projectId,
             });
 
-            return rewardQuery;
+            return Query;
         }
         */
         public Media GetMediaById(int? mediaId)
@@ -112,34 +119,39 @@ namespace Crowdfund.Services
             return media;
         }
 
-        public bool DeleteMedia(int? mediaId)
+        public Result<bool> DeleteMedia(int? mediaId)
         {
             if (mediaId == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
             }
             var media = GetMediaById(mediaId);
+            if (media == null)
+            {
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Media with {mediaId} was not found");
+            }
 
             context_.Remove(media);
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() == 0)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
-            return false;
+
+            return Result<bool>.CreateSuccessful(true);
         }
 
-        public bool UpdateMedia(UpdateMediaOptions options)
+        public Result<bool> UpdateMedia(UpdateMediaOptions options)
         {
             if (options == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
             var media = GetMediaById(options.MediaId);
 
             if (media == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Media with {options.MediaId} was not found");
             }
 
             if (!string.IsNullOrWhiteSpace(options.MediaLink))
@@ -151,13 +163,14 @@ namespace Crowdfund.Services
             {
                 media.Category = options.Category;
             }
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() == 0)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
-            return false;
-            
-            
+
+            return Result<bool>.CreateSuccessful(true);
+
+
 
 
 

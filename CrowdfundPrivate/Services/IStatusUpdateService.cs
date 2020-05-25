@@ -9,11 +9,11 @@ namespace Crowdfund.Services
 {
     public interface IStatusUpdateService
     {
-        bool CreateStatusUpdate(CreateStatusUpdateOptions options);
+        Result<StatusUpdate> CreateStatusUpdate(CreateStatusUpdateOptions options);
 
-        bool UpdateStatusUpdate(UpdateStatusUpdateOptions options);
+        Result<bool> UpdateStatusUpdate(UpdateStatusUpdateOptions options);
 
-        bool DeleteStatusUpdate(int? statusUpdateId);
+        Result<bool> DeleteStatusUpdate(int? statusUpdateId);
 
         IQueryable<StatusUpdate> SearchStatusUpdateByProjectId(int? projectId);
 

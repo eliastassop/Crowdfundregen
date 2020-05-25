@@ -19,13 +19,17 @@ namespace Crowdfund.Services
             projectService_ = projectService;
         }
 
-        public bool CreateStatusUpdate(CreateStatusUpdateOptions options)
+        public Result<StatusUpdate> CreateStatusUpdate(CreateStatusUpdateOptions options)
         {
             if (options == null)
             {
-                return false;
+                return Result<StatusUpdate>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
             var project = projectService_.GetProjectById(options.ProjectId);
+            if (project == null)
+            {
+                return Result<StatusUpdate>.CreateFailed(StatusCode.BadRequest, $"Project with {options.ProjectId} was not found");
+            }
 
             var statusupdate = new StatusUpdate()
             {
@@ -34,16 +38,19 @@ namespace Crowdfund.Services
             };
             if(!statusupdate.IsValidTitle(options.Title) || !statusupdate.IsValidDescription(options.Description))
             {
-                return false;
+                return Result<StatusUpdate>.CreateFailed(StatusCode.BadRequest, "Please check the validations");
             }
 
             project.StatusUpdate.Add(statusupdate);
 
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() <= 0)
             {
-                return true;
+                return Result<StatusUpdate>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Status update could not be created");
             }
-            return false;
+
+            return Result<StatusUpdate>.CreateSuccessful(statusupdate);
 
         }
 
@@ -85,34 +92,39 @@ namespace Crowdfund.Services
             return query.SingleOrDefault();
         }
 
-        public bool DeleteStatusUpdate(int? statusUpdateId)
+        public Result<bool> DeleteStatusUpdate(int? statusUpdateId)
         {
             if (statusUpdateId == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
             }
             var statusUpdate = GetStatusUpdateById(statusUpdateId);
+            if (statusUpdate == null)
+            {
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Status update with {statusUpdateId} was not found");
+            }
 
             context_.Remove(statusUpdate);
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() == 0)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
-            return false;
+
+            return Result<bool>.CreateSuccessful(true);
         }
 
-        public bool UpdateStatusUpdate(UpdateStatusUpdateOptions options)
+        public Result<bool> UpdateStatusUpdate(UpdateStatusUpdateOptions options)
         {
             if (options == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
             var statusUpdate = GetStatusUpdateById(options.StatusUpdateId);
 
             if (statusUpdate == null)
             {
-                return false;
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Status update with {options.StatusUpdateId} was not found");
             }
 
             if (!statusUpdate.IsValidTitle(options.Title))
@@ -125,13 +137,12 @@ namespace Crowdfund.Services
                 statusUpdate.Description = options.Description;
             }
 
-            if (context_.SaveChanges() > 0)
+            if (context_.SaveChanges() == 0)
             {
-                return true;
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
-            return false;
 
-
+            return Result<bool>.CreateSuccessful(true);
 
         }
 
