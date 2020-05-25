@@ -74,7 +74,7 @@ namespace Crowdfund.Services
             if (options.ProjectId != null)
             {
 
-                var project = projectService_.GetProjectById(options.ProjectId);
+                var project = projectService_.GetProjectById(options.ProjectId.Value);
 
                 query = query.Where(c => project.Media.Contains(c)); 
             }
