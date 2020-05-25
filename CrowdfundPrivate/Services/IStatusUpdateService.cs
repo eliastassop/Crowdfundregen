@@ -11,12 +11,12 @@ namespace Crowdfund.Services
     {
         Result<StatusUpdate> CreateStatusUpdate(CreateStatusUpdateOptions options);
 
-        Result<bool> UpdateStatusUpdate(UpdateStatusUpdateOptions options);
+        Result<bool> UpdateStatusUpdate(int statusUpdateId, UpdateStatusUpdateOptions options);
 
-        Result<bool> DeleteStatusUpdate(int? statusUpdateId);
+        Result<bool> DeleteStatusUpdate(int statusUpdateId);
 
-        IQueryable<StatusUpdate> SearchStatusUpdateByProjectId(int? projectId);
+        IQueryable<StatusUpdate> SearchStatusUpdateByProjectId(int projectId);
 
-        StatusUpdate GetStatusUpdateById(int? statusUpdateId); 
+        StatusUpdate GetStatusUpdateById(int statusUpdateId); 
     }
 }

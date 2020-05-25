@@ -66,13 +66,9 @@ namespace Crowdfund.Services
             return Result<RewardUser>.CreateSuccessful(rewardUser);
         }
 
-        public IQueryable<Project> SearchProjectsFundedByUser(int? userId)
+        public IQueryable<Project> SearchProjectsFundedByUser(int userId)
         {
-            if (userId == null)
-            {
-                return null; //Request anti gia false
-            }
-
+            
             var query = context_
                 .Set<Project>()
                 .AsQueryable()
@@ -83,12 +79,9 @@ namespace Crowdfund.Services
             return query;
         }
 
-        public RewardUser GetRewardUserById(int? userId, int? rewardId)
+        public RewardUser GetRewardUserById(int userId, int rewardId)
         {
-            if (userId == null || rewardId == null)
-            {
-                return null;
-            }
+            
             var rewardUser = context_
                  .Set<RewardUser>()
                  .AsQueryable()
@@ -97,23 +90,20 @@ namespace Crowdfund.Services
             return rewardUser;
         }
 
-        public Result<bool> UpdateRewardUser(UpdateRewardUserOptions options)
+        public Result<bool> UpdateRewardUser(int rewardId, int userId, int quantity)
         {
-            if (options == null)
-            {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
-            }
-            var rewardUser = GetRewardUserById(options.UserId, options.RewardId);
-            var project = projectService_.GetProjectByRewardId(options.RewardId);
+            
+            var rewardUser = GetRewardUserById(userId, rewardId);
+            var project = projectService_.GetProjectByRewardId(rewardId);
 
             if (rewardUser == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Backer with {options.UserId} was not found");
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Backer with {userId} was not found");
             }
             
-            if (rewardUser.IsValidQuantity(options.Quantity))
+            if (rewardUser.IsValidQuantity(quantity))
             {
-                rewardUser.Quantity = options.Quantity + rewardUser.Quantity;
+                rewardUser.Quantity = quantity + rewardUser.Quantity;
             }
 
             projectService_.CalculateCurrentFund(project);
@@ -126,13 +116,9 @@ namespace Crowdfund.Services
             return Result<bool>.CreateSuccessful(true);
         }
 
-        public Result<bool> DeleteRewardUser(int? userId, int? rewardId) // refund
+        public Result<bool> DeleteRewardUser(int userId, int rewardId) // refund
         {
-            if (userId == null || rewardId == null)
-            {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
-            }
-
+            
             var rewardUser = GetRewardUserById(userId, rewardId);
 
             if (rewardUser == null)

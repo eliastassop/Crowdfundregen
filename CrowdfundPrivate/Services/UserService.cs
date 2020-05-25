@@ -55,11 +55,7 @@ namespace Crowdfund.Services
 
         }
         public Result<bool> DeleteUser(int userId)
-        {
-            if (userId == null)
-            {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
-            }
+        {            
             var user = GetUserById(userId);
 
             if (user == null)

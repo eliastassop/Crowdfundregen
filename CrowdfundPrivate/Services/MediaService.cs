@@ -105,13 +105,8 @@ namespace Crowdfund.Services
             return Query;
         }
         */
-        public Media GetMediaById(int? mediaId)
+        public Media GetMediaById(int mediaId)
         {
-            if (mediaId == null)
-            {
-                return null;
-            }
-
             var media = SearchMedia(new SearchMediaOptions()
             {
                 MediaId = mediaId,
@@ -119,12 +114,8 @@ namespace Crowdfund.Services
             return media;
         }
 
-        public Result<bool> DeleteMedia(int? mediaId)
-        {
-            if (mediaId == null)
-            {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
-            }
+        public Result<bool> DeleteMedia(int mediaId)
+        {            
             var media = GetMediaById(mediaId);
             if (media == null)
             {
@@ -140,18 +131,18 @@ namespace Crowdfund.Services
             return Result<bool>.CreateSuccessful(true);
         }
 
-        public Result<bool> UpdateMedia(UpdateMediaOptions options)
+        public Result<bool> UpdateMedia(int mediaId,UpdateMediaOptions options)
         {
             if (options == null)
             {
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
-            var media = GetMediaById(options.MediaId);
+            var media = GetMediaById(mediaId);
 
             if (media == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Media with {options.MediaId} was not found");
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Media with {mediaId} was not found");
             }
 
             if (!string.IsNullOrWhiteSpace(options.MediaLink))
@@ -169,14 +160,6 @@ namespace Crowdfund.Services
             }
 
             return Result<bool>.CreateSuccessful(true);
-
-
-
-
-
-
-
-
         }
 
 

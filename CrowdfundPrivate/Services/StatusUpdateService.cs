@@ -54,50 +54,34 @@ namespace Crowdfund.Services
 
         }
 
-        public IQueryable<StatusUpdate> SearchStatusUpdateByProjectId(int? projectId)
+        public IQueryable<StatusUpdate> SearchStatusUpdateByProjectId(int projectId)
         {
             var query = context_
                  .Set<StatusUpdate>()
                  .AsQueryable();
-
-            if (projectId == null)
-            {
-                return null;
-            }
-
+                       
             var project = projectService_.GetProjectById(projectId);
 
             query = query.Where(c => project.StatusUpdate.Contains(c));
-
 
             query = query.Take(500);
             return query;
         }
 
-        public StatusUpdate GetStatusUpdateById(int? statusUpdateId)
+        public StatusUpdate GetStatusUpdateById(int statusUpdateId)
         {
             var query = context_
                  .Set<StatusUpdate>()
-                 .AsQueryable();
-
-            if (statusUpdateId == null)
-            {
-                return null;
-            }
+                 .AsQueryable();                        
 
            query = query.Where(c => c.StatusUpdateId == statusUpdateId);
-
 
             query = query.Take(500);
             return query.SingleOrDefault();
         }
 
-        public Result<bool> DeleteStatusUpdate(int? statusUpdateId)
-        {
-            if (statusUpdateId == null)
-            {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options for id");
-            }
+        public Result<bool> DeleteStatusUpdate(int statusUpdateId)
+        {            
             var statusUpdate = GetStatusUpdateById(statusUpdateId);
             if (statusUpdate == null)
             {
@@ -113,18 +97,18 @@ namespace Crowdfund.Services
             return Result<bool>.CreateSuccessful(true);
         }
 
-        public Result<bool> UpdateStatusUpdate(UpdateStatusUpdateOptions options)
+        public Result<bool> UpdateStatusUpdate(int statusUpdateId, UpdateStatusUpdateOptions options)
         {
             if (options == null)
             {
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
-            var statusUpdate = GetStatusUpdateById(options.StatusUpdateId);
+            var statusUpdate = GetStatusUpdateById(statusUpdateId);
 
             if (statusUpdate == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Status update with {options.StatusUpdateId} was not found");
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Status update with {statusUpdateId} was not found");
             }
 
             if (!statusUpdate.IsValidTitle(options.Title))
