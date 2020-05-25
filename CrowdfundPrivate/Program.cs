@@ -1,7 +1,7 @@
-﻿using Crowdfund.Data;
-using Crowdfund.Models;
-using Crowdfund.Services;
-using Crowdfund.Services.Options;
+﻿using Crowdfund.Core.Data;
+using Crowdfund.Core.Models;
+using Crowdfund.Core.Services;
+using Crowdfund.Core.Services.Options;
 using System;
 using System.Linq;
 
@@ -123,12 +123,17 @@ namespace Crowdfund
                     IRewardService rewardService = new RewardService(context, projectService);
                     IRewardUserService rewardUserService = new RewardUserService(context, userService, projectService, rewardService);
 
-                    var test = rewardUserService.DeleteRewardUser(3,1);
-                   
+                    var test = userService.CreateUser(new CreateUserOptions { UserName = "alex", Email= "alex@gmail.com"}) ;
+                    //var test2 = projectService.CreateProject(new CreateProjectOptions { Category = ProjectCategory.Art });
 
-                    
+                    //string print = string.Join("\n", test.Select(x => new { x.Email }).ToList());
+                    //Console.WriteLine(print);
+
+
+
+
                     //var test2 = projectService.CalculateCurrentFund(projectService.GetProjectById(1));
-                  
+
 
 
 
