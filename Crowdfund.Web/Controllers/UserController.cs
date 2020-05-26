@@ -33,7 +33,7 @@ namespace Crowdfund.Web.Controllers
         public IActionResult UserPersonalInfo(int id)
         {
             var user = userService_.GetUserById(id).Data;
-            return Json(user);
+            return View(user);
         }
         public IActionResult UpdateUserPersonalInfo()
         {

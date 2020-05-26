@@ -34,7 +34,7 @@ namespace Crowdfund.Web.Controllers
         public IActionResult Index()
         {
             var user1=userService_.GetUserById(1);
-            var currentFund2 = projectService_.GetProjectById(1).CurrentFund;
+            var currentFund2 = projectService_.GetProjectById(1).Data.CurrentFund;
             return Json(currentFund2);
         }
 

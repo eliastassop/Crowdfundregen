@@ -25,7 +25,7 @@ namespace Crowdfund.Core.Services
             {
                 return Result<StatusUpdate>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
-            var project = projectService_.GetProjectById(options.ProjectId);
+            var project = projectService_.GetProjectById(options.ProjectId).Data;
             if (project == null)
             {
                 return Result<StatusUpdate>.CreateFailed(StatusCode.BadRequest, $"Project with {options.ProjectId} was not found");
@@ -60,7 +60,7 @@ namespace Crowdfund.Core.Services
                  .Set<StatusUpdate>()
                  .AsQueryable();
                        
-            var project = projectService_.GetProjectById(projectId);
+            var project = projectService_.GetProjectById(projectId).Data;
 
             query = query.Where(c => project.StatusUpdate.Contains(c));
 
