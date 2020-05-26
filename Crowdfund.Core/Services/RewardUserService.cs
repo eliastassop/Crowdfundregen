@@ -31,9 +31,9 @@ namespace Crowdfund.Core.Services
                 return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
             
-            var user = userService_.GetUserById(options.UserId);
-            var reward = rewardService_.GetRewardById(options.RewardId);
-            var project = projectService_.GetProjectByRewardId(options.RewardId);
+            var user = userService_.GetUserById(options.UserId).Data;
+            var reward = rewardService_.GetRewardById(options.RewardId).Data;
+            var project = projectService_.GetProjectByRewardId(options.RewardId).Data;
             if (user == null || reward == null || project == null)
             {
                 return Result<RewardUser>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
@@ -54,7 +54,7 @@ namespace Crowdfund.Core.Services
 
             project.RewardUsers.Add(rewardUser);
 
-            projectService_.CalculateCurrentFund(project);
+            projectService_.UpdateCurrentFund(project);
 
             if (context_.SaveChanges() <= 0)
             {
@@ -79,7 +79,7 @@ namespace Crowdfund.Core.Services
             return query;
         }
 
-        public RewardUser GetRewardUserById(int userId, int rewardId)
+        public Result<RewardUser> GetRewardUserById(int userId, int rewardId)
         {
             
             var rewardUser = context_
@@ -87,14 +87,18 @@ namespace Crowdfund.Core.Services
                  .AsQueryable()
                  .Where(c => c.UserId == userId && c.RewardId == rewardId)
                  .SingleOrDefault();
-            return rewardUser;
+            if (rewardUser == null)
+            {
+                return Result<RewardUser>.CreateFailed(StatusCode.NotFound, "No such Reward exists");
+            }
+            return Result<RewardUser>.CreateSuccessful(rewardUser);
         }
 
         public Result<bool> UpdateRewardUser(int rewardId, int userId, int quantity)
         {
             
-            var rewardUser = GetRewardUserById(userId, rewardId);
-            var project = projectService_.GetProjectByRewardId(rewardId);
+            var rewardUser = GetRewardUserById(userId, rewardId).Data;
+            var project = projectService_.GetProjectByRewardId(rewardId).Data;
 
             if (rewardUser == null)
             {
@@ -106,7 +110,7 @@ namespace Crowdfund.Core.Services
                 rewardUser.Quantity = quantity + rewardUser.Quantity;
             }
 
-            projectService_.CalculateCurrentFund(project);
+            projectService_.UpdateCurrentFund(project);
 
             if (context_.SaveChanges() == 0)
             {
@@ -119,20 +123,20 @@ namespace Crowdfund.Core.Services
         public Result<bool> DeleteRewardUser(int userId, int rewardId) // refund
         {
             
-            var rewardUser = GetRewardUserById(userId, rewardId);
+            var rewardUser = GetRewardUserById(userId, rewardId).Data;
 
             if (rewardUser == null)
             {
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Backer was not found");
             }
 
-            var project = projectService_.GetProjectByRewardId(rewardId);
+            var project = projectService_.GetProjectByRewardId(rewardId).Data;
 
             project.RewardUsers.Remove(rewardUser);
             context_.Remove(rewardUser);
             
 
-            projectService_.CalculateCurrentFund(project);
+            projectService_.UpdateCurrentFund(project);
 
             if (context_.SaveChanges() == 0)
             {

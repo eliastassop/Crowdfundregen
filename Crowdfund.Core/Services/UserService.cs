@@ -56,7 +56,7 @@ namespace Crowdfund.Core.Services
         }
         public Result<bool> DeleteUser(int userId)
         {            
-            var user = GetUserById(userId);
+            var user = GetUserById(userId).Data;
 
             if (user == null)
             {
@@ -111,7 +111,7 @@ namespace Crowdfund.Core.Services
             query = query.Take(500);
             return query;
         }
-        public User GetUserById(int userId)
+        public Result<User> GetUserById(int userId)
         {
             
             //var user = context_
@@ -120,12 +120,17 @@ namespace Crowdfund.Core.Services
             //     .Where(c => c.UserId == userId)
             //     .Include(a => a.Projects)
             //     .SingleOrDefault();
-
-            return SearchUser(new SearchUserOptions()
+            
+            var user= SearchUser(new SearchUserOptions()
             {
                 UserId = userId
             }).Include(c => c.Projects)
               .SingleOrDefault();
+            if (user == null)
+            {
+                Result<User>.CreateFailed(StatusCode.NotFound, "No such user exists");
+            }
+            return Result<User>.CreateSuccessful(user);
         }
         public bool CheckDuplicates(string email, string userName) 
         {
@@ -147,7 +152,7 @@ namespace Crowdfund.Core.Services
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
             
-            var user = GetUserById(userId);
+            var user = GetUserById(userId).Data;
             
             if (user == null)
             {

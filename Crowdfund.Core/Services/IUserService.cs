@@ -13,7 +13,7 @@ namespace Crowdfund.Core.Services
         Result<bool> UpdateUser(int userId,UpdateUserOptions options);
         Result<bool> DeleteUser(int userId);
         IQueryable<User> SearchUser(SearchUserOptions options);
-        User GetUserById(int userId);
+        Result<User> GetUserById(int userId);
         bool CheckDuplicates(string email, string userName);
         //IQueryable SearchFundedProjectsByUser();
 

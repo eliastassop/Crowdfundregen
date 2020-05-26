@@ -27,7 +27,7 @@ namespace Crowdfund.Core.Services
                 return Result<Project>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
             
-            var user = userService_.GetUserById(options.CreatorId);
+            var user = userService_.GetUserById(options.CreatorId).Data;
             if (user == null)
             {
                 return Result<Project>.CreateFailed(StatusCode.BadRequest, $"User with {options.CreatorId} was not found");
@@ -128,7 +128,7 @@ namespace Crowdfund.Core.Services
             if (options.CreatorId != null)
             {
               
-                var user = userService_.GetUserById(options.CreatorId.Value); 
+                var user = userService_.GetUserById(options.CreatorId.Value).Data; 
                 
                 query = query.Where(c => user.Projects.Contains(c)); 
             }
@@ -136,7 +136,7 @@ namespace Crowdfund.Core.Services
             if (options.BackerId != null)
             {
 
-                var user = userService_.GetUserById(options.CreatorId.Value);
+                var user = userService_.GetUserById(options.CreatorId.Value).Data;
 
                 query = query.Where(c => user.Projects.Contains(c));
             }
@@ -151,15 +151,20 @@ namespace Crowdfund.Core.Services
             return query;            
         }
 
-        public Project GetProjectById(int projectId)
+        public Result<Project> GetProjectById(int projectId)
         {
 
-            return SearchProjects(new SearchProjectOptions()
+            var project= SearchProjects(new SearchProjectOptions()
             {
                 ProjectId = projectId
             }).Include(a=> a.RewardUsers)
             .ThenInclude(a=> a.Reward)
-            .SingleOrDefault();                
+            .SingleOrDefault();
+            if (project == null)
+            {
+                return Result<Project>.CreateFailed(StatusCode.NotFound, "No such Project exists");
+            }
+            return Result<Project>.CreateSuccessful(project);
         }
 
         public Result<bool> UpdateProject(int projectId,UpdateProjectOptions options)
@@ -169,11 +174,11 @@ namespace Crowdfund.Core.Services
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
-            var project = GetProjectById(projectId);
+            var project = GetProjectById(projectId).Data;
 
             if (project == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Project with {projectId} was not found");
+                return Result<bool>.CreateFailed(StatusCode.NotFound, $"Project with {projectId} was not found");
             }
 
             if (project.IsValidTitle(options.Title))
@@ -233,25 +238,29 @@ namespace Crowdfund.Core.Services
             return Result<bool>.CreateSuccessful(true);
         }
 
-        public Project GetProjectByRewardId(int rewardId)
+        public Result<Project> GetProjectByRewardId(int rewardId)
         {
-            return SearchProjects(new SearchProjectOptions()
+            var project= SearchProjects(new SearchProjectOptions()
             {
                 RewardId = rewardId
             })
                 //.Include(a => a.AvailableRewards)
                 .Include(a => a.RewardUsers)
                 .ThenInclude(a => a.Reward)
-                .SingleOrDefault();      
+                .SingleOrDefault();
+            if (project == null)
+            {
+                return Result<Project>.CreateFailed(StatusCode.NotFound, "No such Project exists");
+            }
+            return Result<Project>.CreateSuccessful(project);
         }
 
-        public decimal? CalculateCurrentFund(Project project)
+        public Result<bool> UpdateCurrentFund(Project project)
         {
            
             if (project == null)
             {
-                return null;
-
+                return Result<bool>.CreateFailed(StatusCode.NotFound, $"Project was not found");
             }
 
             decimal sum = 0m;
@@ -265,9 +274,14 @@ namespace Crowdfund.Core.Services
 
             if (context_.SaveChanges() > 0)
             {
-                return project.CurrentFund;
+                return Result<bool>.CreateSuccessful(true);
             }
-            return null;
+            return Result<bool>.CreateFailed(StatusCode.InternalServerError,"Current Fund was not updated");
+        }
+
+        public IQueryable<Project> SearchTrendingProjects()
+        {
+            return context_.Set<Project>().OrderByDescending(u => u.CurrentFund/u.TotalFund).Take(500);     //mporoume na dialeksoume kai allo metric edo
         }
     }
 }

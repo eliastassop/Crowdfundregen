@@ -17,6 +17,6 @@ namespace Crowdfund.Core.Services
 
         IQueryable<StatusUpdate> SearchStatusUpdateByProjectId(int projectId);
 
-        StatusUpdate GetStatusUpdateById(int statusUpdateId); 
+        Result<StatusUpdate> GetStatusUpdateById(int statusUpdateId); 
     }
 }

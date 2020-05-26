@@ -13,8 +13,9 @@ namespace Crowdfund.Core.Services
         Result<bool> UpdateProject(int projectId,UpdateProjectOptions options);
         Result<bool> DeleteProject(int projectId);
         IQueryable<Project> SearchProjects(SearchProjectOptions options);
-        Project GetProjectById(int projectId);
-        Project GetProjectByRewardId(int rewardId);
-        decimal? CalculateCurrentFund(Project project);
+        Result<Project> GetProjectById(int projectId);
+        Result<Project> GetProjectByRewardId(int rewardId);
+        Result<bool> UpdateCurrentFund(Project project);
+        IQueryable<Project> SearchTrendingProjects();
     }
 }

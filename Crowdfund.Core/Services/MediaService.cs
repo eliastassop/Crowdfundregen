@@ -25,7 +25,7 @@ namespace Crowdfund.Core.Services
             {
                 return Result<Media>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
-            var project = projectService_.GetProjectById(options.ProjectId);
+            var project = projectService_.GetProjectById(options.ProjectId).Data;
             if (project == null)
             {
                 return Result<Media>.CreateFailed(StatusCode.BadRequest, $"Project with {options.ProjectId} was not found");
@@ -74,7 +74,7 @@ namespace Crowdfund.Core.Services
             if (options.ProjectId != null)
             {
 
-                var project = projectService_.GetProjectById(options.ProjectId.Value);
+                var project = projectService_.GetProjectById(options.ProjectId.Value).Data;
 
                 query = query.Where(c => project.Media.Contains(c)); 
             }
@@ -105,13 +105,17 @@ namespace Crowdfund.Core.Services
             return Query;
         }
         */
-        public Media GetMediaById(int mediaId)
+        public Result<Media> GetMediaById(int mediaId)
         {
             var media = SearchMedia(new SearchMediaOptions()
             {
                 MediaId = mediaId,
             }).SingleOrDefault();
-            return media;
+            if (media == null)
+            {
+                return Result<Media>.CreateFailed(StatusCode.NotFound, "No such Media exists");
+            }
+            return Result<Media>.CreateSuccessful(media);
         }
 
         public Result<bool> DeleteMedia(int mediaId)
@@ -138,7 +142,7 @@ namespace Crowdfund.Core.Services
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
-            var media = GetMediaById(mediaId);
+            var media = GetMediaById(mediaId).Data;
 
             if (media == null)
             {

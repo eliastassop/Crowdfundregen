@@ -14,7 +14,7 @@ namespace Crowdfund.Core.Services
         Result<bool> DeleteReward(int rewardId);
         IQueryable<Reward> SearchRewards(SearchRewardOptions options);
         IQueryable<Reward> SearchRewardsByProjectId(int projectId);
-        Reward GetRewardById(int rewardId);
+        Result<Reward> GetRewardById(int rewardId);
 
         
 

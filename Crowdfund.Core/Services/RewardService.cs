@@ -26,7 +26,7 @@ namespace Crowdfund.Core.Services
             {
                 return Result<Reward>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
-            var project = projectService_.GetProjectById(options.ProjectId);
+            var project = projectService_.GetProjectById(options.ProjectId).Data;
 
             if (project == null)
             {
@@ -73,7 +73,7 @@ namespace Crowdfund.Core.Services
             if (options.ProjectId != null)
             {
 
-                var project = projectService_.GetProjectById(options.ProjectId.Value);
+                var project = projectService_.GetProjectById(options.ProjectId.Value).Data;
 
                 query = query.Where(c => project.AvailableRewards.Contains(c)); // ferno ola ta available rewards
             }
@@ -101,7 +101,7 @@ namespace Crowdfund.Core.Services
         }
 
 
-        public Reward GetRewardById(int rewardId)
+        public Result<Reward> GetRewardById(int rewardId)
         {
           
 
@@ -109,7 +109,11 @@ namespace Crowdfund.Core.Services
             {
                   RewardId = rewardId,
             }).SingleOrDefault();
-            return reward;
+            if (reward == null)
+            {
+                return Result<Reward>.CreateFailed(StatusCode.NotFound, "No such Reward exists");
+            }
+            return Result<Reward>.CreateSuccessful(reward);
         }
 
         public Result<bool> DeleteReward(int rewardId)
@@ -137,7 +141,7 @@ namespace Crowdfund.Core.Services
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
-            var reward = GetRewardById(rewardId);
+            var reward = GetRewardById(rewardId).Data;
             if (reward == null)
             {
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Reward with {rewardId} was not found");

@@ -68,7 +68,7 @@ namespace Crowdfund.Core.Services
             return query;
         }
 
-        public StatusUpdate GetStatusUpdateById(int statusUpdateId)
+        public Result<StatusUpdate> GetStatusUpdateById(int statusUpdateId)
         {
             var query = context_
                  .Set<StatusUpdate>()
@@ -77,7 +77,12 @@ namespace Crowdfund.Core.Services
            query = query.Where(c => c.StatusUpdateId == statusUpdateId);
 
             query = query.Take(500);
-            return query.SingleOrDefault();
+            var statusUpdate= query.SingleOrDefault();
+            if (statusUpdate == null)
+            {
+                return Result<StatusUpdate>.CreateFailed(StatusCode.NotFound, "No such status update exists");
+            }
+            return Result<StatusUpdate>.CreateSuccessful(statusUpdate);
         }
 
         public Result<bool> DeleteStatusUpdate(int statusUpdateId)
@@ -104,7 +109,7 @@ namespace Crowdfund.Core.Services
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
-            var statusUpdate = GetStatusUpdateById(statusUpdateId);
+            var statusUpdate = GetStatusUpdateById(statusUpdateId).Data;
 
             if (statusUpdate == null)
             {

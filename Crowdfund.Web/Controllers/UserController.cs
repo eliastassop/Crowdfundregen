@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Crowdfund.Web.Models;
 using Crowdfund.Core.Data;
 using Crowdfund.Core.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace Crowdfund.Web.Controllers
 {
-    public class HomeController : Controller
+    [Route("user")]
+    public class UserController : Controller
     {
         private IUserService userService_;
         private IProjectService projectService_;
@@ -21,32 +20,32 @@ namespace Crowdfund.Web.Controllers
         //private readonly ILogger<HomeController> _logger;
 
 
-        public HomeController(ILogger<HomeController> logger)
+        public UserController()
         {
             context = new CrowdfundDB();
             userService_ = new UserService(context);
             projectService_ = new ProjectService(context, userService_);
             rewardService_ = new RewardService(context, projectService_);
             rewardUserService_ = new RewardUserService(context, userService_, projectService_, rewardService_);
-
         }
 
-        public IActionResult Index()
+        [HttpGet("{id}")]
+        public IActionResult UserPersonalInfo(int id)
         {
-            var user1=userService_.GetUserById(1);
-            var currentFund2 = projectService_.GetProjectById(1).CurrentFund;
-            return Json(currentFund2);
+            var user = userService_.GetUserById(id).Data;
+            return Json(user);
         }
-
-        public IActionResult Privacy()
+        public IActionResult UpdateUserPersonalInfo()
         {
             return View();
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult ProjectsBacked()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
+        public IActionResult ProjectsCreated()
+        {
+            return View();
         }
     }
 }
