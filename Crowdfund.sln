@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crowdfund", "Crowdfund.csproj", "{6565262B-40F5-426D-8DE1-943E6FF7A3E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crowdfund", "CrowdfundPrivate\Crowdfund.csproj", "{6565262B-40F5-426D-8DE1-943E6FF7A3E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crowdfund.Core", "..\Crowdfund.Core\Crowdfund.Core.csproj", "{6D12F9C5-CDA9-4253-B212-E8E292197BD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crowdfund.Core", "Crowdfund.Core\Crowdfund.Core.csproj", "{6D12F9C5-CDA9-4253-B212-E8E292197BD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crowdfund.Web", "..\Crowdfund.Web\Crowdfund.Web.csproj", "{C33F5153-7B71-4644-8AE5-4CCB4B44F3C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crowdfund.Web", "Crowdfund.Web\Crowdfund.Web.csproj", "{C33F5153-7B71-4644-8AE5-4CCB4B44F3C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
