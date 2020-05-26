@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 using Crowdfund.Core.Data;
 using Crowdfund.Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 
 namespace Crowdfund.Web.Controllers
 {
-    [Route("user")]
-    public class UserController : Controller
+    [Route("project")]
+    public class ProjectController : Controller
     {
         private IUserService userService_;
         private IProjectService projectService_;
@@ -20,31 +19,51 @@ namespace Crowdfund.Web.Controllers
         //private readonly ILogger<HomeController> _logger;
 
 
-        public UserController()
+        public ProjectController()
         {
             context = new CrowdfundDB();
             userService_ = new UserService(context);
             projectService_ = new ProjectService(context, userService_);
             rewardService_ = new RewardService(context, projectService_);
             rewardUserService_ = new RewardUserService(context, userService_, projectService_, rewardService_);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult UserPersonalInfo(int id)
-        {
-            var user = userService_.GetUserById(id).Data;
-            return View(user);
-        }
-        [HttpGet("{id}/edit")]
-        public IActionResult UpdateUserPersonalInfo()
+        }        
+        public IActionResult ViewProjectDescription()//landingpage
         {
             return View();
         }
-        public IActionResult ProjectsBacked()
+        public IActionResult ViewProjectRewards()//redirect
+        {
+            return View();
+        }        
+        public IActionResult ViewProjectStatusUpdates()//redirect
         {
             return View();
         }
-        public IActionResult ProjectsCreated()
+        public IActionResult UpdateProject()
+        {
+            return View();
+        }
+        public IActionResult AddReward()
+        {
+            return View();
+        }
+        public IActionResult UpdateReward()
+        {
+            return View();
+        }
+        public IActionResult DeleteReward()
+        {
+            return View();
+        }
+        public IActionResult AddMedia()
+        {
+            return View();
+        }
+        public IActionResult UpdateMedia()
+        {
+            return View();
+        }
+        public IActionResult DeleteMedia()
         {
             return View();
         }

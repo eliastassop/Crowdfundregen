@@ -38,11 +38,18 @@ namespace Crowdfund.Web.Controllers
             return Json(currentFund2);
         }
 
-        public IActionResult Privacy()
+        public IActionResult TrendingProjects()
         {
             return View();
         }
-
+        public IActionResult Explore()
+        {
+            return View();
+        }
+        public IActionResult SearchProjects()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

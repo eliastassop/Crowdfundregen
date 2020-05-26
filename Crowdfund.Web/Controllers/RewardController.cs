@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Crowdfund.Core.Data;
 using Crowdfund.Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 
 namespace Crowdfund.Web.Controllers
 {
-    [Route("user")]
-    public class UserController : Controller
+    [Route("project/{projectid}")]
+    public class RewardController : Controller
     {
+
         private IUserService userService_;
         private IProjectService projectService_;
         private IRewardService rewardService_;
@@ -20,7 +20,7 @@ namespace Crowdfund.Web.Controllers
         //private readonly ILogger<HomeController> _logger;
 
 
-        public UserController()
+        public RewardController()
         {
             context = new CrowdfundDB();
             userService_ = new UserService(context);
@@ -28,23 +28,22 @@ namespace Crowdfund.Web.Controllers
             rewardService_ = new RewardService(context, projectService_);
             rewardUserService_ = new RewardUserService(context, userService_, projectService_, rewardService_);
         }
+        [HttpGet("rewards")]
+        public IActionResult ShowAvailableRewards(int projectid)
+        {
+            var project = projectService_.GetProjectById(projectid).Data;
 
-        [HttpGet("{id}")]
-        public IActionResult UserPersonalInfo(int id)
-        {
-            var user = userService_.GetUserById(id).Data;
-            return View(user);
+            return View(project.AvailableRewards);
         }
-        [HttpGet("{id}/edit")]
-        public IActionResult UpdateUserPersonalInfo()
+        public IActionResult BuyReward()
         {
             return View();
         }
-        public IActionResult ProjectsBacked()
+        public IActionResult AddReward()
         {
             return View();
         }
-        public IActionResult ProjectsCreated()
+        public IActionResult UpdateReward()
         {
             return View();
         }
