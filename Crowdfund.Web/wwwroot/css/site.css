@@ -35,6 +35,10 @@ html {
   }
 }
 
+/*header*/
+
+#
+
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
@@ -61,6 +65,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  color: darkgray;
 }
 .footer {
   position: absolute;
@@ -69,3 +74,5 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+

@@ -28,12 +28,12 @@ namespace Crowdfund.Web.Controllers
             rewardService_ = new RewardService(context, projectService_);
             rewardUserService_ = new RewardUserService(context, userService_, projectService_, rewardService_);
         }
-
+        
         [HttpGet("{id}")]
-        public IActionResult UserPersonalInfo(int id)
+        public IActionResult UserPersonalInfo()
         {
-            var user = userService_.GetUserById(id).Data;
-            return View(user);
+            var user = userService_.GetUserById(1).Data;
+            return Json(user);
         }
         [HttpGet("{id}/edit")]
         public IActionResult UpdateUserPersonalInfo()

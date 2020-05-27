@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Crowdfund.Web.Models;
 using Crowdfund.Core.Data;
 using Crowdfund.Core.Services;
+using Crowdfund.Core.Services.Options;
 
 namespace Crowdfund.Web.Controllers
 {
@@ -33,9 +34,13 @@ namespace Crowdfund.Web.Controllers
 
         public IActionResult Index()
         {
-            var user1=userService_.GetUserById(1);
-            var currentFund2 = projectService_.GetProjectById(1).Data.CurrentFund;
-            return Json(currentFund2);
+            var user = userService_.GetUserById(1);
+            var currentFund2 = projectService_.GetProjectById(1);
+            if (!currentFund2.Success)
+            {
+                return StatusCode((int)currentFund2.ErrorCode, currentFund2.ErrorText);
+            }
+            return Json(user1);
         }
 
         public IActionResult TrendingProjects()
