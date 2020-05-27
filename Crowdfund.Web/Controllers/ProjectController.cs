@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Crowdfund.Core.Data;
 using Crowdfund.Core.Services;
+using Crowdfund.Core.Services.Options;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crowdfund.Web.Controllers
 {
-    [Route("project")]
+    //[Route("project")]
     public class ProjectController : Controller
     {
         private IUserService userService_;
@@ -26,7 +27,16 @@ namespace Crowdfund.Web.Controllers
             projectService_ = new ProjectService(context, userService_);
             rewardService_ = new RewardService(context, projectService_);
             rewardUserService_ = new RewardUserService(context, userService_, projectService_, rewardService_);
-        }        
+        }
+        //[HttpPost]
+        //("{id}")
+        public IActionResult CreateProject()//landingpage
+        {
+            var options = new CreateProjectOptions();
+            projectService_.CreateProject(options);
+            //projectService_.CreateProject()
+            return View(options);
+        }
         public IActionResult ViewProjectDescription()//landingpage
         {
             return View();

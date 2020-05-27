@@ -9,9 +9,9 @@
     <style>
         #Browsing {
             text-align: center;
-            color: goldenrod;
+            color: #fdb813;
             font-weight: bold;
-            font-size:20px;
+            font-size: 20px;
         }
         #kickstarter {
             display: block;
@@ -25,23 +25,35 @@
             margin-left: auto;
             margin-right: auto;
         }
-        .navbar navbar-light{
-            color:yellow;
+        .navbar navbar-light {
+            color: #fdb813;
         }
         li:hover {
-            background-color: cornflowerblue;
+
+            background-color:white;
         }
     </style></head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: gold ";>
+        <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #fdb813 ";>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Explore</a>
+                    <li class="dropdown">
+                        <button style="background-color:#083f88;color:#fdb813" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Explore
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.ProjectCategory)))
+                                {
+                                    <a style="color:#083f88" class="dropdown-item" href="@Url.Action("Explore", "Home", new { category = cat })">@cat</a>
+                                }
+                            }
+
+
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SearchProjects">Projects</a>
@@ -50,7 +62,10 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UserPersonalInfo">Personal Info</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Projects Created">Start a Project</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="project" asp-action="CreateProject">Start a Project</a>
+                    </li>
+                    <li class="nav-item user-login">
+                        <a class="nav-link text-dark" >Log in</a>
                     </li>
                 </ul>
                 <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">

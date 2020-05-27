@@ -9,6 +9,7 @@ using Crowdfund.Web.Models;
 using Crowdfund.Core.Data;
 using Crowdfund.Core.Services;
 using Crowdfund.Core.Services.Options;
+using Crowdfund.Core.Models;
 
 namespace Crowdfund.Web.Controllers
 {
@@ -34,22 +35,24 @@ namespace Crowdfund.Web.Controllers
 
         public IActionResult Index()
         {
-            var user = userService_.GetUserById(1);
-            var currentFund2 = projectService_.GetProjectById(1);
-            if (!currentFund2.Success)
-            {
-                return StatusCode((int)currentFund2.ErrorCode, currentFund2.ErrorText);
-            }
-            return Json(user1);
+            //var user = userService_.GetUserById(1);
+            //var currentFund2 = projectService_.GetProjectById(1);
+            //if (!currentFund2.Success)
+            //{
+            //    return StatusCode((int)currentFund2.ErrorCode, currentFund2.ErrorText);
+            //}
+            return View();
         }
 
         public IActionResult TrendingProjects()
         {
             return View();
         }
-        public IActionResult Explore()
+        public IActionResult Explore(ProjectCategory category)
         {
-            return View();
+            var test = projectService_.SearchProjects(new SearchProjectOptions { Category = category }).ToList();
+
+            return Json(test);
         }
         public IActionResult SearchProjects()
         {
