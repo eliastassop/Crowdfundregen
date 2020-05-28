@@ -2,6 +2,9 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-let button = document.getElementsByClassName('nav-item user-login');
-button = localStorage.getItem('id');
+let successAlert = $('.js-success-alert');
+successAlert.hide();
+
+let failedAlert = $('.js-fail-alert');
+failedAlert.hide();
 

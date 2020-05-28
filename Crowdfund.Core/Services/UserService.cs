@@ -182,6 +182,20 @@ namespace Crowdfund.Core.Services
 
             return Result<bool>.CreateSuccessful(true);
         }
+        public Result<int> GetIdByUserName(string username)
+        {
+            var user = SearchUser(new SearchUserOptions
+            {
+                UserName = username
+            }).SingleOrDefault() ;
+            if (user == null)
+            {
+                return Result<int>.CreateFailed(StatusCode.NotFound, "The Username You Entered Does Not Exist");
+             
+            }
+            return Result<int>.CreateSuccessful(user.UserId);
+
+        }
 
      
     }
