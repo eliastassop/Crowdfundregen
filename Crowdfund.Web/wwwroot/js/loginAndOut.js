@@ -34,7 +34,7 @@ loginbutton.on('click', () => {
         }).done(function (data) {
 
             localStorage.setItem(`userId`, data);
-            window.location.href = "index";
+            window.location.href = "/Home/index";
            // successAlert.html(`User Successfully Logged In`);
            
             successAlert.html(`User Successfully Logged In`)

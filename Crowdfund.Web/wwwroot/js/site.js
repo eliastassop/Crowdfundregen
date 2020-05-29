@@ -11,15 +11,28 @@ successAlert.hide();
 let failedAlert = $('.js-fail-alert');
 failedAlert.hide();
 
+//let loginFirstAlert = $('.js-login-first-alert');
+//loginFirstAlert.hide();
+
+
+
+
+
 let PersonalInfoButton = $('.js-user-pi');
 PersonalInfoButton.on('click', () => {    
     let userid = localStorage.getItem('userId');
-    window.location.href = "user/" + userid + "/userpersonalinfo";
+    //debugger;
+    if (userid != null) {
+        window.location.href = "user/" + userid + "/userpersonalinfo";
+    }
+    else {
+        window.location.href = "/home/login";         
+    }
 });
 
 
-let button = $('.js-project-create-button');
-button.on('click', () => {
+let projectbutton = $('.js-project-create-button');
+projectbutton.on('click', () => {
 
 
 
@@ -60,7 +73,7 @@ button.on('click', () => {
 
         successAlert.show();
 
-        window.location.href = "index";
+        //window.location.href = "index";
         //let log = $('.nav - link text - dark');
         //log.val() = "True";
     }).fail(failureResponse => {
