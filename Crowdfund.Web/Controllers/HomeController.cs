@@ -48,6 +48,11 @@ namespace Crowdfund.Web.Controllers
         {
             return View();
         }
+        public IActionResult CreateProject()//landingpage
+        {
+
+            return View();
+        }
         public IActionResult Explore(ProjectCategory category)
         {
             var test = projectService_.SearchProjects(new SearchProjectOptions { Category = category }).ToList();

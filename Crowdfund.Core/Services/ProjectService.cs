@@ -32,18 +32,18 @@ namespace Crowdfund.Core.Services
             {
                 return Result<Project>.CreateFailed(StatusCode.BadRequest, $"User with {options.CreatorId} was not found");
             }
-
+            var cat = (ProjectCategory) Enum.Parse(typeof(ProjectCategory),options.Category,true);
 
             var project = new Project()
             {
                 Title = options.Title,
                 Description = options.Description,
                 TotalFund = options.TotalFund,
-                Category = options.Category,
+                Category = cat,
                 Deadline = options.Deadline
             };
             
-            if (!project.IsValidCategory(options.Category) 
+            if (!project.IsValidCategory(cat) 
                 || !project.IsValidDeadline(options.Deadline) 
                 || !project.IsValidDescription(options.Description) 
                 || !project.IsValidTitle(options.Title) 

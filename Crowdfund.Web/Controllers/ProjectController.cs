@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Crowdfund.Web.Controllers
 {
-    //[Route("project")]
+    [Route("project")]
     public class ProjectController : Controller
     {
         private IUserService userService_;
@@ -30,17 +30,13 @@ namespace Crowdfund.Web.Controllers
         }
        
         //
-        public IActionResult CreateProject()//landingpage
-        {
-  
-            return View();
-        }
-        [HttpPost]
+        
+        [HttpPost("create")]
         public IActionResult CreateProjectDatabase([FromBody] CreateProjectOptions options)//landingpage
         {
 
-            projectService_.CreateProject(options);
-            return View(options);
+            var result= projectService_.CreateProject(options);
+            return Json(result);
         }
         
         public IActionResult ViewProjectDescription()//landingpage

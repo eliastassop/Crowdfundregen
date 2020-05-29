@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Crowdfund.Core\Crowdfund.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Project\" />
+  </ItemGroup>
+
 </Project>

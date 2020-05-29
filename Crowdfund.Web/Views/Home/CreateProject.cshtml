@@ -1,0 +1,74 @@
+﻿@model Crowdfund.Core.Services.Options.CreateProjectOptions
+
+    <form method="post" class="js-create-project-form">
+        <h2>Edit info</h2>
+        <br />
+
+        <!-- Title-->
+        <div class="form-group row">
+            <label for="title">Title</label>
+            <input name="title" placeholder="Enter the title of the project"
+                   class="js-title form-control">
+        </div>
+
+        <!-- Description -->
+        <div class="form-group row">
+            <label for="description">Description</label>
+            <textarea class="js-description form-control" placeholder="Enter description for your project" rows="5"></textarea>
+        </div>
+
+        <!-- Total Fund -->
+        <div class="form-group row">
+            <label for="totalFund">Total Fund</label>
+            <input class="js-totalFund form-control" type="number">
+        </div>
+
+        <div class="form-group row">
+            <label for="deadline">Deadline</label>
+            <input class="js-deadline form-control" type="datetime-local" value=now id="example-datetime-local-input">
+        </div>
+
+        <div class="custom-file">
+            <label class="custom-file-label" for="customFile">Choose Media Files</label>
+            <input type="file" class="js-media-input" id="customFile" multiple>
+
+        </div>
+
+        <div class="form-group row">
+            <label for="category">Project Category</label>
+            <select id="inputCategory" class="js-category form-control">
+                <option selected>Pick a Category</option>
+                @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.ProjectCategory)))
+                    {
+                        <option>@cat</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- VatNumber -->
+        @*<div class="form-group">
+            <label for="deadline">Deadline</label>
+            <input class="js-deadline form-control" type="datetime" >
+        </div>*@
+
+        @*<div class="form-group">
+            <label for="category">Category</label>
+            <input class="js-category form-control" type="text">
+        </div>*@
+
+        <!-- Submit -->
+        <button type="button" class="btn btn-primary js-project-create-button">
+            Submit
+        </button>
+
+        <div class="alert alert-success js-success-alert" role="alert">
+        </div>
+
+        <div class="alert alert-danger js-fail-alert" role="alert">
+            Customer could not be updated
+        </div>
+
+    </form>
+    
+    
