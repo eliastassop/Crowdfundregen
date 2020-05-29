@@ -76,7 +76,11 @@ namespace Crowdfund.Core.Services
         }
         public IQueryable<User> SearchUser(SearchUserOptions options)
         {
-            if (options == null)
+            if (options.UserId == null
+                &&options.UserCreatedFrom==null
+                &&options.UserCreatedTo==null
+                &&string.IsNullOrWhiteSpace(options.UserName)
+                &&string.IsNullOrWhiteSpace(options.Email))
             {
                 return null;
             }
@@ -184,10 +188,21 @@ namespace Crowdfund.Core.Services
         }
         public Result<int> GetIdByUserName(string username)
         {
-            var user = SearchUser(new SearchUserOptions
+            var query = SearchUser(new SearchUserOptions
             {
                 UserName = username
-            }).SingleOrDefault() ;
+            });
+            if (query == null)
+            {
+                return Result<int>.CreateFailed(StatusCode.NotFound, "The Username You Entered Does Not Exist");
+            }
+            var user=query.SingleOrDefault();
+
+            //if (string.IsNullOrWhiteSpace(username))
+            //{
+            //    query = query.Where(c => c.UserName.Equals(username));
+            //}
+            //var user=query
             if (user == null)
             {
                 return Result<int>.CreateFailed(StatusCode.NotFound, "The Username You Entered Does Not Exist");
@@ -196,6 +211,7 @@ namespace Crowdfund.Core.Services
             return Result<int>.CreateSuccessful(user.UserId);
 
         }
+        
 
      
     }
