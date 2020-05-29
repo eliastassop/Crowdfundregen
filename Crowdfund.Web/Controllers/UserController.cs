@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace Crowdfund.Web.Controllers
 {
-    [Route("user")]
+    [Route("User")]
     public class UserController : Controller
     {
         private IUserService userService_;
@@ -38,14 +38,26 @@ namespace Crowdfund.Web.Controllers
             }
             return StatusCode((int)userid.ErrorCode,userid.ErrorText);
         }
-        
-        [HttpGet("{id}")]
-        public IActionResult UserPersonalInfo()
+
+        [HttpGet("{id}/userpersonalinfo")]
+        public IActionResult UserPersonalInfo(int id)
         {
-            var user = userService_.GetUserById(1).Data;
-            return Json(user);
+            var user = userService_.GetUserById(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user.Data);
+           
         }
-        [HttpGet("{id}/edit")]
+        //public IActionResult UserPersonalInfoCard()
+        //{
+           // var user = userService_.GetUserById(1).Data;
+           // return Json(user);
+        //}
+       
         public IActionResult UpdateUserPersonalInfo()
         {
             return View();

@@ -4,26 +4,68 @@
     ViewData["Title"] = "UserPersonalInfo";
 }
 
-@if (Model == null)
-{
-    <div class="alert alert-warning" role="alert">
-        Customer not found
+@*@if (Model == null)
+    {
+        <div class="alert alert-warning" role="alert">
+            You must Log in first
+        </div>
+
+
+        return;
+    }*@
+
+<style>
+    img {
+        width: 80px;
+        height: 80px;
+    }
+
+    h2 {
+        font: Rockwell;
+    }
+</style>
+<ul class="nav nav-pills">
+    <li class="nav-item">
+       <a class="nav-link active" href="#">Profile Page</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">MyProjects</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Funded Projects</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Upadate Personal Info</a>
+    </li>
+</ul>
+
+PersonalInfoButton.on('click', () => {
+    let userid = localStorage.getItem('userId');
+    window.location.href = "user/" + userid + "/userpersonalinfo";
+});
+
+<form method="post">
+    <br />
+    <img src="~/css/content.jpg" alt="Not Found" />
+    <div class="form-group">
+        <label for="Id">Unique Id</label>
+        <input name="Id" placeholder=""
+               class="form-control" value="@Model.UserId">
+    </div>
+    <div class="form-group">
+        <label for="userName">UserName</label>
+        <input name="userName" placeholder=""
+               class="form-control" value="@Model.UserName">
     </div>
 
-    return;
-}
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input name="email" class="form-control" value="@Model.Email">
+    </div>
 
-<div class="card">
-    <div class="card-header">
-        UserId: @Model.UserId
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">UserName: @Model.UserName</h5>
-        <p class="card-text">
-            Email:@Model.Email
-            <br />
-            DateCreated: @Model.UserCreated
-        </p>
-        <a href="@Url.Action("Edit", "User", new { id = Model.UserId })" class="btn btn-primary">Edit</a>
-    </div>
-</div>
+</form>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@*DIORTOSEIS*@
+@*@Model.UserName
+    @Url.Action("Edit", "User", new { id = Model.UserId })*@ 

@@ -36,8 +36,8 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SearchProjects">Projects</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UserPersonalInfo">Personal Info</a> <!--sto user page gia info xristi-->
+                    <li class="nav-item" type="button">
+                        <a class="nav-link text-dark user-pi">  Personal Info</a> <!--sto user page gia info xristi-->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="CreateProject">Start a Project</a>
@@ -62,49 +62,9 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
-            <img src="~/css/fund.png" id="home-image" alt="fund" width="300" height="250"><br /><br />
-            <!-- Grid row -->
-            <div class="row">
-
-                <!-- Grid column -->
-                <div class="col-md-12 d-flex justify-content-center mb-5">
-
-                </div>
-                <!-- Grid column -->
-
-            </div>
-            <p id="Browsing">Trending Projects</p>
-            <!-- Grid row -->
-            <!-- Grid row -->
-            <div class="gallery" id="gallery">
-
-                <!-- Grid column -->
-                <div class="mb-3 pics animation all 2">
-                    <img src="~/css/kick2.jpg" alt="Girl in a jacket" width="150" height="150">
-                </div>
-                <!-- Grid column -->
-                <!-- Grid column -->
-                <div class="mb-3 pics animation all 1">
-                    <img src="~/css/kick1.png" alt="Girl in a jacket" width="150" height="150">
-                </div>
-                <!-- Grid column -->
-                <!-- Grid column -->
-                <div class="mb-3 pics animation all 1">
-                    <img src="~/css/kick3.png" alt="Girl in a jacket" width="150" height="150">
-                </div>
-                <div class="mb-3 pics animation all 1">
-                    <img src="~/css/kick4.jpg" alt="Girl in a jacket" width="150" height="150">
-                </div>
-                <!-- Grid column -->
-                <!-- Grid column -->
-                <div class="mb-3 pics animation all 1">
-                    <img src="~/css/kick5.png" alt="Girl in a jacket" width="150" height="150">
-                </div>
-            </div>
-            <!-- Grid row -->
+           
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - Crowdfund.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -113,7 +73,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/mynewfile.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+     @RenderSection("Scripts", required: false)
 </body>
 </html>
