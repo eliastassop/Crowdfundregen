@@ -3,19 +3,7 @@
 
 // Write your JavaScript code.
 
-$(function () {
-   // debugger;
 
-    let userId = localStorage.getItem('userId');
-
-    if (userId) {
-        $('.user-login').hide();
-        $('.user-logout').show();
-    } else {
-        $('.user-login').show();
-        $('.user-logout').hide();
-    }
-});
 
 let successAlert = $('.js-success-alert');
 successAlert.hide();
