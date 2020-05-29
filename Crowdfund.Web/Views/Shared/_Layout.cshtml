@@ -45,11 +45,16 @@
                     <li class="nav-item user-login">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log In</a>
                     </li>
+
+                    <li class="nav-item js-user-logout" type ="button">
+                        <a class="nav-link text-dark">Log Out</a>
+                       
+                    </li>
+                  
                     
 
-                    <li class="nav-item user-logout" style="display: none;">
-                        log out
-                    </li>
+
+
                 </ul>
                 <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
                     <i class="fas fa-search" aria-hidden="true"></i>
@@ -113,7 +118,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/mynewfile.js" asp-append-version="true"></script>
+    <script  src="~/js/loginAndOut.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

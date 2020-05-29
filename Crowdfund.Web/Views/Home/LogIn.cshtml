@@ -7,7 +7,7 @@
 
 
 <form method="post" class="js-login-form">
-    
+
     <br />
 
     <!-- Firstname-->
@@ -18,12 +18,9 @@
     </div>
 
     <!-- Submit -->
-    <button type="button"onclick="login()" class="btn btn-primary js-login-button">  
+    <button type="button" class="btn btn-primary js-login-button">
         Submit
     </button>
-
-    <div class="alert alert-success js-success-alert" role="alert">
-    </div>
 
     <div class="alert alert-danger js-fail-alert" role="alert">
         No Such User Exists
@@ -32,41 +29,5 @@
 
 </form>
 
-<script>
-    function login()
-    {
-        let successAlert = $('.js-success-alert');
-        successAlert.hide();
-
-        let failedAlert = $('.js-fail-alert');
-        failedAlert.hide();
-
-        let username = $('.js-userName').val();
-        let id =
-            $.ajax({
-                type: 'POST',
-                url: '/user',
-                contentType: 'application/json',
-                data: JSON.stringify(username)             
-            }).done(function (data) {
-                localStorage.setItem(`userId`, data);
-            
-                successAlert.html(`User Successfully Logged In`);
-                
-                successAlert.show();
-                
-                
-                window.location.href = "index";
-                //let log = $('.nav - link text - dark');
-                //log.val() = "True";
-            }).fail(failureResponse => {
-                failedAlert.show();
-                
-            });
-
-        
-
-    }
-
-</script>
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/loginAndOut.js" asp-append-version="true"></script>
