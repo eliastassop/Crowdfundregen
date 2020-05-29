@@ -11,10 +11,16 @@ successAlert.hide();
 let failedAlert = $('.js-fail-alert');
 failedAlert.hide();
 
+let PersonalInfoButton = $('.js-user-pi');
+PersonalInfoButton.on('click', () => {    
+    let userid = localStorage.getItem('userId');
+    window.location.href = "user/" + userid + "/userpersonalinfo";
+});
+
 
 let button = $('.js-project-create-button');
 button.on('click', () => {
-let PersonalInfoButton = $('.user-pi');
+
 
 
     let successAlert = $('.js-success-alert');
@@ -23,8 +29,8 @@ let PersonalInfoButton = $('.user-pi');
     let failedAlert = $('.js-fail-alert');
     failedAlert.hide();
 
-    let id = localStorage.getItem('userId');  
-    debugger;
+    let id = localStorage.getItem('userId');
+    //debugger;
     let Title = $('.js-title');
     let Description = $('.js-description');
     let TotalFund = $('.js-totalFund');
@@ -42,7 +48,7 @@ let PersonalInfoButton = $('.user-pi');
         Category: Category.val(),
         Media: Media.val()
     };
-    
+
     $.ajax({
         type: 'POST',
         url: '/project/create',
@@ -60,11 +66,7 @@ let PersonalInfoButton = $('.user-pi');
     }).fail(failureResponse => {
         failedAlert.show();
 
-    });
-PersonalInfoButton.on('click', () => {
-    let userid = localStorage.getItem('userId');
-    window.location.href = "user/" + userid + "/userpersonalinfo";
-});
+    });    
 
 
 
