@@ -28,15 +28,21 @@ namespace Crowdfund.Web.Controllers
             rewardService_ = new RewardService(context, projectService_);
             rewardUserService_ = new RewardUserService(context, userService_, projectService_, rewardService_);
         }
-        //[HttpPost]
-        //("{id}")
+       
+        //
         public IActionResult CreateProject()//landingpage
         {
-            var options = new CreateProjectOptions();
+  
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateProjectDatabase([FromBody] CreateProjectOptions options)//landingpage
+        {
+
             projectService_.CreateProject(options);
-            //projectService_.CreateProject()
             return View(options);
         }
+        
         public IActionResult ViewProjectDescription()//landingpage
         {
             return View();

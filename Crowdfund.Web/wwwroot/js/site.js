@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 
 $(function () {
-    debugger;
+   // debugger;
 
     let userId = localStorage.getItem('userId');
 
@@ -22,4 +22,58 @@ successAlert.hide();
 
 let failedAlert = $('.js-fail-alert');
 failedAlert.hide();
+
+
+    let button = $('.js-project-create-button');
+        button.on('click', () => {
+
+
+        let successAlert = $('.js-success-alert');
+            successAlert.hide();
+
+            let failedAlert = $('.js-fail-alert');
+            failedAlert.hide();
+
+            let id = parseInt(localStorage.getItem('userId'));
+            debugger;
+            let Title = $('.js-title');
+            let Description = $('.js-description');
+            let TotalFund = $('.js-totalFund');
+           // let Deadline = $('.js-deadline');
+
+
+            let data = {
+                Title: Title.val(),
+                Description: Description.val(),
+                TotalFund: TotalFund.val(),
+               // Deadline: Deadline.val(),
+                CreatorId: id
+            };
+
+
+            let project =
+                $.ajax({
+                    type: 'POST',
+                    url: '/project',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data)
+                }).done(successResponse => {
+
+                    successAlert.html(`Project created `);
+
+                    successAlert.show();
+
+                    //11window.location.href = "index";
+                    //let log = $('.nav - link text - dark');
+                    //log.val() = "True";
+                }).fail(failureResponse => {
+                    failedAlert.show();
+
+                });
+
+
+
+        });
+
+    
 

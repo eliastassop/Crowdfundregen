@@ -8,29 +8,34 @@
         <div class="form-group">
             <label for="title">Title</label>
             <input name="title" placeholder="Enter the title of the project"
-                   class="js-title form-control" value="@Model.Title">
+                   class="js-title form-control" >
         </div>
 
         <!-- Description -->
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="js-description form-control" placeholder="Enter description for your project" rows="5" value="@Model.Description"></textarea>
+            <textarea class="js-description form-control" placeholder="Enter description for your project" rows="5" ></textarea>
         </div>
 
         <!-- Total Fund -->
         <div class="form-group">
             <label for="totalFund">Total Fund</label>
-            <input class="js-totalFund form-control" type="number" value="@Model.TotalFund">
+            <input class="js-totalFund form-control" type="number" >
         </div>
 
         <!-- VatNumber -->
-        <div class="form-group">
+        @*<div class="form-group">
             <label for="deadline">Deadline</label>
-            <input class="js-deadline form-control" type="datetime" value="@Model.Deadline">
-        </div>
-        
+            <input class="js-deadline form-control" type="datetime" >
+        </div>*@
+
+        @*<div class="form-group">
+            <label for="category">Category</label>
+            <input class="js-category form-control" type="text">
+        </div>*@
+
         <!-- Submit -->
-        <button type="button" class="btn btn-primary js-button">
+        <button type="button" class="btn btn-primary js-project-create-button">
             Submit
         </button>
 
@@ -40,5 +45,7 @@
         <div class="alert alert-danger js-fail-alert" role="alert">
             Customer could not be updated
         </div>
-
+        
     </form>
+    
+    
