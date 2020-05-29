@@ -35,7 +35,7 @@
     </style></head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #fdb813 ";>
+        <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #fdb813 " ;>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -66,6 +66,10 @@
                     </li>
                     <li class="nav-item user-login">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log In</a>
+                    </li>
+
+                    <li class="nav-item user-logout" style="display: none;">
+                        log out
                     </li>
                 </ul>
                 <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
@@ -106,7 +110,7 @@
             </div>
         </main>
     </div>
-    
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - Crowdfund.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -115,6 +119,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/mynewfile.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
