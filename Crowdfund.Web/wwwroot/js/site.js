@@ -16,12 +16,19 @@ failedAlert.hide();
 
 
 
+// **Personal Info javascript code**
+let profilepage = $('.profile page');
+let UpdateInfoButton = $('.js-upinfo');
+
+UpdateInfoButton.on('click', () => {
+    window.location.href = "/home/login";
+});
 
 
 let PersonalInfoButton = $('.js-user-pi');
 PersonalInfoButton.on('click', () => {    
     let userid = localStorage.getItem('userId');
-    //debugger;
+
     if (userid != null) {
         window.location.href = "user/" + userid + "/userpersonalinfo";
     }
@@ -30,7 +37,7 @@ PersonalInfoButton.on('click', () => {
     }
 });
 
-
+// **Create Project javascript code**
 let projectbutton = $('.js-project-create-button');
 projectbutton.on('click', () => {
 
@@ -73,9 +80,6 @@ projectbutton.on('click', () => {
 
         successAlert.show();
 
-        //window.location.href = "index";
-        //let log = $('.nav - link text - dark');
-        //log.val() = "True";
     }).fail(failureResponse => {
         failedAlert.show();
 
@@ -85,5 +89,7 @@ projectbutton.on('click', () => {
 
 });
 
+
+//$('form#profile-form button.js-submit-profile-btn') ***** !!
     
 

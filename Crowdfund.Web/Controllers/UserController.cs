@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Crowdfund.Core.Data;
 using Crowdfund.Core.Services;
+using Crowdfund.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
@@ -43,13 +44,19 @@ namespace Crowdfund.Web.Controllers
         public IActionResult UserPersonalInfo(int id)
         {
             var user = userService_.GetUserById(id);
-
-            if (user == null)
+            var usermodel = new UserProjectsBacked()
             {
-                return NotFound();
-            }
+                User = user.Data,
+                ProjectsBacked = rewardUserService_.SearchProjectsFundedByUser(id).ToList()
 
-            return View(user.Data);
+            };
+
+            if (usermodel.User == null)
+            {
+                return StatusCode((int)user.ErrorCode,user.ErrorText);
+            }            
+
+            return View(usermodel);
            
         }
         //public IActionResult UserPersonalInfoCard()
