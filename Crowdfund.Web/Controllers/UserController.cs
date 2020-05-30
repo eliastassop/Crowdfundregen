@@ -41,13 +41,14 @@ namespace Crowdfund.Web.Controllers
         }
 
         [HttpGet("{id}/userpersonalinfo")]
-        public IActionResult UserPersonalInfo(int id)
+        public IActionResult UserPersonalInfo(string id)
         {
-            var user = userService_.GetUserById(id);
+            var userId = int.Parse(id);
+            var user = userService_.GetUserById(userId);
             var usermodel = new UserProjectsBacked()
             {
                 User = user.Data,
-                ProjectsBacked = rewardUserService_.SearchProjectsFundedByUser(id).ToList()
+                ProjectsBacked = rewardUserService_.SearchProjectsFundedByUser(userId).ToList()
 
             };
 

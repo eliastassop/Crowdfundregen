@@ -59,15 +59,21 @@
 
     </div>
     <div class="tab-pane fade" id="myprojects-tab-area" role="tabpanel" aria-labelledby="my projects">
-        @foreach (var p in Model.ProjectsBacked)
-        {
-            <ul>
-                <li>@p.Description</li>
-            </ul>
-        }
+        
     </div>
     <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="contact-tab">
-        tab content 3
+        @foreach (var p in Model.ProjectsBacked)
+        {
+            <div class="card" style="width: 18rem;">
+                <img src="https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/x17/16714-birthday-cake-600x600.jpg?ext=.jpg" class="card-img-top" alt="Cake">
+                <div class="card-body">
+                    <h5 class="card-title">@p.Title</h5>
+                    <p class="card-text">@p.Category</p>
+                    <p class="card-text">@p.Deadline</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        }
     </div>
 </div>
 

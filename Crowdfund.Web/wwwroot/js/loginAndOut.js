@@ -1,28 +1,7 @@
-﻿$(function () {
-    // debugger;
-
-    let userId = localStorage.getItem('userId');
-
-    if (userId) {
-        $('.user-login').hide();
-        $('.js-user-logout').show();
-    } else {
-        $('.user-login').show();
-        $('.js-user-logout').hide();
-    }
-});
-
-
-
+﻿
 let loginbutton = $('.js-login-button');
-loginbutton.on('click', () => {
-
-    let successAlert = $('.js-success-alert');
-    successAlert.hide();
-
-    let failedAlert = $('.js-fail-alert');
-    failedAlert.hide();
-
+loginbutton.on('click', () => {    
+    let loginFailedAlert = $('.js-login-fail-alert');
     let username = $('.js-userName').val();
     
     let id =
@@ -33,41 +12,13 @@ loginbutton.on('click', () => {
             data: JSON.stringify(username)
         }).done(function (data) {
 
-            localStorage.setItem(`userId`, data);
-            window.location.href = "/Home/index";
-           // successAlert.html(`User Successfully Logged In`);
-           
-            successAlert.html(`User Successfully Logged In`)
-            successAlert.show()
-            delay(1000);
-            sucessAlert.fadeOut();
-            
+            window.localStorage.setItem(`userId`, data);
+            window.location.href = "/home/index";
 
-
-           
-            //let log = $('.nav - link text - dark');
-            //log.val() = "True";
         }).fail(failureResponse => {
-            failedAlert.show();
+
+            loginFailedAlert.show().delay(500);
+            loginFailedAlert.fadeOut();
             
         });
 });
-
-let logoutbutton = $('.js-user-logout');
-
-logoutbutton.on('click', () => {
- 
-    localStorage.removeItem('userId');
-    
- 
-    window.location.href = "/Home/index";
-    
-
-});
-
-
-
-
-
-
-
