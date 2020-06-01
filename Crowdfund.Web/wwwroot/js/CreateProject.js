@@ -1,14 +1,15 @@
-﻿let projectCreateSuccessAlert = $('.js-project-create-success-alert');
+﻿let input = document.getElementById("myInput");
 
-let projectCreateFailedAlert = $('.js-project-create-fail-alert');
 
 // **Create Project javascript code**
 let projectbutton = $('.js-project-create-button');
+
 projectbutton.on('click', () => {
+    let projectCreateSuccessAlert = $('.js-project-create-success-alert');
+    projectCreateSuccessAlert.hide();
 
-
-
-
+    let projectCreateFailedAlert = $('.js-project-create-fail-alert');
+    projectCreateFailedAlert.hide();
 
     let id = window.localStorage.getItem('userId');
     //debugger;
@@ -17,7 +18,7 @@ projectbutton.on('click', () => {
     let TotalFund = $('.js-totalFund');
     let Deadline = $('.js-deadline');
     let Category = $('.js-category');
-    let Media = $('.js-media-input');
+    let MediaLink = $('.js-media-input');
 
 
     let data = {
@@ -27,7 +28,7 @@ projectbutton.on('click', () => {
         Deadline: Deadline.val(),
         CreatorId: parseInt(id),
         Category: Category.val(),
-        Media: Media.val()
+        MediaLink: MediaLink.val()
     };
 
     $.ajax({
@@ -35,17 +36,23 @@ projectbutton.on('click', () => {
         url: '/project/create',
         contentType: 'application/json',
         data: JSON.stringify(data)
-    }).done(successResponse => {
-
-        projectCreateSuccessAlert.html(`Project created `);
+    }).done(project => {
+        let projectId = project.projectId;
+        //debugger;
+        projectCreateSuccessAlert.html(`Project ${project.title} created succesfully`);
 
         projectCreateSuccessAlert.show();
-
-    }).fail(failureResponse => {
+        window.location.href = "/project/"+projectId+"/addreward";
+    }).fail(errorCode => {
+        projectCreateFailedAlert.html(`Project failed due to error: ${errorCode.statusText}`);
         projectCreateFailedAlert.show();
 
     });
+});
 
-
-
+$('.js-create-project-form').keypress(function (e) {
+    if (e.which == 13) {
+        projectbutton.click();
+        return false;    //<---- Add this line
+    }
 });

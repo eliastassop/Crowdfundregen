@@ -1,0 +1,30 @@
+﻿@model Crowdfund.Core.Models.Project
+
+    <form method="post" class="js-add-reward-form">
+        <h2>Add Media Item</h2>
+        <br />
+        <!-- ProjectId-->
+        <div class="form-group row">
+            <label for="projectId">Project Id</label>
+            <input name="projectId"
+                   class="js-media-projectId form-control" value="@Model.ProjectId" readonly>
+        </div>
+        <!-- Url-->
+        <div class="form-group row">
+            <label for="mediaUrl">Enter Media URL</label>
+            <input name="mediaUrl" placeholder="Enter the external url for the media item "
+                   class="js-media-title form-control">
+        </div>
+
+        <div class="form-group row">
+            <label for="category">Project Category</label>
+            <select id="inputCategory" class="js-category form-control">
+                <option selected>Pick a Category</option>
+                @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.MediaCategory)))
+                    {
+                        <option>@cat</option>
+                    }
+                }
+            </select>
+        </div>
+    </form>

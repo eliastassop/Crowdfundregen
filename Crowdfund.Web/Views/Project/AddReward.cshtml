@@ -1,0 +1,50 @@
+﻿@model Crowdfund.Core.Models.Project
+<h1> @Model.Title</h1>
+
+    <form method="post" class="js-add-reward-form">
+        <h2>Add Reward</h2>
+        <br />
+        <!-- ProjectId-->
+        <div class="form-group row">
+            <label for="projectId">Project Id</label>
+            <input name="projectId"
+                   class="js-reward-projectId form-control" value="@Model.ProjectId" readonly>
+        </div>
+        <!-- Title-->
+        <div class="form-group row">
+            <label for="title">Title</label>
+            <input name="title" placeholder="Enter the title of the reward"
+                   class="js-reward-title form-control">
+        </div>
+
+        <!-- Description -->
+        <div class="form-group row">
+            <label for="description">Description</label>
+            <textarea class="js-reward-description form-control" placeholder="Enter the description for your reward" rows="5"></textarea>
+        </div>
+
+        <!-- Total Fund -->
+        <div class="form-group row">
+            <label for="totalFund">Price</label>
+            <input class="js-reward-price form-control" placeholder="Enter the price of the reward" type="number">
+        </div>
+
+        <button type="button" class="btn btn-primary js-create-reward-button">
+            Add Reward
+        </button>
+
+        <button type="button" class="btn btn-primary js-goto-project-button">
+            Go to project page
+        </button>
+
+        <div class="alert alert-success js-reward-create-success-alert" role="alert">
+        </div>
+
+        <div class="alert alert-danger js-reward-create-fail-alert" role="alert">
+        </div>
+
+    </form>
+
+@section Scripts {
+    <script src="~/js/AddReward.js" asp-append-version="true"></script>
+}

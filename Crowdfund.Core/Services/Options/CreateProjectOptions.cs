@@ -13,6 +13,6 @@ namespace Crowdfund.Core.Services.Options
         public decimal TotalFund { get; set; }
         public string Category { get; set; }
         public DateTime Deadline { get; set; }
-        //public List<Media> Media { get; set; }
+        public string MediaLink { get; set; }
     }
 }
