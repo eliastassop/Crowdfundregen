@@ -1,4 +1,8 @@
-﻿@{
+﻿
+@model List<Crowdfund.Core.Models.Project>
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,50 +13,60 @@
     <p style="text-align: center;
             color: goldenrod;
             font-weight: bold; font-size:25px">Start your Project</p>
+</div>
+
+<img src="~/css/fund.png" id="home-image" alt="fund" width="300" height="250">
+<br />
+<br />
+<!-- Grid row -->
+<div class="row">
+
+    <!-- Grid column -->
+    <div class="col-md-12 d-flex justify-content-center mb-5">
+
     </div>
+    <!-- Grid column -->
 
- <img src="~/css/fund.png" id="home-image" alt="fund" width="300" height="250"><br /><br />
-            <!-- Grid row -->
-            <div class="row">
+</div>
+<p id="Browsing">Trending Projects</p>
+<!-- Grid row -->
+<!-- Grid row -->
+<div class="gallery" id="gallery">
 
-                <!-- Grid column -->
-                <div class="col-md-12 d-flex justify-content-center mb-5">
+    <!-- Grid column -->
+    <div class="mb-3 pics animation all 2">
+        <img src="~/css/kick2.jpg" alt="Girl in a jacket" width="150" height="150"><br />
+        <div><a class="trending" href="">See more..</a></div>
+    </div>
+    <!-- Grid column -->
+    <!-- Grid column -->
+    <div class="mb-3 pics animation all 1">
+        <img src="~/css/kick1.png" alt="Girl in a jacket" width="150" height="150">
+        <div><a class="trending" href="">See more..</a></div>
+    </div>
+    <!-- Grid column -->
+    <!-- Grid column -->
+    <div class="mb-3 pics animation all 1">
+        <img src="~/css/kick3.png" alt="Girl in a jacket" width="150" height="150">
+        <div><a class="trending" href="">See more..</a></div>
+    </div>
+    <div class="mb-3 pics animation all 1">
+        <img src="~/css/kick4.jpg" alt="Girl in a jacket" width="150" height="150">
+        <div><a class="trending" href="">See more..</a></div>
+    </div>
+    <!-- Grid column -->
+    <!-- Grid column -->
+    <div class="mb-3 pics animation all 1">
+        <img src="~/css/kick5.png" alt="Girl in a jacket" width="150" height="150">
+        <div><a class="trending" href="">See more..</a></div>
+    </div>
+</div>
+<!-- Grid row -->
 
-                </div>
-                <!-- Grid column -->
 
-            </div>
-            <p id="Browsing">Trending Projects</p>
-            <!-- Grid row -->
-            <!-- Grid row -->
-            <div class="gallery" id="gallery">
-
-                <!-- Grid column -->
-                <div class="mb-3 pics animation all 2">
-                    <img src="~/css/kick2.jpg" alt="Girl in a jacket" width="150" height="150"><br />
-                    <div><a class="trending" href="" >See more..</a></div>
-                </div>
-                <!-- Grid column -->
-                <!-- Grid column -->
-                <div class="mb-3 pics animation all 1">
-                    <img src="~/css/kick1.png" alt="Girl in a jacket" width="150" height="150">
-                    <div><a class="trending" href="">See more..</a></div>
-                </div>
-                <!-- Grid column -->
-                <!-- Grid column -->
-                <div class="mb-3 pics animation all 1">
-                    <img src="~/css/kick3.png" alt="Girl in a jacket" width="150" height="150">
-                    <div><a class="trending" href="">See more..</a></div>
-                </div>
-                <div class="mb-3 pics animation all 1">
-                    <img src="~/css/kick4.jpg" alt="Girl in a jacket" width="150" height="150">
-                    <div><a class="trending" href="">See more..</a></div>
-                </div>
-                <!-- Grid column -->
-                <!-- Grid column -->
-                <div class="mb-3 pics animation all 1">
-                    <img src="~/css/kick5.png" alt="Girl in a jacket" width="150" height="150">
-                    <div><a class="trending" href="">See more..</a></div>
-                </div>
-            </div>
-            <!-- Grid row -->
+@*@foreach (var p in Model)
+{
+    <div class="mb-3 pics animation all 2">
+        <p>@p.Title</p>
+    </div>
+}*@
