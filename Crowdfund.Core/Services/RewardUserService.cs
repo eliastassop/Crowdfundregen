@@ -24,46 +24,74 @@ namespace Crowdfund.Core.Services
             rewardService_ = rewardService;
         }
 
-        public Result<RewardUser> CreateRewardUser(CreateRewardUserOptions options)
+        public Result<RewardUser> CreateOrUpdateRewardUser(CreateRewardUserOptions options)
         {
             if (options == null)
             {
                 return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
-            
-            var user = userService_.GetUserById(options.UserId).Data;
-            var reward = rewardService_.GetRewardById(options.RewardId).Data;
-            var project = projectService_.GetProjectByRewardId(options.RewardId).Data;
-            if (user == null || reward == null || project == null)
+            var rewardUserTest = GetRewardUserById(options.UserId, options.RewardId);
+            if (rewardUserTest.Success)
             {
-                return Result<RewardUser>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                var rewardUser = rewardUserTest.Data;
+                var project = projectService_.GetProjectByRewardId(options.RewardId).Data;
+
+                if (rewardUser == null)
+                {
+                    return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, $"Backer with {options.UserId} was not found");
+                }
+
+                if (rewardUser.IsValidQuantity(options.Quantity))
+                {
+                    rewardUser.Quantity = options.Quantity + rewardUser.Quantity;
+                }
+
+                projectService_.UpdateCurrentFund(project);
+
+                if (context_.SaveChanges() == 0)
+                {
+                    return Result<RewardUser>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                }
+
+                return Result<RewardUser>.CreateSuccessful(rewardUser);
             }
-
-            var rewardUser = new RewardUser()
+            else
             {
-                User = user,
-                Reward = reward,
-                Quantity = options.Quantity
-            };
+                var user = userService_.GetUserById(options.UserId).Data;
+                var reward = rewardService_.GetRewardById(options.RewardId).Data;
+                var project = projectService_.GetProjectByRewardId(options.RewardId).Data;
+                if (user == null || reward == null || project == null)
+                {
+                    return Result<RewardUser>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                }
 
-            if (!rewardUser.IsValidQuantity(options.Quantity))
-            {
-                return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, "Please check the options for quantity");
+
+                var rewardUser = new RewardUser()
+                {
+                    User = user,
+                    Reward = reward,
+                    Quantity = options.Quantity
+                };
+
+                if (!rewardUser.IsValidQuantity(options.Quantity))
+                {
+                    return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, "Please check the options for quantity");
+                }
+
+
+                project.RewardUsers.Add(rewardUser);
+
+                projectService_.UpdateCurrentFund(project);
+
+                if (context_.SaveChanges() <= 0)
+                {
+                    return Result<RewardUser>.CreateFailed(
+                        StatusCode.InternalServerError,
+                        "Backer could not be created");
+                }
+
+                return Result<RewardUser>.CreateSuccessful(rewardUser);
             }
-
-
-            project.RewardUsers.Add(rewardUser);
-
-            projectService_.UpdateCurrentFund(project);
-
-            if (context_.SaveChanges() <= 0)
-            {
-                return Result<RewardUser>.CreateFailed(
-                    StatusCode.InternalServerError,
-                    "Backer could not be created");
-            }
-
-            return Result<RewardUser>.CreateSuccessful(rewardUser);
         }
 
         public IQueryable<Project> SearchProjectsFundedByUser(int userId)
@@ -94,31 +122,31 @@ namespace Crowdfund.Core.Services
             return Result<RewardUser>.CreateSuccessful(rewardUser);
         }
 
-        public Result<bool> UpdateRewardUser(int rewardId, int userId, int quantity)
-        {
+        //public Result<bool> UpdateRewardUser(CreateRewardUserOptions options)
+        //{
             
-            var rewardUser = GetRewardUserById(userId, rewardId).Data;
-            var project = projectService_.GetProjectByRewardId(rewardId).Data;
+        //    var rewardUser = GetRewardUserById(options.UserId, options.RewardId).Data;
+        //    var project = projectService_.GetProjectByRewardId(options.RewardId).Data;
 
-            if (rewardUser == null)
-            {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Backer with {userId} was not found");
-            }
+        //    if (rewardUser == null)
+        //    {
+        //        return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Backer with {options.UserId} was not found");
+        //    }
             
-            if (rewardUser.IsValidQuantity(quantity))
-            {
-                rewardUser.Quantity = quantity + rewardUser.Quantity;
-            }
+        //    if (rewardUser.IsValidQuantity(options.Quantity))
+        //    {
+        //        rewardUser.Quantity = options.Quantity + rewardUser.Quantity;
+        //    }
 
-            projectService_.UpdateCurrentFund(project);
+        //    projectService_.UpdateCurrentFund(project);
 
-            if (context_.SaveChanges() == 0)
-            {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
-            }
+        //    if (context_.SaveChanges() == 0)
+        //    {
+        //        return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+        //    }
 
-            return Result<bool>.CreateSuccessful(true);
-        }
+        //    return Result<bool>.CreateSuccessful(true);
+        //}
 
         public Result<bool> DeleteRewardUser(int userId, int rewardId) // refund
         {

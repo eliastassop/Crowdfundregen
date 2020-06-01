@@ -33,9 +33,8 @@
             Add Reward
         </button>
 
-        <button type="button" class="btn btn-primary js-goto-project-button">
-            Go to project page
-        </button>
+        <a href="@Url.Action("ProjectInfo","Project",new { id = Model.ProjectId})" type="button" class="btn btn-primary js-goto-project-button">
+            Go to project page </a>        
 
         <div class="alert alert-success js-reward-create-success-alert" role="alert">
         </div>

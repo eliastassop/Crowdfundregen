@@ -9,8 +9,8 @@ namespace Crowdfund.Core.Services
 {
     public interface IRewardUserService
     {
-        Result<RewardUser> CreateRewardUser(CreateRewardUserOptions options);
-        Result<bool> UpdateRewardUser(int rewardId, int userId, int quantity);
+        Result<RewardUser> CreateOrUpdateRewardUser(CreateRewardUserOptions options);
+        //Result<bool> UpdateRewardUser(CreateRewardUserOptions options);
         Result<bool> DeleteRewardUser(int userId, int rewardId);
         //bool UpdateRewardUser(UpdateRewardUserOptions options);
         IQueryable<Project> SearchProjectsFundedByUser(int userId);
