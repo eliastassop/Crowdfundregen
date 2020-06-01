@@ -61,11 +61,10 @@ namespace Crowdfund.Web.Controllers
             return View(usermodel);
            
         }
-        //public IActionResult UserPersonalInfoCard()
-        //{
-        // var user = userService_.GetUserById(1).Data;
-        // return Json(user);
-        //}
+        
+        
+       
+       
         [HttpPost("create")]
         public IActionResult CreateUser([FromBody] CreateUserOptions options) 
         {
@@ -78,10 +77,15 @@ namespace Crowdfund.Web.Controllers
             return StatusCode((int)user.ErrorCode, user.ErrorText);
             
 
-        }        
-        public IActionResult UpdateUserPersonalInfo()
+        }
+
+        [HttpPost("{id}/updateuserpersonalinfo")]
+        public IActionResult UpdateUserPersonalInfo(string id, [FromBody] UpdateUserOptions options)
         {
-            return View();
+            var userId = int.Parse(id);
+            var update = userService_.UpdateUser(userId,options);
+            return Json(update.Data);
+            
         }
         public IActionResult ProjectsBacked()
         {
