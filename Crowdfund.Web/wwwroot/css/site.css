@@ -13,9 +13,9 @@ a {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fab414;
+    background-color: #083f88;
+    /*border-color: #083f88;*/
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -100,12 +100,20 @@ body {
     display: none;
 }
 
-.juser-login {
+.user-login {
     display: none;
 }
 
 .js-user-logout {
     display: none;
 }
+.js-user-create-success-alert { 
+    display: none;
+}
+
+.js-user-create-fail-alert {
+    display: none;
+}
+
 
 

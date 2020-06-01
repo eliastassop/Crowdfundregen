@@ -1,4 +1,4 @@
-﻿
+﻿@model Crowdfund.Core.Services.Options.CreateUserOptions
 @{
     ViewData["Title"] = "LogIn";
 }
@@ -13,7 +13,7 @@
     <!-- Firstname-->
     <div class="form-group">
         <label for="userName">User Name</label>
-        <input name="userName" placeholder="Enter your UserName"
+        <input name="userName" placeholder="Enter your User Name"
                class="js-userName form-control" />
     </div>
 
@@ -25,13 +25,40 @@
     <div class="alert alert-danger js-login-fail-alert" role="alert">
         No Such User Exists
     </div>
-    @*<div class="alert alert-danger js-login-first-alert" role="alert">
-            You must login first!!!!!
-        </div>*@
+
 
 
 </form>
 
-@section Scripts {
-    <script src="~/js/loginAndOut.js" asp-append-version="true"></script>
-}
+<h2>Create Account</h2>
+
+<form method="post" class="js-create-account-form">
+    <!-- Create User Form-->
+    <div class="second-login-form-group-username">
+        <label for="createUserName">UserName</label>
+        <input name="userName" placeholder="Enter your User Name"
+               class="js-create-userName form-control" />
+    </div>
+
+    <div class="second-login-form-group-email">
+        <label for="createEmail">Email</label>
+        <input name="email" placeholder="Enter your Email"
+               class="js-create-email form-control" />
+    </div>
+    <button type="button" class="btn btn-primary js-create-user-button">
+        Create
+    </button>
+
+
+    <div class="alert alert-success js-user-create-success-alert" role="alert">
+    </div>
+
+    <div class="alert alert-danger js-user-create-fail-alert" role="alert">
+        User could not be created
+    </div>
+</form>
+
+    @section Scripts {
+        <script src="~/js/loginAndOut.js" asp-append-version="true"></script>
+        <script src="~/js/CreateUser.js" asp-append-version="true"></script>
+    }
