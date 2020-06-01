@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Crowdfund.Core.Data;
 using Crowdfund.Core.Services;
+using Crowdfund.Core.Services.Options;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crowdfund.Web.Controllers
 {
-    [Route("project/{projectid}")]
+    [Route("reward")]
     public class RewardController : Controller
     {
 
@@ -39,10 +40,18 @@ namespace Crowdfund.Web.Controllers
         {
             return View();
         }
-        public IActionResult AddReward()
+        [HttpPost("create")]
+        public IActionResult CreateReward([FromBody] CreateRewardOptions options)//landingpage
         {
-            return View();
+
+            var result = rewardService_.CreateReward(options);
+            if (result.Success)
+            {
+                return Json(result.Data);
+            }
+            return StatusCode((int)result.ErrorCode, result.ErrorText);
         }
+        
         public IActionResult UpdateReward()
         {
             return View();

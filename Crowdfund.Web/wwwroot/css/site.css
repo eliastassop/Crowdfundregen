@@ -95,6 +95,13 @@ body {
 .js-project-create-fail-alert {
     display: none;
 }
+.js-reward-create-success-alert{
+    display:none;
+}
+
+.js-reward-create-fail-alert{
+    display:none;
+}
 
 .js-user-pi {
     display: none;

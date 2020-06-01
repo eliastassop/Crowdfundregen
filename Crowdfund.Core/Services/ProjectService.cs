@@ -43,18 +43,29 @@ namespace Crowdfund.Core.Services
                 Deadline = options.Deadline
             };
             
+
             if (!project.IsValidCategory(cat) 
                 || !project.IsValidDeadline(options.Deadline) 
                 || !project.IsValidDescription(options.Description) 
                 || !project.IsValidTitle(options.Title) 
-                || !project.IsValidTotalFund(options.TotalFund))
+                || !project.IsValidTotalFund(options.TotalFund)
+                || string.IsNullOrWhiteSpace(options.MediaLink))
             {
                 return Result<Project>.CreateFailed(StatusCode.BadRequest, "Please check the validations");
 
             }
             //validation prin mpei sti vasi
+
+
+            var media = new Media()
+            {
+                MediaLink = options.MediaLink,
+                Category = MediaCategory.Photo,
+            };
+
+            project.Media.Add(media);
             user.Projects.Add(project);
-            //context_.Add(user);
+
             if (context_.SaveChanges() <= 0)
             {
                 return Result<Project>.CreateFailed(
@@ -64,7 +75,7 @@ namespace Crowdfund.Core.Services
 
             return Result<Project>.CreateSuccessful(project);
 
-        }        
+        }
 
         public IQueryable<Project> SearchProjects(SearchProjectOptions options)
         {
@@ -157,7 +168,8 @@ namespace Crowdfund.Core.Services
             var project= SearchProjects(new SearchProjectOptions()
             {
                 ProjectId = projectId
-            }).Include(a=> a.RewardUsers)
+            }).Include(a=>a.Media)
+            .Include(a=> a.RewardUsers)
             .ThenInclude(a=> a.Reward)
             .SingleOrDefault();
             if (project == null)

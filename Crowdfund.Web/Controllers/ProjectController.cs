@@ -29,15 +29,21 @@ namespace Crowdfund.Web.Controllers
             rewardUserService_ = new RewardUserService(context, userService_, projectService_, rewardService_);
         }
        
-        //
+        
         
         [HttpPost("create")]
         public IActionResult CreateProjectDatabase([FromBody] CreateProjectOptions options)//landingpage
         {
 
             var result= projectService_.CreateProject(options);
-            return Json(result);
+            if (result.Success)
+            {
+                return Json(result.Data);
+            }
+            return StatusCode((int)result.ErrorCode, result.ErrorText);            
         }
+        
+        
         [HttpGet("{id}/projectinfo")]
         public IActionResult ProjectInfo(string id)//landingpage
         {
@@ -63,9 +69,16 @@ namespace Crowdfund.Web.Controllers
         {
             return View();
         }
-        public IActionResult AddReward()
+
+        [HttpGet("{projectId}/addreward")]
+        public IActionResult AddReward(string projectId)
         {
-            return View();
+            var project = projectService_.GetProjectById(int.Parse(projectId));
+            //if (!project.Success)
+            //{
+            //    return StatusCode((int)project.ErrorCode, project.ErrorText);
+            //}
+            return View(project.Data);
         }
         public IActionResult UpdateReward()
         {
@@ -75,10 +88,17 @@ namespace Crowdfund.Web.Controllers
         {
             return View();
         }
-        public IActionResult AddMedia()
+
+        [HttpGet("{projectId}/addmedia")]
+        public IActionResult AddMedia(string projectId)
         {
-            return View();
-        }
+            var project = projectService_.GetProjectById(int.Parse(projectId));
+            //if (!project.Success)
+            //{
+            //    return StatusCode((int)project.ErrorCode, project.ErrorText);
+            //}
+            return View(project.Data);
+        }        
         public IActionResult UpdateMedia()
         {
             return View();
