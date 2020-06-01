@@ -29,10 +29,4 @@ UpdateProfileButton.on('click', () => {
     });
 
 
-
-   
-
-
-
-
 });

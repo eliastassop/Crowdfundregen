@@ -39,7 +39,7 @@ namespace Crowdfund.Core.Services
             //check duplicate
             if (!CheckDuplicates(options.Email, options.UserName))
             {
-                return Result<User>.CreateFailed(StatusCode.BadRequest,"The username or Email already exists");
+                return Result<User>.CreateFailed(StatusCode.BadRequest,"The Username or Email already exists");
             }
                         
             context_.Add(user);
@@ -139,9 +139,11 @@ namespace Crowdfund.Core.Services
         public bool CheckDuplicates(string email, string userName) 
         {
             if (SearchUser(new SearchUserOptions()
-            {
-                Email = email,
+            {               
                 UserName = userName,
+            }).Any()|| SearchUser(new SearchUserOptions()
+            {
+                Email = email,                
             }).Any())
             {
                 return false;

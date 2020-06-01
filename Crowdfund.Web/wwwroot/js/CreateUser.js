@@ -34,6 +34,7 @@ createbutton.on('click', () => {
         window.location.href = "/user/"+id+"/userpersonalinfo";
 
     }).fail(failureResponse => {
+        userCreateFailedAlert.html(`${failureResponse.responseText}`)
         userCreateFailedAlert.show();
 
     });
