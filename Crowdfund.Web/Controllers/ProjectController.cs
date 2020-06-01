@@ -44,6 +44,19 @@ namespace Crowdfund.Web.Controllers
         }
         
         
+        [HttpGet("{id}/projectinfo")]
+        public IActionResult ProjectInfo(string id)//landingpage
+        {
+
+            var project = projectService_.GetProjectById(int.Parse(id));
+            if (!project.Success)
+            {
+                return StatusCode((int)project.ErrorCode, project.ErrorText);
+            }
+            
+            return View(project.Data);
+
+        }
         public IActionResult ViewProjectRewards()//redirect
         {
             return View();

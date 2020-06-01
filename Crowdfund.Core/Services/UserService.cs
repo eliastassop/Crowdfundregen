@@ -173,7 +173,7 @@ namespace Crowdfund.Core.Services
                 user.UserName = options.UserName;
             }
 
-            if (user.IsValidUsername(options.Email))
+            if (user.IsValidEmail(options.Email))
             {
                 user.Email = options.Email;
             }

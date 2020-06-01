@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Crowdfund.Core.Data;
 using Crowdfund.Core.Services;
+using Crowdfund.Core.Services.Options;
 using Crowdfund.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace Crowdfund.Web.Controllers
 {
-    [Route("User")]
+    [Route("user")] // isws dhmiourgisei provlima
     public class UserController : Controller
     {
         private IUserService userService_;
@@ -60,15 +61,31 @@ namespace Crowdfund.Web.Controllers
             return View(usermodel);
            
         }
-        //public IActionResult UserPersonalInfoCard()
-        //{
-           // var user = userService_.GetUserById(1).Data;
-           // return Json(user);
-        //}
+        
+        
        
-        public IActionResult UpdateUserPersonalInfo()
+       
+        [HttpPost("create")]
+        public IActionResult CreateUser([FromBody] CreateUserOptions options) 
         {
-            return View();
+            
+            var user = userService_.CreateUser(options);
+            if (user.Success)
+            {
+                return Json(user.Data);
+            }
+            return StatusCode((int)user.ErrorCode, user.ErrorText);
+            
+
+        }
+
+        [HttpPost("{id}/updateuserpersonalinfo")]
+        public IActionResult UpdateUserPersonalInfo(string id, [FromBody] UpdateUserOptions options)
+        {
+            var userId = int.Parse(id);
+            var update = userService_.UpdateUser(userId,options);
+            return Json(update.Data);
+            
         }
         public IActionResult ProjectsBacked()
         {
