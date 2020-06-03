@@ -1,19 +1,23 @@
-﻿@model ExploreViewModel
+﻿@model SearchByTextViewModel
 @{
-    ViewData["Title"] = "Explore";
+    ViewData["Title"] = "SearchProjectsByText";
 }
 
-<h1>Explore @Model.Category's Projects</h1>
+    <h1>Projects Matching : @Model.Text</h1>
 
 
 
 
-    <!--Projects card by spyros-->
-    <div class="container-fluid bg-3 text-center">
-        <div class="row">
+<div class="container-fluid bg-3 text-center">
+    <div class="row">
+
+      
+
+
             @foreach (var p in Model.ProjectList)
             {
-                
+                 
+
                 <div class="col-sm-3" style="margin-right:90px">
                     <div class="card border-secondary mb-3" style="width: 18rem;">
                         <img src="~/css/nba.jpg" class="card-img-top" alt="...">
@@ -27,26 +31,26 @@
                                     40%(Fund)
                                 </div>
                             </div><br />
-                            <a href="@Url.Action("projectinfo","project",new { id = p.ProjectId })" type="button" class="btn btn-primary">See more</a>
+                            <a href="@Url.Action("ProjectInfo", "Project", new { id = p.ProjectId })" type="button" class="btn btn-primary">See more</a>
                         </div>
                     </div>
                 </div>
             }
-            <!--Jumbotron for no project found of category-->
-            @if ((!Model.ProjectList.Any()))
-            {
-               
-               
-                
-                <div class="jumbotron">
-                    <h1 class="display-4">Sorry! there are no projects of <b>@Model.Category</b> category!</h1>
-                    <p class="lead">Maybe you should consider creating one before you ask me to show you one.</p>
-                    <hr class="my-4">
-                    <p>Lets go do so.</p>
-                    <a class="btn btn-primary btn-lg js-explore-none-button" href="@Url.Action("createproject","home")" role="button">Create your dream project.</a>
-                </div>
+        
 
-            }
-        </div>
-        <br><br>
+        @if (!Model.ProjectList.Any())
+        {
+
+            <div class="jumbotron">
+                <h1 class="display-4">Sorry no projects found matching your search criteria.</h1>
+                <p class="lead">maybe create your own</p>
+                <a class="btn btn-primary btn-lg js-explore-none-button" href="@Url.Action("createproject","home")" role="button">Create your dream project.</a>
+
+
+
+            </div>
+
+        }
     </div>
+    <br><br>
+</div>

@@ -118,14 +118,43 @@
 <div class="tab-content" id="myTabContent">
     <br />
     <!--Description Tab Area-->
-    <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description" style="background-color: #f5f5f5;width: 46rem;border: 0.25rem solid #083f88; padding: 7rem; margin-left: 9rem;">
-        kasdsdfg
+    <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description" >
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to project Description Panel</h1>
+            <p class="lead">@Model.Description</p>
+            
+            <!--isws scrollbar gia megala description-->
+           
+        </div>
     </div>
 
 
     <!--StatusUpdate Tab area-->
-    <div class="tab-pane fade" id="statusupdate-tab-area" role="tabpanel" aria-labelledby="Recent Updates" style="background-color: #f5f5f5;width: 46rem;border: 0.25rem solid #083f88; padding: 7rem; margin-left: 9rem;">
-        safgasfgGDFS
+    <div class="tab-pane fade" id="statusupdate-tab-area" role="tabpanel" aria-labelledby="Recent Updates"  >
+        <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description">
+            <div class="jumbotron">
+                <!--edw to button add statusupdate-->
+                <h1 class="display-4">Welcome to project StatusUpdates Panel</h1>
+                @if (Model.StatusUpdate.Any())
+                {
+                    foreach (var p in Model.StatusUpdate)
+                    {
+                        <p class="lead"> @p.Title</p>
+                        <p class="lead"> @p.Description</p>
+                        <p class="lead"> @p.UpdateCreated</p>
+
+                    }
+                }
+                else
+                {
+                    <h1 class="display-4">not welcome to project StatusUpdates Panel</h1>
+                }
+                <a href="@Url.Action("stsupdatefunc","instatusupdatecontroler",new { id = @Model.ProjectId })" type="button" class="btn btn-primary">NA PATHEIS KATI KAKO SHMERA MPOURDELO MOU XEIS FAEI TH ZWH</a>
+
+
+
+            </div>
+        </div>
     </div>
 
     <!--Rewards-->
