@@ -65,9 +65,12 @@ namespace Crowdfund.Web.Controllers
         {
             return View();
         }
-        public IActionResult UpdateProject()
+        [HttpPost("{projectid}/updateproject")]
+        public IActionResult UpdateProject(string projectid,[FromBody]UpdateProjectOptions options)
         {
-            return View();
+            var projectid_ = int.Parse(projectid);
+            var project = projectService_.UpdateProject(projectid_, options);
+            return Json(project.Data);
         }
 
         [HttpGet("{projectId}/addreward")]

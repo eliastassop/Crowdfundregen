@@ -202,10 +202,10 @@ namespace Crowdfund.Core.Services
                // return Result<bool>.UpdateFailed(StatusCode.BadRequest, "The Tittle is not valid");
 
             }
-
-            if (project.IsValidCategory(options.Category))
+            var cat = (ProjectCategory)Enum.Parse(typeof(ProjectCategory), options.Category, true);
+            if (project.IsValidCategory(cat))
             {
-                project.Category = options.Category;
+                project.Category = cat;
             }
             
 

@@ -31,7 +31,7 @@ namespace Crowdfund.Core.Services
                 return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
             var rewardUserTest = GetRewardUserById(options.UserId, options.RewardId);
-            if (rewardUserTest.Success)
+            if (rewardUserTest.Success) //update
             {
                 var rewardUser = rewardUserTest.Data;
                 var project = projectService_.GetProjectByRewardId(options.RewardId).Data;
@@ -46,16 +46,16 @@ namespace Crowdfund.Core.Services
                     rewardUser.Quantity = options.Quantity + rewardUser.Quantity;
                 }
 
-                projectService_.UpdateCurrentFund(project);
+                
 
-                if (context_.SaveChanges() == 0)
+                if (!projectService_.UpdateCurrentFund(project).Success)
                 {
                     return Result<RewardUser>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
                 }
 
                 return Result<RewardUser>.CreateSuccessful(rewardUser);
             }
-            else
+            else //create
             {
                 var user = userService_.GetUserById(options.UserId).Data;
                 var reward = rewardService_.GetRewardById(options.RewardId).Data;
@@ -81,16 +81,13 @@ namespace Crowdfund.Core.Services
 
                 project.RewardUsers.Add(rewardUser);
 
-                projectService_.UpdateCurrentFund(project);
-
-                if (context_.SaveChanges() <= 0)
+                if (!projectService_.UpdateCurrentFund(project).Success)
                 {
-                    return Result<RewardUser>.CreateFailed(
-                        StatusCode.InternalServerError,
-                        "Backer could not be created");
+                    return Result<RewardUser>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
                 }
 
                 return Result<RewardUser>.CreateSuccessful(rewardUser);
+               
             }
         }
 
@@ -162,16 +159,15 @@ namespace Crowdfund.Core.Services
 
             project.RewardUsers.Remove(rewardUser);
             context_.Remove(rewardUser);
-            
 
-            projectService_.UpdateCurrentFund(project);
 
-            if (context_.SaveChanges() == 0)
+            if (!projectService_.UpdateCurrentFund(project).Success)
             {
                 return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
             }
 
             return Result<bool>.CreateSuccessful(true);
+
         }
     }
 }

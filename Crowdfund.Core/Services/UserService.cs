@@ -76,11 +76,12 @@ namespace Crowdfund.Core.Services
         }
         public IQueryable<User> SearchUser(SearchUserOptions options)
         {
-            if (options.UserId == null
-                &&options.UserCreatedFrom==null
-                &&options.UserCreatedTo==null
-                &&string.IsNullOrWhiteSpace(options.UserName)
-                &&string.IsNullOrWhiteSpace(options.Email))
+            //if (options.UserId == null
+            //    &&options.UserCreatedFrom==null
+            //    &&options.UserCreatedTo==null
+            //    &&string.IsNullOrWhiteSpace(options.UserName)
+            //    &&string.IsNullOrWhiteSpace(options.Email))
+            if(options==null)
             {
                 return null;
             }

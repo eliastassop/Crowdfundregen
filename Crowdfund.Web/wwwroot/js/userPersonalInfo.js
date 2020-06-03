@@ -7,9 +7,11 @@ UpdateProfileButton.on('click', () => {
     let userid = window.localStorage.getItem('userId');
     
     let Email = $('.js-update-email');
+    let UserName = $('.js-update-username');
     //debugger;
 
     let data = {
+        UserName = UserName.val(),
         Email : Email.val()
     };
 
