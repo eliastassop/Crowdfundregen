@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace Crowdfund.Web.Controllers
 {
-    [Route("user")] // isws dhmiourgisei provlima
+    [Route("user")] 
     public class UserController : Controller
     {
         private IUserService userService_;

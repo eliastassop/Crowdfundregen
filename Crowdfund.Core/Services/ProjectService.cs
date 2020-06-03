@@ -168,8 +168,8 @@ namespace Crowdfund.Core.Services
             var project= SearchProjects(new SearchProjectOptions()
             {
                 ProjectId = projectId
-            }).Include(a=>a.Media)
-            .Include(a=> a.RewardUsers)
+            }).Include(a=>a.Media).Include(a=>a.StatusUpdate) //edw
+            .Include(a=> a.RewardUsers)            
             .ThenInclude(a=> a.Reward)
             .SingleOrDefault();
             if (project == null)

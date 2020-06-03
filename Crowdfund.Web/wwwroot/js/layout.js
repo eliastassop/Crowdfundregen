@@ -36,3 +36,14 @@ PersonalInfoButton.on('click', () => {
         window.location.href = "/home/login";
     }
 });
+
+
+let searchtext = $('.js-search-bar-text');
+let searchbutton = $('.js-search-bar-go');
+
+
+searchbutton.on('click', () => {
+    let text = searchtext.val()
+   
+    window.location.href = '/project/' + text + '/searchbytext';
+ });
