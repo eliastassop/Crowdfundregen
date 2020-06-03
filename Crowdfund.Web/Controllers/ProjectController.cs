@@ -128,7 +128,7 @@ namespace Crowdfund.Web.Controllers
             return View(project.Data);
         }
 
-        [HttpGet("{projectId}/updatestatusupdate")]
+        [HttpGet("{statusUpdateId}/updatestatusupdate")]
         public IActionResult UpdateStatusUpdate(string statusUpdateId)
         {
             var statusUpdate = statusUpdateService_.GetStatusUpdateById(int.Parse(statusUpdateId));

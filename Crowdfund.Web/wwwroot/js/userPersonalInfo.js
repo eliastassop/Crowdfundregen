@@ -11,7 +11,7 @@ UpdateProfileButton.on('click', () => {
     //debugger;
 
     let data = {
-        UserName = UserName.val(),
+        UserName: UserName.val(),
         Email : Email.val()
     };
 
@@ -29,6 +29,5 @@ UpdateProfileButton.on('click', () => {
         updatefailed.fadeOut();
 
     });
-
 
 });
