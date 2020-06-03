@@ -158,6 +158,12 @@ namespace Crowdfund.Core.Services
                     .Where(c => c.AvailableRewards.Any(a => a.RewardId == options.RewardId.Value));
             }
 
+            if (options.StatusUpdateId != null)
+            {
+                query = query
+                    .Where(c => c.StatusUpdates.Any(a => a.StatusUpdateId == options.StatusUpdateId.Value));
+            }
+
             query = query.Take(500);
             return query;            
         }
@@ -179,7 +185,7 @@ namespace Crowdfund.Core.Services
             return Result<Project>.CreateSuccessful(project);
         }
 
-        public Result<bool> UpdateProject(int projectId,UpdateProjectOptions options)
+        public Result<bool> UpdateProject(int projectId, UpdateProjectOptions options)
         {
             if (options == null)
             {
@@ -190,7 +196,7 @@ namespace Crowdfund.Core.Services
 
             if (project == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.NotFound, $"Project with {projectId} was not found");
+                return Result<bool>.CreateFailed(StatusCode.NotFound, $"Project with ID {projectId} was not found");
             }
 
             if (project.IsValidTitle(options.Title))
@@ -266,7 +272,7 @@ namespace Crowdfund.Core.Services
             }
             return Result<Project>.CreateSuccessful(project);
         }
-
+        
         public Result<bool> UpdateCurrentFund(Project project)
         {
            

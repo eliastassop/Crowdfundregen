@@ -95,12 +95,35 @@ body {
 .js-project-create-fail-alert {
     display: none;
 }
+
 .js-reward-create-success-alert{
     display:none;
 }
-
 .js-reward-create-fail-alert{
     display:none;
+}
+
+.js-media-create-success-alert {
+    display: none;
+}
+.js-media-create-fail-alert {
+    display: none;
+}
+
+.js-statusUpdate-create-success-alert {
+    display: none;
+}
+
+.js-statusUpdate-create-fail-alert {
+    display: none;
+}
+
+.js-statusUpdate-update-success-alert {
+    display: none;
+}
+
+.js-statusUpdate-update-fail-alert {
+    display: none;
 }
 
 .js-user-pi {

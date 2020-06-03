@@ -33,15 +33,16 @@ namespace Crowdfund.Core.Services
 
             var statusupdate = new StatusUpdate()
             {
-                 Title= options.Title,
-                 Description = options.Description,
+                ProjectId = options.ProjectId,
+                Title = options.Title,
+                Description = options.Description,
             };
             if(!statusupdate.IsValidTitle(options.Title) || !statusupdate.IsValidDescription(options.Description))
             {
                 return Result<StatusUpdate>.CreateFailed(StatusCode.BadRequest, "Please check the validations");
             }
 
-            project.StatusUpdate.Add(statusupdate);
+            project.StatusUpdates.Add(statusupdate);
 
             if (context_.SaveChanges() <= 0)
             {
@@ -62,7 +63,7 @@ namespace Crowdfund.Core.Services
                        
             var project = projectService_.GetProjectById(projectId).Data;
 
-            query = query.Where(c => project.StatusUpdate.Contains(c));
+            query = query.Where(c => project.StatusUpdates.Contains(c));
 
             query = query.Take(500);
             return query;
@@ -102,18 +103,18 @@ namespace Crowdfund.Core.Services
             return Result<bool>.CreateSuccessful(true);
         }
 
-        public Result<bool> UpdateStatusUpdate(int statusUpdateId, UpdateStatusUpdateOptions options)
+        public Result<bool> UpdateStatusUpdate(UpdateStatusUpdateOptions options)
         {
             if (options == null)
             {
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
 
-            var statusUpdate = GetStatusUpdateById(statusUpdateId).Data;
+            var statusUpdate = GetStatusUpdateById(options.StatusUpdateId).Data;
 
             if (statusUpdate == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Status update with {statusUpdateId} was not found");
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Status update with ID {options.StatusUpdateId} was not found");
             }
 
             if (!statusUpdate.IsValidTitle(options.Title))

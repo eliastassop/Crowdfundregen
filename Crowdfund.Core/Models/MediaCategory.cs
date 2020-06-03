@@ -7,7 +7,6 @@ namespace Crowdfund.Core.Models
     public enum MediaCategory
     {
         Photo = 1,
-        Video = 2,
-        Other = 3,
+        Video = 2,        
     }
 }

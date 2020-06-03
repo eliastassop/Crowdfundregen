@@ -1,30 +1,51 @@
 ﻿@model Crowdfund.Core.Models.Project
 
-    <form method="post" class="js-add-reward-form">
-        <h2>Add Media Item</h2>
-        <br />
-        <!-- ProjectId-->
-        <div class="form-group row">
-            <label for="projectId">Project Id</label>
-            <input name="projectId"
-                   class="js-media-projectId form-control" value="@Model.ProjectId" readonly>
-        </div>
-        <!-- Url-->
-        <div class="form-group row">
-            <label for="mediaUrl">Enter Media URL</label>
-            <input name="mediaUrl" placeholder="Enter the external url for the media item "
-                   class="js-media-title form-control">
-        </div>
+<form method="post" class="js-add-media-form">
+    <h2>Add Media Item</h2>
+    <br />
 
-        <div class="form-group row">
-            <label for="category">Project Category</label>
-            <select id="inputCategory" class="js-category form-control">
-                <option selected>Pick a Category</option>
-                @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.MediaCategory)))
-                    {
-                        <option>@cat</option>
-                    }
+    <!-- ProjectId-->
+    <div class="form-group row">
+        <label for="projectId">Project Id</label>
+        <input name="projectId"
+               class="js-media-projectId form-control" value="@Model.ProjectId" readonly>
+    </div>
+
+    <!-- Url-->
+    <div class="form-group row">
+        <label for="mediaUrl">Enter Media URL</label>
+        <input name="mediaUrl" placeholder="Enter the external url for the media item "
+               class="js-media-url form-control">
+    </div>
+
+    <div class="form-group row">
+        <label for="category">Media Category</label>
+        <select id="inputCategory" class="js-media-category form-control">
+            <option selected>Pick a Category</option>
+            @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.MediaCategory)))
+                {
+                    <option>@cat</option>
                 }
-            </select>
-        </div>
-    </form>
+            }
+        </select>
+    </div>
+
+    <button type="button" class="btn btn-primary js-create-media-button">
+        Add Media
+    </button>
+
+    <a href="@Url.Action("ProjectInfo","Project",new { projectId = Model.ProjectId})" type="button" class="btn btn-primary js-goto-project-button">
+        Go to project page
+    </a>
+
+    <div class="alert alert-success js-media-create-success-alert" role="alert">
+    </div>
+
+    <div class="alert alert-danger js-media-create-fail-alert" role="alert">
+    </div>
+
+</form>
+
+@section Scripts {
+    <script src="~/js/AddMedia.js" asp-append-version="true"></script>
+}

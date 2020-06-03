@@ -15,7 +15,7 @@ namespace Crowdfund.Core.Services
         IQueryable<User> SearchUser(SearchUserOptions options);
         Result<User> GetUserById(int userId);
         Result<int> GetIdByUserName(string username);
-        bool CheckDuplicates(string email, string userName);
+        bool IsDuplicate(string email, string userName);
         //IQueryable SearchFundedProjectsByUser();
 
     }

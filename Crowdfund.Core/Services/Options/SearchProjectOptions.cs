@@ -19,5 +19,6 @@ namespace Crowdfund.Core.Services.Options
         public DateTime? CreatedFrom { get; set; }
         public DateTime? DeadlineFrom { get; set; }
         public int? RewardId { get; set; }
+        public int? StatusUpdateId { get; set; }
     }
 }

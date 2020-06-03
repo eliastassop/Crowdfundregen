@@ -9,7 +9,7 @@ let createbutton = $('.js-create-user-button');
 
 createbutton.on('click', () => {
 
-    debugger;
+    //debugger;
     let username = $('.js-create-userName');
     let email = $('.js-create-email');
 
@@ -27,7 +27,7 @@ createbutton.on('click', () => {
         data: JSON.stringify(data)
     }).done(user => {
         let id = user.userId;
-        debugger;
+        //debugger;
         localStorage.setItem('userId', id);
         userCreateSuccessAlert.html(`User ${user.UserName} was created `);
         userCreateSuccessAlert.show();

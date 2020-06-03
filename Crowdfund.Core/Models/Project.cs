@@ -17,7 +17,7 @@ namespace Crowdfund.Core.Models
         public List<Reward> AvailableRewards { get; set; }
         public List<RewardUser> RewardUsers { get; set; }
         public List<Media> Media { get; set; }
-        public List<StatusUpdate> StatusUpdate { get; set; }
+        public List<StatusUpdate> StatusUpdates { get; set; }
 
         public Project()
         {
@@ -25,7 +25,7 @@ namespace Crowdfund.Core.Models
             RewardUsers = new List<RewardUser>();
             Created = DateTime.Now;
             Media = new List<Media>();
-          
+            StatusUpdates = new List<StatusUpdate>();
         }
 
         public bool IsValidTitle(string title)

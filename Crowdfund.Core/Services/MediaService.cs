@@ -30,11 +30,16 @@ namespace Crowdfund.Core.Services
             {
                 return Result<Media>.CreateFailed(StatusCode.BadRequest, $"Project with {options.ProjectId} was not found");
             }
+            MediaCategory cat;
+            if(!Enum.TryParse(options.Category, true, out cat))
+            {
+                return Result<Media>.CreateFailed(StatusCode.BadRequest, "Please check the available categories");
+            }        
 
             var media = new Media()
             {
                 MediaLink = options.MediaLink,
-                Category = options.Category,
+                Category = cat,
             };
             
             if(string.IsNullOrWhiteSpace(options.MediaLink))
@@ -42,7 +47,7 @@ namespace Crowdfund.Core.Services
                 return Result<Media>.CreateFailed(StatusCode.BadRequest, "The link  was incorrect");
             }
 
-            if (media.IsValidCategory(options.Category))
+            if (!media.IsValidCategory(cat))
             {
                 return Result<Media>.CreateFailed(StatusCode.BadRequest, "Please check the available categories");
             }

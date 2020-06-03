@@ -37,7 +37,7 @@ namespace Crowdfund.Core.Services
 
 
             //check duplicate
-            if (!CheckDuplicates(options.Email, options.UserName))
+            if (IsDuplicate(options.Email, options.UserName))
             {
                 return Result<User>.CreateFailed(StatusCode.BadRequest,"The Username or Email already exists");
             }
@@ -76,11 +76,12 @@ namespace Crowdfund.Core.Services
         }
         public IQueryable<User> SearchUser(SearchUserOptions options)
         {
-            if (options.UserId == null
-                &&options.UserCreatedFrom==null
-                &&options.UserCreatedTo==null
-                &&string.IsNullOrWhiteSpace(options.UserName)
-                &&string.IsNullOrWhiteSpace(options.Email))
+            //if (options.UserId == null
+            //    &&options.UserCreatedFrom==null
+            //    &&options.UserCreatedTo==null
+            //    &&string.IsNullOrWhiteSpace(options.UserName)
+            //    &&string.IsNullOrWhiteSpace(options.Email))
+            if(options==null)
             {
                 return null;
             }
@@ -136,20 +137,29 @@ namespace Crowdfund.Core.Services
             }
             return Result<User>.CreateSuccessful(user);
         }
-        public bool CheckDuplicates(string email, string userName) 
+        public bool IsDuplicate(string email, string userName) 
         {
-            if (SearchUser(new SearchUserOptions()
-            {               
-                UserName = userName,
-            }).Any()|| SearchUser(new SearchUserOptions()
+            if (!string.IsNullOrWhiteSpace(userName))
             {
-                Email = email,                
-            }).Any())
-            {
-                return false;
+                if (SearchUser(new SearchUserOptions()
+                {
+                    UserName = userName
+                }).Any())
+                {
+                    return true;
+                }
             }
-            return true;
-
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                if (SearchUser(new SearchUserOptions()
+                {
+                    Email = email
+                }).Any())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         public Result<bool> UpdateUser(int userId,UpdateUserOptions options)
         {
@@ -164,8 +174,19 @@ namespace Crowdfund.Core.Services
             {
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, $"User with {userId} was not found");
             }
+            string emailCheck = null;
+            string userNameCheck = null;
 
-            if (!CheckDuplicates(options.Email, options.UserName)) 
+            if (!(options.Email == user.Email))
+            {
+                emailCheck = options.Email;                
+            }
+            if (!(options.UserName == user.UserName))
+            {
+                userNameCheck = options.UserName;
+            }
+
+            if (IsDuplicate(emailCheck, userNameCheck)) 
             {
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, "The username or Email already exists");
             }

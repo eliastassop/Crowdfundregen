@@ -9,6 +9,6 @@ namespace Crowdfund.Core.Services.Options
     {
         public int ProjectId { get; set; }
         public string MediaLink { get; set; }
-        public MediaCategory Category { get; set; }
+        public string Category { get; set; }
     }
 }

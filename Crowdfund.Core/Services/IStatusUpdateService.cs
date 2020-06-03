@@ -11,7 +11,7 @@ namespace Crowdfund.Core.Services
     {
         Result<StatusUpdate> CreateStatusUpdate(CreateStatusUpdateOptions options);
 
-        Result<bool> UpdateStatusUpdate(int statusUpdateId, UpdateStatusUpdateOptions options);
+        Result<bool> UpdateStatusUpdate(UpdateStatusUpdateOptions options);
 
         Result<bool> DeleteStatusUpdate(int statusUpdateId);
 

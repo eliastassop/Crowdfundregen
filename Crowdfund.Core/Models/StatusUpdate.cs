@@ -10,6 +10,7 @@ namespace Crowdfund.Core.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime UpdateCreated { get; set; }   
+        public int ProjectId { get; set; }
         
 
         public StatusUpdate()

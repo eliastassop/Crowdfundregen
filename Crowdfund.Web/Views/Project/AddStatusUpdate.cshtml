@@ -1,0 +1,45 @@
+﻿@model Crowdfund.Core.Models.Project
+<h1> @Model.Title</h1>
+
+<form method="post" class="js-add-statusUpdate-form">
+    <h2>Add Status Update</h2>
+    <br />
+    <!-- ProjectId-->
+    <div class="form-group row">
+        <label for="projectId">Project Id</label>
+        <input name="projectId"
+               class="js-statusUpdate-projectId form-control" value="@Model.ProjectId" readonly>
+    </div>
+    <!-- Title-->
+    <div class="form-group row">
+        <label for="title">Title</label>
+        <input name="title" placeholder="Enter the title of the status update"
+               class="js-statusUpdate-title form-control">
+    </div>
+
+    <!-- Description -->
+    <div class="form-group row">
+        <label for="description">Description</label>
+        <textarea class="js-statusUpdate-description form-control" placeholder="Enter the description for your status update" rows="5"></textarea>
+    </div>
+
+
+    <button type="button" class="btn btn-primary js-create-statusUpdate-button">
+        Add Status Update
+    </button>
+
+    <a href="@Url.Action("ProjectInfo","Project",new { projectId = Model.ProjectId})" type="button" class="btn btn-primary js-goto-project-button">
+        Go to project page
+    </a>
+
+    <div class="alert alert-success js-statusUpdate-create-success-alert" role="alert">
+    </div>
+
+    <div class="alert alert-danger js-statusUpdate-create-fail-alert" role="alert">
+    </div>
+
+</form>
+
+@section Scripts {
+    <script src="~/js/AddStatusUpdate.js" asp-append-version="true"></script>
+}

@@ -1,15 +1,17 @@
 ﻿
 // **Add Reward Javascript code**
-let rewardCreateSuccessAlert = $('.js-reward-create-success-alert');
-let rewardCreateFailedAlert = $('.js-reward-create-fail-alert');
-let Title = $('.js-reward-title');
-let Description = $('.js-reward-description');
-let Price = $('.js-reward-price');
-let ProjectId = $('.js-reward-projectId');
+
 
 
 let rewardCreateButton = $('.js-create-reward-button');
 rewardCreateButton.on('click', () => {
+
+    let rewardCreateSuccessAlert = $('.js-reward-create-success-alert');
+    let rewardCreateFailedAlert = $('.js-reward-create-fail-alert');
+    let Title = $('.js-reward-title');
+    let Description = $('.js-reward-description');
+    let Price = $('.js-reward-price');
+    let ProjectId = $('.js-reward-projectId');
     //debugger;
     rewardCreateSuccessAlert.hide();    
     rewardCreateFailedAlert.hide();  

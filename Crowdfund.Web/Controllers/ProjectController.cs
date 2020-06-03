@@ -16,6 +16,7 @@ namespace Crowdfund.Web.Controllers
         private IProjectService projectService_;
         private IRewardService rewardService_;
         private IRewardUserService rewardUserService_;
+        private IStatusUpdateService statusUpdateService_;
         private CrowdfundDB context;
         //private readonly ILogger<HomeController> _logger;
 
@@ -27,6 +28,7 @@ namespace Crowdfund.Web.Controllers
             projectService_ = new ProjectService(context, userService_);
             rewardService_ = new RewardService(context, projectService_);
             rewardUserService_ = new RewardUserService(context, userService_, projectService_, rewardService_);
+            statusUpdateService_ = new StatusUpdateService(context, projectService_);
         }
        
         
@@ -44,11 +46,11 @@ namespace Crowdfund.Web.Controllers
         }
         
         
-        [HttpGet("{id}/projectinfo")]
-        public IActionResult ProjectInfo(string id)//landingpage
+        [HttpGet("{projectId}/projectinfo")]
+        public IActionResult ProjectInfo(string projectId)//landingpage
         {
 
-            var project = projectService_.GetProjectById(int.Parse(id));
+            var project = projectService_.GetProjectById(int.Parse(projectId));
             if (!project.Success)
             {
                 return StatusCode((int)project.ErrorCode, project.ErrorText);
@@ -99,6 +101,7 @@ namespace Crowdfund.Web.Controllers
             //}
             return View(project.Data);
         }        
+
         public IActionResult UpdateMedia()
         {
             return View();
@@ -106,6 +109,28 @@ namespace Crowdfund.Web.Controllers
         public IActionResult DeleteMedia()
         {
             return View();
+        }
+
+        [HttpGet("{projectId}/addstatusupdate")]
+        public IActionResult AddStatusUpdate(string projectId)
+        {
+            var project = projectService_.GetProjectById(int.Parse(projectId));
+            //if (!project.Success)
+            //{
+            //    return StatusCode((int)project.ErrorCode, project.ErrorText);
+            //}
+            return View(project.Data);
+        }
+
+        [HttpGet("{projectId}/updatestatusupdate")]
+        public IActionResult UpdateStatusUpdate(string statusUpdateId)
+        {
+            var statusUpdate = statusUpdateService_.GetStatusUpdateById(int.Parse(statusUpdateId));
+            //if (!project.Success)
+            //{
+            //    return StatusCode((int)project.ErrorCode, project.ErrorText);
+            //}
+            return View(statusUpdate.Data);
         }
     }
 }

@@ -38,6 +38,7 @@ namespace Crowdfund.Core.Services
                 Title = options.Title,
                 Description = options.Description,
                 Price = options.Price,
+                ProjectId=options.ProjectId,
             };
             if(!reward.IsValidDescription(options.Description)
                 || !reward.IsValidTitle(options.Title)
