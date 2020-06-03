@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Crowdfund.Web.Controllers
 {
+    [Route("rewarduser")]
     public class RewardUserController : Controller
     {
         private IUserService userService_;
@@ -29,7 +30,9 @@ namespace Crowdfund.Web.Controllers
             rewardUserService_ = new RewardUserService(context, userService_, projectService_, rewardService_);
 
         }
-        public IActionResult CreateOrUpdateRewardUser(CreateRewardUserOptions options)
+
+        [HttpPost("createOrupdateRewardUser")]
+        public IActionResult CreateOrUpdateRewardUser([FromBody]CreateRewardUserOptions options)
         {
             var rewardUser = rewardUserService_.CreateOrUpdateRewardUser(options);
             if (rewardUser.Success)

@@ -174,8 +174,8 @@ namespace Crowdfund.Core.Services
             var project= SearchProjects(new SearchProjectOptions()
             {
                 ProjectId = projectId
-            }).Include(a=>a.Media)
-            .Include(a=> a.RewardUsers)
+            }).Include(a=>a.Media).Include(a=>a.StatusUpdate) //edw
+            .Include(a=> a.RewardUsers)            
             .ThenInclude(a=> a.Reward)
             .SingleOrDefault();
             if (project == null)
@@ -208,10 +208,10 @@ namespace Crowdfund.Core.Services
                // return Result<bool>.UpdateFailed(StatusCode.BadRequest, "The Tittle is not valid");
 
             }
-
-            if (project.IsValidCategory(options.Category))
+            var cat = (ProjectCategory)Enum.Parse(typeof(ProjectCategory), options.Category, true);
+            if (project.IsValidCategory(cat))
             {
-                project.Category = options.Category;
+                project.Category = cat;
             }
             
 

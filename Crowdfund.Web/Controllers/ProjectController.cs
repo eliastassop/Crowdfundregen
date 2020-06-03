@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Crowdfund.Core.Data;
+using Crowdfund.Core.Models;
 using Crowdfund.Core.Services;
 using Crowdfund.Core.Services.Options;
+using Crowdfund.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 
 namespace Crowdfund.Web.Controllers
 {
@@ -67,9 +70,12 @@ namespace Crowdfund.Web.Controllers
         {
             return View();
         }
-        public IActionResult UpdateProject()
+        [HttpPost("{projectid}/updateproject")]
+        public IActionResult UpdateProject(string projectid,[FromBody]UpdateProjectOptions options)
         {
-            return View();
+            var projectid_ = int.Parse(projectid);
+            var project = projectService_.UpdateProject(projectid_, options);
+            return Json(project.Data);
         }
 
         [HttpGet("{projectId}/addreward")]
@@ -132,5 +138,18 @@ namespace Crowdfund.Web.Controllers
             //}
             return View(statusUpdate.Data);
         }
+        [HttpGet("{text}/searchbytext")] /*{text}/*/
+        public IActionResult SearchProjectsByText(string text)
+        {
+            var listprojects = projectService_.SearchProjects(new SearchProjectOptions { SearchText = text }).ToList();
+            var project = new SearchByTextViewModel()
+            {
+                Text = text,
+                ProjectList = listprojects
+
+            };
+            return View(project);
+        }
+     
     }
 }

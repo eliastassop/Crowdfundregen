@@ -13,6 +13,7 @@ using Crowdfund.Core.Models;
 
 namespace Crowdfund.Web.Controllers
 {
+    
     public class HomeController : Controller
     {
         private IUserService userService_;
@@ -54,16 +55,27 @@ namespace Crowdfund.Web.Controllers
 
             return View();
         }
+        
         public IActionResult Explore(ProjectCategory category)
         {
-            var test = projectService_.SearchProjects(new SearchProjectOptions { Category = category }).ToList();
+            var listprojects = projectService_.SearchProjects(new SearchProjectOptions { Category = category }).ToList();
+            var explore = new ExploreViewModel()
+            {
+                Category = category,
+                ProjectList = listprojects
 
-            return Json(test);
+            };
+
+            //if (usermodel.P == null)
+            //{
+            //    return StatusCode((int)user.ErrorCode, user.ErrorText);
+            //}
+
+            return View(explore);
         }
-        public IActionResult SearchProjects()
-        {
-            return View();
-        }
+        
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
