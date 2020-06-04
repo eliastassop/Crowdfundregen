@@ -1,10 +1,10 @@
 ﻿let success = $('.js-updateproject-success').hide();
 let fail = $('.js-updateproject-failed').hide();
-let UpdateProjectButton = $('.js-update-project');
+let UpdateProjectForm = $('.js-update-project-form');
 
 
-UpdateProjectButton.on('click', () => {
-
+UpdateProjectForm.submit(function (event) {
+    event.preventDefault();
     let projectId = $('.js-up-projectid').val();
 
     let Title = $('.js-update-title');
@@ -13,7 +13,6 @@ UpdateProjectButton.on('click', () => {
     let Deadline = $('.js-update-deadline');
     let Category = $('.js-update-category');             
    
-
     let data = {
         Title: Title.val(),
         Description: Description.val(),
@@ -36,10 +35,6 @@ UpdateProjectButton.on('click', () => {
     }).fail(failureResponse => {
         fail.html(`${failureResponse.responseText}`);
         fail.show().delay(1500);
-        fail.fadeOut();
-        
-
+        fail.fadeOut();   
     });
-
-
 });

@@ -1,25 +1,40 @@
-﻿let input = document.getElementById("myInput");
+﻿$(function () {
+    // debugger;
+
+    let userId = window.localStorage.getItem('userId');
+    let username = window.localStorage.getItem('username');
+
+    if (userId) {
+        $('.js-must-login-first').hide();        
+        $('.js-create-project-form').show();
+        
+    } else {
+        $('.js-must-login-first').show();
+        $('.js-create-project-form').hide();
+        
+    }
+});
 
 
 // **Create Project javascript code**
-let projectbutton = $('.js-project-create-button');
+let projectForm = $('.js-create-project-form');
 
-projectbutton.on('click', () => {
+projectForm.submit(function (event) {
+    event.preventDefault();
+
     let projectCreateSuccessAlert = $('.js-project-create-success-alert');
     projectCreateSuccessAlert.hide();
 
     let projectCreateFailedAlert = $('.js-project-create-fail-alert');
     projectCreateFailedAlert.hide();
 
-    let id = window.localStorage.getItem('userId');
-    //debugger;
+    let id = window.localStorage.getItem('userId');    
     let Title = $('.js-title');
     let Description = $('.js-description');
     let TotalFund = $('.js-totalFund');
     let Deadline = $('.js-deadline');
     let Category = $('.js-category');
     let MediaLink = $('.js-media-input');
-
 
     let data = {
         Title: Title.val(),
@@ -37,22 +52,15 @@ projectbutton.on('click', () => {
         contentType: 'application/json',
         data: JSON.stringify(data)
     }).done(project => {
-        let projectId = project.projectId;
-        //debugger;
+        let projectId = project.projectId;        
         projectCreateSuccessAlert.html(`Project ${project.title} created succesfully`);
 
-        projectCreateSuccessAlert.show();
+        projectCreateSuccessAlert.show().fadeOut(1500);
         window.location.href = "/project/"+projectId+"/addreward";
     }).fail(errorCode => {
         projectCreateFailedAlert.html(`Project failed due to error: ${errorCode.statusText}`);
-        projectCreateFailedAlert.show();
+        projectCreateFailedAlert.show().fadeOut(1500);
 
     });
 });
 
-$('.js-create-project-form').keypress(function (e) {
-    if (e.which == 13) {
-        projectbutton.click();
-        return false;    //<---- Add this line
-    }
-});

@@ -185,7 +185,7 @@
 
 <!--Update Profile area-->
     <div class="tab-pane fade" id="deleteprofile-tab-area" role="tabpanel" aria-labelledby="Update Profile">
-        <form id="profile-form" class="profile page" method="post">
+        <form id="profile-form" class="profile page js-update-user-form" method="post">
             <br />
             <img src="~/css/content.jpg" alt="Not Found" />
             <div class="form-group">
@@ -203,7 +203,7 @@
                 <label for="email">Email</label>
                 <input name="email" class="form-control js-update-email" value="@Model.User.Email">
             </div>
-            <button type="button" class="btn btn-primary js-update-profile-btn">Update Profile</button>
+            <button type="submit" class="btn btn-primary js-update-profile-btn">Update Profile</button>
 
             <div class="alert alert-success js-update-success" style="display:none" role="alert">
                 Your Profile has been updated

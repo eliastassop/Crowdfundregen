@@ -211,6 +211,12 @@ namespace Crowdfund.Core.Services
         }
         public Result<int> GetIdByUserName(string username)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return Result<int>.CreateFailed(StatusCode.NotFound, "Enter a Username");
+            }
+            
+
             var query = SearchUser(new SearchUserOptions
             {
                 UserName = username
@@ -221,11 +227,7 @@ namespace Crowdfund.Core.Services
             }
             var user=query.SingleOrDefault();
 
-            //if (string.IsNullOrWhiteSpace(username))
-            //{
-            //    query = query.Where(c => c.UserName.Equals(username));
-            //}
-            //var user=query
+            
             if (user == null)
             {
                 return Result<int>.CreateFailed(StatusCode.NotFound, "The Username You Entered Does Not Exist");

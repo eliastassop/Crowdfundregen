@@ -3,8 +3,10 @@
 
 
 
-let mediaCreateButton = $('.js-create-media-button');
-mediaCreateButton.on('click', () => {
+let mediaCreateForm = $('.js-add-media-form');
+mediaCreateForm.submit(function (event) {
+    event.preventDefault();
+
     let mediaCreateSuccessAlert = $('.js-media-create-success-alert');
     let mediaCreateFailedAlert = $('.js-media-create-fail-alert');
     let MediaLink = $('.js-media-url');
