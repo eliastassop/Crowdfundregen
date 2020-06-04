@@ -25,7 +25,7 @@ pledgebutton.click( function() {
         contentType: 'application/json',
         data: JSON.stringify(data)
     }).done(rewarduser => {
-        alert(`Reward ${rewarduser.Data.RewardId} bought `)
+        alert("Reward bought")
 
     }).fail(errorCode => {
         alert("den mphkan ta xrhmata")

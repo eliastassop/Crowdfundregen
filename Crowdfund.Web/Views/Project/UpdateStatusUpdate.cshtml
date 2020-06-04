@@ -13,14 +13,14 @@
     <!-- Title-->
     <div class="form-group row">
         <label for="title">Title</label>
-        <input name="title" value="@Model.Title" placeholder="Enter the title of the status update"
+        <input name="title" type="text" value="@Model.Title" placeholder="Enter the title of the status update"
                class="js-statusUpdate-title form-control">
     </div>
 
     <!-- Description -->
     <div class="form-group row">
         <label for="description">Description</label>
-        <textarea class="js-statusUpdate-description form-control" value="@Model.Description" placeholder="Enter the description for your status update" rows="5"></textarea>
+        <textarea class="js-statusUpdate-description form-control" type="text"  placeholder="Enter the description for your status update" rows="5">@Model.Description</textarea>
     </div>
 
 

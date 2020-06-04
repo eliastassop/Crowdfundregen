@@ -38,12 +38,12 @@ PersonalInfoButton.on('click', () => {
 });
 
 
-let searchtext = $('.js-search-bar-text');
-let searchbutton = $('.js-search-bar-go');
+//let searchtext = $('.js-search-bar-text');
+//let searchbutton = $('.js-search-bar-go');
 
 
-searchbutton.on('click', () => {
-    let text = searchtext.val()
+//searchbutton.on('click', () => {
+//    let text = searchtext.val()
    
-    window.location.href = '/project/' + text + '/searchbytext';
- });
+//    window.location.href = '/project/' + text + '/searchbytext';
+// });

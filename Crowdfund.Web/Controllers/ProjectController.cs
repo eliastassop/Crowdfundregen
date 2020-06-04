@@ -70,22 +70,28 @@ namespace Crowdfund.Web.Controllers
         {
             return View();
         }
+
         [HttpPost("{projectid}/updateproject")]
         public IActionResult UpdateProject(string projectid,[FromBody]UpdateProjectOptions options)
         {
             var projectid_ = int.Parse(projectid);
             var project = projectService_.UpdateProject(projectid_, options);
-            return Json(project.Data);
+            if (project.Success)
+            {
+                return Json(project.Data);
+            }
+            return StatusCode((int)project.ErrorCode, project.ErrorText);
+            
         }
 
         [HttpGet("{projectId}/addreward")]
         public IActionResult AddReward(string projectId)
         {
             var project = projectService_.GetProjectById(int.Parse(projectId));
-            //if (!project.Success)
-            //{
-            //    return StatusCode((int)project.ErrorCode, project.ErrorText);
-            //}
+            if (!project.Success)
+            {
+                return StatusCode((int)project.ErrorCode, project.ErrorText);
+            }
             return View(project.Data);
         }
         public IActionResult UpdateReward()
@@ -101,10 +107,10 @@ namespace Crowdfund.Web.Controllers
         public IActionResult AddMedia(string projectId)
         {
             var project = projectService_.GetProjectById(int.Parse(projectId));
-            //if (!project.Success)
-            //{
-            //    return StatusCode((int)project.ErrorCode, project.ErrorText);
-            //}
+            if (!project.Success)
+            {
+                return StatusCode((int)project.ErrorCode, project.ErrorText);
+            }
             return View(project.Data);
         }        
 
@@ -121,10 +127,10 @@ namespace Crowdfund.Web.Controllers
         public IActionResult AddStatusUpdate(string projectId)
         {
             var project = projectService_.GetProjectById(int.Parse(projectId));
-            //if (!project.Success)
-            //{
-            //    return StatusCode((int)project.ErrorCode, project.ErrorText);
-            //}
+            if (!project.Success)
+            {
+                return StatusCode((int)project.ErrorCode, project.ErrorText);
+            }
             return View(project.Data);
         }
 
@@ -132,13 +138,13 @@ namespace Crowdfund.Web.Controllers
         public IActionResult UpdateStatusUpdate(string statusUpdateId)
         {
             var statusUpdate = statusUpdateService_.GetStatusUpdateById(int.Parse(statusUpdateId));
-            //if (!project.Success)
-            //{
-            //    return StatusCode((int)project.ErrorCode, project.ErrorText);
-            //}
+            if (!statusUpdate.Success)
+            {
+                return StatusCode((int)statusUpdate.ErrorCode, statusUpdate.ErrorText);
+            }
             return View(statusUpdate.Data);
         }
-        [HttpGet("{text}/searchbytext")] /*{text}/*/
+        [HttpGet("searchbytext")] /*{text}/*/
         public IActionResult SearchProjectsByText(string text)
         {
             var listprojects = projectService_.SearchProjects(new SearchProjectOptions { SearchText = text }).ToList();

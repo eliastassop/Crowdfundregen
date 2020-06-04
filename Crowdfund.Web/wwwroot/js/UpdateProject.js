@@ -1,5 +1,5 @@
 ﻿let success = $('.js-updateproject-success').hide();
-let fail = $('.js-updateproject-success').hide();
+let fail = $('.js-updateproject-failed').hide();
 let UpdateProjectButton = $('.js-update-project');
 
 
@@ -29,10 +29,12 @@ UpdateProjectButton.on('click', () => {
         data: JSON.stringify(data)
     }).done(successResponse => {
         window.location.reload();
+        success.html("Project updated succesfully")
         success.show().delay(1500);
         success.fadeOut();
 
     }).fail(failureResponse => {
+        fail.html(`${failureResponse.responseText}`);
         fail.show().delay(1500);
         fail.fadeOut();
         

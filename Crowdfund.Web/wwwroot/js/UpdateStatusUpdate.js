@@ -4,7 +4,7 @@
 
 
 let statusUpdateUpdateButton = $('.js-update-statusUpdate-button');
-statusUpdateUpdateButton.on('click', () => {
+statusUpdateUpdateButton.click(function() {
     //let test = this.id;
     let statusUpdateUpdateSuccessAlert = $('.js-statusUpdate-update-success-alert');
     let statusUpdateUpdateFailedAlert = $('.js-statusUpdate-update-fail-alert');
@@ -16,13 +16,13 @@ statusUpdateUpdateButton.on('click', () => {
     statusUpdateUpdateFailedAlert.hide();
 
     let data = {
-        StatusUpdateId: parseInt(StatusUpdateId.val()),
+        StatusUpdateId: parseInt(StatusUpdateId),
         Title: Title.val(),
         Description: Description.val()
     };
 
     $.ajax({
-        type: 'POST',
+        type: 'PATCH',
         url: '/statusUpdate/update',
         contentType: 'application/json',
         data: JSON.stringify(data)
@@ -34,8 +34,8 @@ statusUpdateUpdateButton.on('click', () => {
         statusUpdateUpdateSuccessAlert.show();
         $('.js-update-statusUpdate-form').trigger("reset");
 
-    }).fail(errorCode => {
-        statusUpdateUpdateFailedAlert.html(`Updating statusUpdate failed due to error: ${errorCode.statusText}`);
+    }).fail(error => {
+        statusUpdateUpdateFailedAlert.html(`Updating statusUpdate failed due to error: ${error.responseText}`);
         statusUpdateUpdateFailedAlert.show();
 
     });

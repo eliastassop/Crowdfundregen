@@ -31,10 +31,10 @@ rewardCreateButton.on('click', () => {
     }).done(reward => {
         //debugger;
         //let projectId = project.projectId;
-        
+        $('.js-add-reward-form').trigger("reset");
         rewardCreateSuccessAlert.html(`Reward ${reward.title} created succesfully`);
         rewardCreateSuccessAlert.show();
-        $('.js-add-reward-form').trigger("reset");
+        success.fadeOut(1500);
 
     }).fail(errorCode => {
         rewardCreateFailedAlert.html(`Adding reward failed due to error: ${errorCode.statusText}`);

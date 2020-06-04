@@ -83,9 +83,13 @@ namespace Crowdfund.Web.Controllers
         public IActionResult UpdateUserPersonalInfo(string id, [FromBody] UpdateUserOptions options)
         {
             var userId = int.Parse(id);
-            var update = userService_.UpdateUser(userId,options);
-            return Json(update.Data);
-            
+            var update = userService_.UpdateUser(userId,options);            
+            if (update.Success)
+            {
+                return Json(update.Data);
+            }
+            return StatusCode((int)update.ErrorCode, update.ErrorText);
+
         }
         public IActionResult ProjectsBacked()
         {

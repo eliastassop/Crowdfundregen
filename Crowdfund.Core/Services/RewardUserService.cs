@@ -24,11 +24,11 @@ namespace Crowdfund.Core.Services
             rewardService_ = rewardService;
         }
 
-        public Result<RewardUser> CreateOrUpdateRewardUser(CreateRewardUserOptions options)
+        public Result<bool> CreateOrUpdateRewardUser(CreateRewardUserOptions options)
         {
             if (options == null)
             {
-                return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, "Null options");
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
             }
             var rewardUserTest = GetRewardUserById(options.UserId, options.RewardId);
             if (rewardUserTest.Success) //update
@@ -38,7 +38,7 @@ namespace Crowdfund.Core.Services
 
                 if (rewardUser == null)
                 {
-                    return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, $"Backer with {options.UserId} was not found");
+                    return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Backer with {options.UserId} was not found");
                 }
 
                 if (rewardUser.IsValidQuantity(options.Quantity))
@@ -50,10 +50,10 @@ namespace Crowdfund.Core.Services
 
                 if (!projectService_.UpdateCurrentFund(project).Success)
                 {
-                    return Result<RewardUser>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                    return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
                 }
 
-                return Result<RewardUser>.CreateSuccessful(rewardUser);
+                return Result<bool>.CreateSuccessful(true);
             }
             else //create
             {
@@ -62,7 +62,7 @@ namespace Crowdfund.Core.Services
                 var project = projectService_.GetProjectByRewardId(options.RewardId).Data;
                 if (user == null || reward == null || project == null)
                 {
-                    return Result<RewardUser>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                    return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
                 }
 
 
@@ -75,7 +75,7 @@ namespace Crowdfund.Core.Services
 
                 if (!rewardUser.IsValidQuantity(options.Quantity))
                 {
-                    return Result<RewardUser>.CreateFailed(StatusCode.BadRequest, "Please check the options for quantity");
+                    return Result<bool>.CreateFailed(StatusCode.BadRequest, "Please check the options for quantity");
                 }
 
 
@@ -83,10 +83,10 @@ namespace Crowdfund.Core.Services
 
                 if (!projectService_.UpdateCurrentFund(project).Success)
                 {
-                    return Result<RewardUser>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                    return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
                 }
 
-                return Result<RewardUser>.CreateSuccessful(rewardUser);
+                return Result<bool>.CreateSuccessful(true);
                
             }
         }

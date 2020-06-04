@@ -21,10 +21,12 @@ UpdateProfileButton.on('click', () => {
         contentType: 'application/json',
         data: JSON.stringify(data)
     }).done(successResponse => {
-        updatesuccess.show().delay(1500);
-        updatesuccess.fadeOut();
+        updatesuccess.show().fadeOut(1200);
+        setTimeout(() => { window.location.reload(); },1000)
+        //window.location.reload();
 
     }).fail(failureResponse => {
+        updatefailed.html(`${failureResponse.responseText}`);
         updatefailed.show().delay(1500);
         updatefailed.fadeOut();
 

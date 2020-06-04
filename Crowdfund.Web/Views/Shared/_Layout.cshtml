@@ -54,14 +54,20 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/css/Logo_230x30.png" /></a>
                     </li>
                     <!--Search bar-->
-                    <li class="form-inline" >
-
-                        <input class="form-control mr-sm-2 js-search-bar-text" type="search" placeholder="Search" aria-label="Search" style="float:right">
-
-
-                        <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" type="button" >Search</button>
+                    <li>
+                        <form class="form-inline" method="get" action="/project/searchbytext">
+                            <input class="form-control" type="search" name="text" value="" style="float:right" placeholder="Search Projects"><br>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form>
                     </li>
-      
+                    @*<li class="form-inline" >
+
+            <input class="form-control mr-sm-2 js-search-bar-text" id="searchbox" type="search" placeholder="Search" aria-label="Search" style="float:right">
+
+
+            <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" href="@Url.Action("SearchProjectsByText","Project",new { projectId = form })"  type="button" >Search</button>
+        </li>*@
+
 
                 </ul>
 

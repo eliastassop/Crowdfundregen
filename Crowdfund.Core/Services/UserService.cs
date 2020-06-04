@@ -91,7 +91,7 @@ namespace Crowdfund.Core.Services
 
             if (!string.IsNullOrWhiteSpace(options.UserName))
             {
-                query = query.Where(c => c.UserName.Contains(options.UserName));
+                query = query.Where(c => c.UserName==options.UserName);
             }
 
             if (!string.IsNullOrWhiteSpace(options.Email))
@@ -204,7 +204,7 @@ namespace Crowdfund.Core.Services
 
             if (context_.SaveChanges() == 0)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Updates could not be saved to the database");
             }
 
             return Result<bool>.CreateSuccessful(true);

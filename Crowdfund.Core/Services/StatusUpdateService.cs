@@ -117,19 +117,19 @@ namespace Crowdfund.Core.Services
                 return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Status update with ID {options.StatusUpdateId} was not found");
             }
 
-            if (!statusUpdate.IsValidTitle(options.Title))
+            if (statusUpdate.IsValidTitle(options.Title))
             {
                 statusUpdate.Title = options.Title;
             }
 
-            if (!statusUpdate.IsValidDescription(options.Description))
+            if (statusUpdate.IsValidDescription(options.Description))
             {
                 statusUpdate.Description = options.Description;
             }
 
             if (context_.SaveChanges() == 0)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "No changes were made to the database");
             }
 
             return Result<bool>.CreateSuccessful(true);

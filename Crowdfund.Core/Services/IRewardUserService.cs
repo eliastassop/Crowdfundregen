@@ -9,7 +9,7 @@ namespace Crowdfund.Core.Services
 {
     public interface IRewardUserService
     {
-        Result<RewardUser> CreateOrUpdateRewardUser(CreateRewardUserOptions options);
+        Result<bool> CreateOrUpdateRewardUser(CreateRewardUserOptions options);
         //Result<bool> UpdateRewardUser(CreateRewardUserOptions options);
         Result<bool> DeleteRewardUser(int userId, int rewardId);
         //bool UpdateRewardUser(UpdateRewardUserOptions options);
