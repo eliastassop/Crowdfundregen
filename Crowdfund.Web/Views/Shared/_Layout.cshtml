@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿ 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,6 +10,10 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/mycss.css" />
     <style>
+        body{
+            text-align:center;
+        }
+        
     </style>
 </head>
 <body>
@@ -30,16 +35,11 @@
                                     <a style="color:#083f88" class="dropdown-item" href="@Url.Action("Explore", "Home", new { category = cat })">@cat</a>
                                 }
                             }
-
-
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SearchProjects">Projects</a>
-                    </li>
-                    <li class="nav-item js-user-pi" type="button">
-                        <a class="nav-link text-dark ">  Personal Info</a>
-                    </li>
+                    @*<li class="nav-item js-user-pi" type="button">
+            <a class="nav-link text-dark "> Hi User</a>
+        </li>*@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CreateProject">Start a Project</a>
                     </li>
@@ -50,7 +50,11 @@
                     <li class="nav-item js-user-logout" type="button">
                         <a class="nav-link text-dark">Log Out</a>
                     </li>
-                    <li class="nav-item user-logo">
+                    @*<li class="form-inline">
+                        <input class="form-control mr-sm-2 js-search-bar-text" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" type="button">Search</button>
+                    </li>*@
+                    <li class="nav-item user-logo" style="margin-left:240px">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/css/Logo_230x30.png" /></a>
                     </li>
                     <!--Search bar-->
@@ -70,9 +74,17 @@
 
 
                 </ul>
-
+                <form class="form-inline my-2 my-lg-0 js-user-pi">
+                    <a href="#" class="nav-link text-dark " type="button"><i class="fa fa-fw fa-user"></i>Hi User</a>
+                </form>
             </div>
         </nav>
+        <div>
+            <form class="form-inline my-2 my-lg-0" style="margin-left:380px; margin-bottom:25px">
+                <input class="form-control mr-sm-2 js-search-bar-text" style="width:500px"  type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" type="button">Search</button>
+            </form>
+        </div>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
