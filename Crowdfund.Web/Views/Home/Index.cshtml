@@ -1,5 +1,5 @@
 ﻿
-@model List<Crowdfund.Core.Models.Project>
+@model TrendingRecentProjects
 
 
 @{
@@ -31,7 +31,7 @@
 
 <div class="container-fluid bg-2 text-center ">
     <div class="row">
-        @foreach (var p in Model)
+        @foreach (var p in Model.TrendingProjects)
         {
             <div class="col col-xl-2" style="margin-right:90px">
                 <div class="card-deck" style="width: 12rem;">

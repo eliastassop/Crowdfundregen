@@ -1,6 +1,7 @@
 ﻿
-let loginbutton = $('.js-login-button');
-loginbutton.on('click', () => {    
+let loginForm = $('.js-login-form');
+loginForm.submit(function (event) {
+    event.preventDefault();  
     let loginFailedAlert = $('.js-login-fail-alert');
     let username = $('.js-userName').val();
     
