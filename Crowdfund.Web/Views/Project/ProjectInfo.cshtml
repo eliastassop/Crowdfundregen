@@ -91,11 +91,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("AddReward","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addreward-button" style=" margin-right:15px; text-align:center">
-                                        Add reward
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="@Url.Action("AddMedia","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addmedia-button" style=" text-align:center">
                                         Add media
                                     </a>
@@ -152,15 +147,14 @@
 </div>
 </div>
 <div class="tab-content" id="myTabContent">
-    <!--Description Tab Area-->
+    <!-----Description Tab Area----->
     <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description">
         <div class="jumbotron">
             <textarea class="test" cols="100" rows="5" style="margin-top:4px; justify-content:center">@Model.Description</textarea>
         </div>
     </div>
 
-
-    <!--StatusUpdate Tab area-->
+    <!-----StatusUpdate Tab area----->
     <div class="tab-pane fade" id="statusupdate-tab-area" role="tabpanel" aria-labelledby="Recent Updates">
         <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description">
             <div class="jumbotron">
@@ -231,6 +225,11 @@
                 }
             </div>
         </div>
+        <div>
+            <a href="@Url.Action("AddReward","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addreward-button" style=" margin-right:15px; text-align:center">
+                Add a new reward
+            </a>
+        </div>
     </div>
 
     <!--Update Project-->
@@ -238,9 +237,8 @@
         <div class="container">
             <form id="profile-form" class="js-update-project-form" method="post">
                 <div class="form-group">
-                    <label for="Id">Project Id</label>
                     <input name="Id" placeholder=""
-                           class="form-control js-up-projectid" readonly value="@Model.ProjectId">
+                           class="form-control js-up-projectid" style="display:none" readonly value="@Model.ProjectId">
                 </div>
                 <div class="form-group">
                     <label for="@Html.NameFor(c=>c.Title)">Title</label>

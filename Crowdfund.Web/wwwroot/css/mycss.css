@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+﻿/*@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');*/
 
 * {
     margin: 0;
@@ -24,12 +24,12 @@
 
     .wrapper .left {
         width: 35%;
-        background: linear-gradient(to right,#01a9ac,#01dbdf);
-        padding: 30px 25px;
+        background: linear-gradient(to right,#083f88,#083f88);
+        background-color: #083f88;
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
         text-align: center;
-        color:#fff;
+        color: #fff;
     }
 
         .wrapper .left img {
