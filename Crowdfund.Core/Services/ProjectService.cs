@@ -32,6 +32,10 @@ namespace Crowdfund.Core.Services
             {
                 return Result<Project>.CreateFailed(StatusCode.BadRequest, $"User with {options.CreatorId} was not found");
             }
+            if (options.Category == null)
+            {
+                return Result<Project>.CreateFailed(StatusCode.BadRequest, "Category not valid");
+            }
             var cat = (ProjectCategory) Enum.Parse(typeof(ProjectCategory),options.Category,true);
 
             var project = new Project()
@@ -212,6 +216,11 @@ namespace Crowdfund.Core.Services
                // return Result<bool>.UpdateFailed(StatusCode.BadRequest, "The Tittle is not valid");
 
             }
+            if (options.Category == null)
+            {
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Category not valid");
+            }
+
             var cat = (ProjectCategory)Enum.Parse(typeof(ProjectCategory), options.Category, true);
             if (project.IsValidCategory(cat))
             {

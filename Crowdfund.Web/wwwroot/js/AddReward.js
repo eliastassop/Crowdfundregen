@@ -6,6 +6,7 @@
 let rewardCreateForm = $('.js-add-reward-form');
 rewardCreateForm.submit(function (event) {
     event.preventDefault();
+    if (!rewardCreateForm.valid()) { return; }
 
     let rewardCreateSuccessAlert = $('.js-reward-create-success-alert');
     let rewardCreateFailedAlert = $('.js-reward-create-fail-alert');

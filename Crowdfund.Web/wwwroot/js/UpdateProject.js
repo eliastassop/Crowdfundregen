@@ -1,12 +1,12 @@
 ﻿let success = $('.js-updateproject-success').hide();
 let fail = $('.js-updateproject-failed').hide();
+
 let UpdateProjectForm = $('.js-update-project-form');
-
-
 UpdateProjectForm.submit(function (event) {
     event.preventDefault();
-    let projectId = $('.js-up-projectid').val();
+    if (!UpdateProjectForm.valid()) { return; }
 
+    let projectId = $('.js-up-projectid').val();
     let Title = $('.js-update-title');
     let Description = $('.js-update-description');
     let TotalFund = $('.js-update-totalfund');
