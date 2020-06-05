@@ -1,9 +1,12 @@
 ﻿
 // Button to fund a project 
-let pledgebutton = $('.js-pledge-button');
+let pledgeForm = $('.js-buy-reward-form');
 
 
-pledgebutton.click( function() {
+pledgeForm.submit(function (event) {
+    event.preventDefault();
+    if (!pledgeForm.valid()) { return; }
+
     let test = this.id;                                    // εδω με τη βοηθεια του this.id περνουμε περνουμε το σωστο @rewardid
     let id = window.localStorage.getItem('userId');        
     let RewardId = $('.js-rewardid.'+test);              

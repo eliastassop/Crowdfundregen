@@ -64,3 +64,16 @@ projectForm.submit(function (event) {
     });
 });
 
+jQuery.validator.addMethod('datevalid', function (value, element) {
+    let datenow = new Date();
+    let test = new Date(value);
+    if (test > datenow) {
+
+
+        return true;
+    }
+
+    return false;
+});
+jQuery.validator.unobtrusive.adapters.addBool('datevalid');
+

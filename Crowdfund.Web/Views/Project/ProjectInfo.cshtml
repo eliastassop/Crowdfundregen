@@ -198,7 +198,7 @@
                 @foreach (var r in Model.AvailableRewards)
                 {
                     <div class="col-sm-4">
-                        <div class="card border-success mb-3" style="max-width: 15rem;">
+                        <div class="card border-fix-from-css mb-3">
                             <div class="card-header bg-transparent border-success " style="color:dimgrey">@r.Title</div>
 
                             <input class="js-rewardid @r.RewardId" type="number" value="@r.RewardId" style="display:none">
@@ -208,13 +208,19 @@
                                 <p class="card-text @r.RewardId" style="color:dimgrey">@r.Description.</p>
                             </div>
 
-                            <div class="card-footer bg-transparent border-success" style="color:dimgrey">
-                                Quantity
-                                <input class="js-quantity @r.RewardId" type="number" style="border:2px solid dimgrey">
-                            </div>
-
-                            <div class="card-footer bg-transparent border-success" style="color:darkgreen; font-weight: bold">Price: @r.Price $</div>
-                            <button type="button" class="btn btn-primary js-pledge-button" id=@r.RewardId>Pledge</button>
+                            <form method="post" class="js-buy-reward-form" id=@r.RewardId>
+                                <div class="card-footer bg-transparent border-success" style="color:dimgrey">
+                                    Quantity
+                                    <div class="form-group row">
+                                        <input name="Quantity" class="js-quantity @r.RewardId form-control" type="number"
+                                               data-val="true" data-val-required
+                                               data-val-range="Please enter a positive number" data-val-range-min="1" data-val-range-max="99999999999999">
+                                        @Html.ValidationMessage("Quantity")
+                                    </div>
+                                </div>
+                                    <div class="card-footer bg-transparent border-success" style="color:darkgreen; font-weight: bold">Price: @r.Price $</div>
+                                    <button type="submit" class="btn btn-primary js-pledge-button">Pledge</button>
+</form>
                         </div>
                     </div>
                 }
@@ -259,12 +265,13 @@
                     <label for="@Html.NameFor(c=>c.Deadline)">Deadline</label>
                     <input name="Deadline" placeholder=""
                            class="form-control js-update-deadline" type="datetime-local" value="@Model.Deadline.ToString("s")" 
-                           data-val="true" data-val-required />
+                           data-val="true" data-val-required data-val-datevalid="Please enter a future date"/>
                     @Html.ValidationMessageFor(c => c.Deadline)
                 </div>
                 <div class="form-group row">
                     <label for="@Html.NameFor(c => c.Category)">Project Category</label>
-                    <select name="Category" id="inputCategory" class="js-update-category form-control">
+                    <select name="Category" id="inputCategory" class="js-update-category form-control"
+                            data-val="true"data-val-required="Please pick a category">
                         <option value="" disabled selected hidden>Please choose your new category</option>
                         @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.ProjectCategory)))
                             {

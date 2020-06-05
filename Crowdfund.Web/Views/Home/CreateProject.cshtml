@@ -17,7 +17,7 @@
     <div class="form-group row">
         <label for="@Html.NameFor(c=>c.Description)">Description</label>
         <textarea name="Description" class="js-description form-control" placeholder="Enter description for your project" rows="5"
-                  data-val="true" data-val-required="please enter a description" data-val-length="Please add up to 10000 characters" data-val-length-min="1" 
+                  data-val="true" data-val-required="please enter a description" data-val-length="Please add up to 10000 characters"  
                   data-val-length-max="100000"></textarea> <!--mhn fugei to keno anamesa sta akoloutha ></textarea> xalaei to validation-->
         @Html.ValidationMessageFor(c => c.Description)
     </div>
@@ -34,7 +34,7 @@
     <div class="form-group row">
         <label for="@Html.NameFor(c=>c.Deadline)">Deadline</label>
         <input name="Deadline" class="js-deadline form-control" type="datetime-local" value=now id="example-datetime-local-input"
-               data-val="true" date-val-required="please enter a date" >
+               data-val="true" data-val-required data-val-datevalid="Please enter a future date" >
         @Html.ValidationMessageFor(c => c.Deadline)
     </div>
 

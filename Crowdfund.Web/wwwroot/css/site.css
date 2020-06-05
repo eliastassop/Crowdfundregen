@@ -17,6 +17,11 @@ a {
     background-color: #083f88;
     /*border-color: #083f88;*/
 }
+/*pledge card*/
+.border-fix-from-css {
+    border-color: #fab414;
+    max-width: 15rem;
+}
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
@@ -64,8 +69,7 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  color: darkgray; 
+  margin-bottom: 60px; 
 }
 .footer {
   position: absolute;
