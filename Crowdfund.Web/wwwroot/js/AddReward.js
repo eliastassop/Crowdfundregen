@@ -36,7 +36,7 @@ rewardCreateForm.submit(function (event) {
         rewardCreateSuccessAlert.show().fadeOut(1500);
 
     }).fail(errorCode => {
-        rewardCreateFailedAlert.html(`Adding reward failed due to error: ${errorCode.statusText}`);
+        rewardCreateFailedAlert.html(`Adding reward failed due to error: ${errorCode.responseText}`);
         rewardCreateFailedAlert.show().fadeOut(1500);
 
     });

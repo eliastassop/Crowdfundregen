@@ -58,7 +58,7 @@ projectForm.submit(function (event) {
         projectCreateSuccessAlert.show().fadeOut(1500);
         window.location.href = "/project/"+projectId+"/addreward";
     }).fail(errorCode => {
-        projectCreateFailedAlert.html(`Project failed due to error: ${errorCode.statusText}`);
+        projectCreateFailedAlert.html(`Project failed due to error: ${errorCode.responseText}`);
         projectCreateFailedAlert.show().fadeOut(1500);
 
     });

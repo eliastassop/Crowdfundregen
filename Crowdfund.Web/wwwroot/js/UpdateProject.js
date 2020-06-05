@@ -1,4 +1,17 @@
-﻿let success = $('.js-updateproject-success').hide();
+﻿$(function () {    
+    let userId = window.localStorage.getItem('userId');
+    let creatorId = $('.js-project-creatorid').val();
+
+    if (userId == creatorId) {
+        $('.creator-hidden-items').show();
+    } else {
+        $('.creator-hidden-items').hide();
+    }
+});
+
+
+
+let success = $('.js-updateproject-success').hide();
 let fail = $('.js-updateproject-failed').hide();
 
 let UpdateProjectForm = $('.js-update-project-form');

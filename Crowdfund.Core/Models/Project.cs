@@ -7,6 +7,7 @@ namespace Crowdfund.Core.Models
     public class Project
     {
         public int ProjectId { get; set; }
+        public int CreatorId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public decimal CurrentFund { get; set; }

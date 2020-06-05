@@ -37,7 +37,7 @@ statusUpdateCreateForm.submit(function (event) {
         $('.js-add-statusUpdate-form').trigger("reset");
 
     }).fail(errorCode => {
-        statusUpdateCreateFailedAlert.html(`Adding statusUpdate failed due to error: ${errorCode.statusText}`);
+        statusUpdateCreateFailedAlert.html(`Adding statusUpdate failed due to error: ${errorCode.responseText}`);
         statusUpdateCreateFailedAlert.show().fadeOut(1500);
 
     });
