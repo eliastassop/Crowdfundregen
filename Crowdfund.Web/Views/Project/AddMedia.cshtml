@@ -1,7 +1,7 @@
 ﻿@model Crowdfund.Core.Models.Project
 
 <form method="post" class="js-add-media-form">
-    <h2>Add Media Item</h2>
+    <h2 style="border:2px solid black">Add Media Item</h2>
     <br />
     
 
@@ -9,7 +9,7 @@
     <div class="form-group row">
         <label for="projectId">Project Id</label>
         <input name="projectId"
-               class="js-media-projectId form-control" value="@Model.ProjectId" readonly>
+               class="js-media-projectId form-control" value="@Model.ProjectId" style="display:none" readonly>
     </div>
     
     <!-- Url-->
