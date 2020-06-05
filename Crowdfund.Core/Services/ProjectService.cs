@@ -44,7 +44,8 @@ namespace Crowdfund.Core.Services
                 Description = options.Description,
                 TotalFund = options.TotalFund,
                 Category = cat,
-                Deadline = options.Deadline
+                Deadline = options.Deadline,
+                CreatorId=options.CreatorId
             };
             
 

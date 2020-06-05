@@ -21,7 +21,7 @@ namespace Crowdfund.Core.Models
 
         public bool IsValidDescription(string description)
         {
-            return !string.IsNullOrWhiteSpace(description) && description.Length <= 100;
+            return !string.IsNullOrWhiteSpace(description) && description.Length <= 500;
         }
 
         public bool IsValidPrice(decimal price)
