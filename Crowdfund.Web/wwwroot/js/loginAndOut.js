@@ -18,7 +18,7 @@ loginForm.submit(function (event) {
 
         }).fail(failureResponse => {
             loginFailedAlert.html(`${failureResponse.responseText}`);
-            loginFailedAlert.fadeOut(1200);
+            loginFailedAlert.show().fadeOut(1500);
             
         });
 });
