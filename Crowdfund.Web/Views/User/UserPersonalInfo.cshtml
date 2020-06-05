@@ -5,13 +5,6 @@
     <link rel="stylesheet" type="text/css" href="mycss.css">
 <script>src="https://kit.fontawesome.com/b99e675b6e.js"</script>
 <style>
-    /*img {
-        width: 80px;
-        height: 80px;
-    }*/
-
-    
-    /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     h2 {
         font: Rockwell;
     }
@@ -96,7 +89,7 @@
     <br />
     <div class="tab-pane fade show active" id="profile-tab-area" style="margin-bottom:10px" role="tabpanel" aria-labelledby="Profile">
         <div class="wrapper">
-            <div class="left">
+            <div class="left" style="background-color:brown">
                 <img src="~/css/user.png" style="border-radius:2px" alt="user" width="100">
                 <h4>@Model.User.UserName</h4>
                 <div class="data">
@@ -132,11 +125,18 @@
         </div>
     </div>
 
-
-
-
     <!--My Projects Tab area-->
     <div class="tab-pane fade" id="myprojects-tab-area" role="tabpanel" aria-labelledby="My projects">
+
+        @if (Model.User.Projects.Count() == 0)
+        {
+            <div class="jumbotron">
+                <h4 class="display-4" style="font-weight:bold"> There are no created projects </h4>
+                <hr class="my-4">
+                <a class="btn btn-primary btn-lg js-no-funded-button" href="@Url.Action("createproject","home")" role="button">Lets Create one.</a>
+            </div>
+
+        }
         <div class="container-fluid bg-3 text-center">
             <div class="row">
                 @foreach (var p in Model.User.Projects)
@@ -167,7 +167,15 @@
     <!--My Funded Projects-->
     <div class="tab-pane fade" id="fundedprojects-tab-area" role="tabpanel" aria-labelledby="Funded Projects">
 
+        @if (Model.ProjectsBacked.Count() == 0)
+        {
+            <div class="jumbotron">
+                <h4 class="display-4" style="font-weight:bold"> There are no funded projects </h4>
+                <hr class="my-4">
+                <a class="btn btn-primary btn-lg js-no-funded-button" href="@Url.Action("index","home")" role="button">Lets find.</a>
+            </div>
 
+        }
         <div class="container-fluid bg-3 text-center">
             <div class="row">
                 @foreach (var p in Model.ProjectsBacked)
@@ -179,9 +187,9 @@
                                 <h5 class="card-title" style="color:brown; font-size:15px; font-weight:bold">@p.Title</h5>
                                 <p class="card-text" style="color:#b80d57; font-size:15px; font-weight:bold">@p.Deadline</p>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                         aria-valuemin="0" aria-valuemax="100" style="width:40%; background-color:forestgreen">
-                                        40%(Fund)
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@(p.CurrentFund/p.TotalFund * 100)%"
+                                         aria-valuemin="0" aria-valuemax="100" style="width:@(p.CurrentFund/p.TotalFund * 100)%; background-color:forestgreen">
+                                        @(p.CurrentFund/p.TotalFund * 100)%
                                     </div>
                                 </div><br />
                                 <a href="@Url.Action("ProjectInfo","Project",new { projectId = p.ProjectId })" type="button" class="btn btn-primary">See more</a>
@@ -200,7 +208,7 @@
             <div class="form-group">
                 <label for="Id">Unique Id</label>
                 <input type="text" name="UserId" placeholder="" size="10"
-                       class="form-control" readonly value="@Model.User.UserId">
+                       class="form-control" style="display:none" readonly value="@Model.User.UserId">
                
             </div>
             <div class="form-group js-update-user-form" >
