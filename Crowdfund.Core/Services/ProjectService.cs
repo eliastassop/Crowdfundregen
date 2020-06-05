@@ -303,12 +303,12 @@ namespace Crowdfund.Core.Services
 
         public IQueryable<Project> SearchTrendingProjects()
         {
-            return context_.Set<Project>().OrderByDescending(u => u.CurrentFund/u.TotalFund).Take(500);     //mporoume na dialeksoume kai allo metric edo
+            return context_.Set<Project>().OrderByDescending(u => u.CurrentFund/u.TotalFund).Take(4);     //mporoume na dialeksoume kai allo metric edo
         }
 
         public IQueryable<Project> SearchLatestProjects()
         {
-            return context_.Set<Project>().OrderByDescending(u => u.Created).Take(500);     //mporoume na dialeksoume kai allo metric edo
+            return context_.Set<Project>().OrderByDescending(u => u.Created).Take(4);     //mporoume na dialeksoume kai allo metric edo
         }
     }
 }

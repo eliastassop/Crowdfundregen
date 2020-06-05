@@ -97,8 +97,8 @@
     <div class="tab-pane fade show active" id="profile-tab-area" style="margin-bottom:10px" role="tabpanel" aria-labelledby="Profile">
         <div class="wrapper">
             <div class="left">
-                <img src="~/css/content.jpg" alt="user" width="100">
-                <h4><i class="fa fa-user icon" style="color:black"></i> @Model.User.UserName</h4>
+                <img src="~/css/user.png" style="border-radius:2px" alt="user" width="100">
+                <h4>@Model.User.UserName</h4>
                 <div class="data">
                     <h4 style="color:black">Account Created</h4>
                     <p>@Model.User.UserCreated</p>
@@ -146,11 +146,11 @@
                         <div class="card border-secondary mb-3" style="width: 18rem;">
                             <img src="~/css/nba.jpg" class="card-img-top" alt="...">
                             <div class="card-body" style="background-color:#bbbbbb">
-                                <h5 class="card-title" style="color:brown">@p.Title</h5>
-                                <p class="card-text" style="color:#b80d57">@p.Deadline</p>
+                                <h5 class="card-title" style="color:brown; font-size:15px; font-weight:bold">@p.Title</h5>
+                                <p class="card-text" style="color:#b80d57; font-size:15px; font-weight:bold">@p.Deadline</p>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@(p.CurrentFund/p.TotalFund * 100)"
-                                         aria-valuemin="0" aria-valuemax="100" style="width:40%; background-color:forestgreen">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@(p.CurrentFund/p.TotalFund * 100)%"
+                                         aria-valuemin="0" aria-valuemax="100" style="width:@(p.CurrentFund/p.TotalFund * 100)%; background-color:forestgreen">
                                         @(p.CurrentFund/p.TotalFund * 100)%
                                     </div>
                                 </div><br />
@@ -176,8 +176,8 @@
                         <div class="card" style="width: 18rem;">
                             <img src="~/css/kick2.jpg" class="card-img-top" alt="...">
                             <div class="card-body" style="background-color:#bbbbbb">
-                                <h5 class="card-title" style="color:brown">@p.Title</h5>
-                                <p class="card-text" style="color:#b80d57">@p.Deadline</p>
+                                <h5 class="card-title" style="color:brown; font-size:15px; font-weight:bold">@p.Title</h5>
+                                <p class="card-text" style="color:#b80d57; font-size:15px; font-weight:bold">@p.Deadline</p>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
                                          aria-valuemin="0" aria-valuemax="100" style="width:40%; background-color:forestgreen">
