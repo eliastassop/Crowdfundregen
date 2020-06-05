@@ -3,6 +3,7 @@
 <form method="post" class="js-add-media-form">
     <h2>Add Media Item</h2>
     <br />
+    
 
     <!-- ProjectId-->
     <div class="form-group row">
@@ -10,24 +11,30 @@
         <input name="projectId"
                class="js-media-projectId form-control" value="@Model.ProjectId" readonly>
     </div>
-
+    
     <!-- Url-->
     <div class="form-group row">
-        <label for="mediaUrl">Enter Media URL</label>
-        <input name="mediaUrl" placeholder="Enter the external url for the media item "
-               class="js-media-url form-control">
+        <label for="MediaLink">Enter Media URL</label>
+        <input name="MediaLink" placeholder="Enter the external url for the media item "
+               class="js-media-url form-control"
+               data-val="true" data-val-required data-val-url="Please enter a valid url format">
+
+        @Html.ValidationMessage("MediaLink")
     </div>
 
+    <!-- Photo or Video -->
     <div class="form-group row">
-        <label for="category">Media Category</label>
-        <select id="inputCategory" class="js-media-category form-control">
-            <option selected>Pick a Category</option>
+        <label for="Category">Media Category</label>
+        <select name="Category" id="inputCategory" class="js-media-category form-control"
+                data-val="true" data-val-required="Please pick a category">
+            <option value="" disabled selected hidden>Please Choose...</option>
             @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.MediaCategory)))
                 {
                     <option>@cat</option>
                 }
             }
         </select>
+        @Html.ValidationMessage("Category")
     </div>
 
     <button type="button" class="btn btn-primary js-create-media-button">
@@ -49,3 +56,5 @@
 @section Scripts {
     <script src="~/js/AddMedia.js" asp-append-version="true"></script>
 }
+
+

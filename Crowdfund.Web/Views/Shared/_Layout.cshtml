@@ -1,19 +1,18 @@
-﻿ 
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Fund your Dreams</title>
-    <link rel="icon" href ="~/css/Mikro_icon_16x16.png" />
+    <link rel="icon" href="~/css/Mikro_icon_16x16.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/mycss.css" />
     <style>
-        body{
-            text-align:center;
+        body {
+            text-align: center;
         }
-        
     </style>
 </head>
 <body>
@@ -38,8 +37,8 @@
                         </div>
                     </li>
                     @*<li class="nav-item js-user-pi" type="button">
-            <a class="nav-link text-dark "> Hi User</a>
-        </li>*@
+                            <a class="nav-link text-dark "> Hi User</a>
+                        </li>*@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CreateProject">Start a Project</a>
                     </li>
@@ -51,9 +50,9 @@
                         <a class="nav-link text-dark">Log Out</a>
                     </li>
                     @*<li class="form-inline">
-                        <input class="form-control mr-sm-2 js-search-bar-text" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" type="button">Search</button>
-                    </li>*@
+                            <input class="form-control mr-sm-2 js-search-bar-text" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" type="button">Search</button>
+                        </li>*@
                     <li class="nav-item user-logo" style="margin-left:240px">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/css/Logo_230x30.png" /></a>
                     </li>
@@ -66,11 +65,11 @@
                     </li>
                     @*<li class="form-inline" >
 
-            <input class="form-control mr-sm-2 js-search-bar-text" id="searchbox" type="search" placeholder="Search" aria-label="Search" style="float:right">
+                            <input class="form-control mr-sm-2 js-search-bar-text" id="searchbox" type="search" placeholder="Search" aria-label="Search" style="float:right">
 
 
-            <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" href="@Url.Action("SearchProjectsByText","Project",new { projectId = form })"  type="button" >Search</button>
-        </li>*@
+                            <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" href="@Url.Action("SearchProjectsByText","Project",new { projectId = form })"  type="button" >Search</button>
+                        </li>*@
 
 
                 </ul>
@@ -81,7 +80,7 @@
         </nav>
         <div>
             <form class="form-inline my-2 my-lg-0" style="margin-left:380px; margin-bottom:25px">
-                <input class="form-control mr-sm-2 js-search-bar-text" style="width:500px"  type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-sm-2 js-search-bar-text" style="width:500px" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" type="button">Search</button>
             </form>
         </div>
@@ -101,8 +100,10 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/layout.js" asp-append-version="true"></script>
-    
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

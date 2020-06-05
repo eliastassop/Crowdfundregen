@@ -221,7 +221,7 @@
     <!--Update Project-->
     <div class="tab-pane fade" id="updateproject-tab-area" role="tabpanel" aria-labelledby="Update Project">
         <div class="container">
-            <form id="profile-form" class="profile page" method="post">
+            <form id="profile-form" class="js-profile-page-form" method="post">
                 <br />
                 <img src="~/css/content.jpg" alt="Not Found" />
                 <div class="form-group">
@@ -230,37 +230,48 @@
                            class="form-control js-up-projectid" readonly value="@Model.ProjectId">
                 </div>
                 <div class="form-group">
-                    <label for="title">Title</label>
-                    <input name="title" placeholder=""
-                           class="form-control js-update-title" type="text" value="@Model.Title">
+                    <label for="@Html.NameFor(c=>c.Title)">Title</label>
+                    <input name="Title" placeholder=""
+                           class="form-control js-update-title" type="text" value="@Model.Title"
+                           data-val="true" data-val-required data-val-length="Please enter up to 50 characters" 
+                           data-val-length-max="50">
+                    @Html.ValidationMessageFor(c=>c.Title)
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control js-update-description" type="text" rows="5">@Model.Description</textarea>
+                    <label for="@Html.NameFor(c=>c.Description)">Description</label>
+                    <textarea name="Description"class="form-control js-update-description" type="text" rows="5"
+                              data-val="true" data-val-required
+                              data-val-length data-val-length-max="100000">@Model.Description</textarea>
+                    @Html.ValidationMessageFor(c => c.Description)
                 </div>
 
                 <div class="form-group">
-                    <label for="totalfund">Total Fund</label>
-                    <input name="totalfund" placeholder=""
-                           class="form-control js-update-totalfund" type="number" value="@decimal.ToDouble(Model.TotalFund)">
+                    <label for="@Html.NameFor(c=>c.TotalFund)">Total Fund</label>
+                    <input name="Totalfund" placeholder=""
+                           class="form-control js-update-totalfund" type="number" value="@decimal.ToDouble(Model.TotalFund)"
+                           data-val="true" data-val-required="Please your new estimated totalfund amount">
+                    @Html.ValidationMessageFor(c => c.TotalFund)
                 </div>
 
                 <div class="form-group">
-                    <label for="deadline">Deadline</label>
-                    <input name="deadline" placeholder=""
-                           class="form-control js-update-deadline" type="datetime-local" value="@Model.Deadline.ToString("s")" />
+                    <label for="@Html.NameFor(c=>c.Deadline)">Deadline</label>
+                    <input name="Deadline" placeholder=""
+                           class="form-control js-update-deadline" type="datetime-local" value="@Model.Deadline.ToString("s")" 
+                           data-val="true" data-val-required />
+                    @Html.ValidationMessageFor(c => c.Deadline)
                 </div>
                 <div class="form-group row">
-                    <label for="category">Project Category</label>
-                    <select id="inputCategory" class="js-update-category form-control">
-                        <option selected>@Model.Category</option>
+                    <label for="@Html.NameFor(c => c.Category)">Project Category</label>
+                    <select name="Category" id="inputCategory" class="js-update-category form-control">
+                        <option value="" disabled selected hidden>Please choose your new category</option>
                         @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.ProjectCategory)))
                             {
                                 <option>@cat</option>
                             }
                         }
                     </select>
+                    @Html.ValidationMessageFor(c => c.Category)
                 </div>
 
                 <button type="button" class="btn btn-primary js-update-project">Update</button>

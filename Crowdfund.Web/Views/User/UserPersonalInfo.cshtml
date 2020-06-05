@@ -190,18 +190,25 @@
             <img src="~/css/content.jpg" alt="Not Found" />
             <div class="form-group">
                 <label for="Id">Unique Id</label>
-                <input name="Id" placeholder=""
+                <input type="text" name="UserId" placeholder=""
                        class="form-control" readonly value="@Model.User.UserId">
+               
             </div>
-            <div class="form-group">
-                <label for="userName">UserName</label>
-                <input name="userName" placeholder=""
-                       class="form-control js-update-username" value="@Model.User.UserName">
+            <div class="form-group js-update-user-form" >
+                <label for="UserName">UserName</label>
+                <input name="UserName" placeholder=""
+                       class="form-control js-update-username" value="@Model.User.UserName"
+                        data-val="true" data-val-required
+                       data-val-length="Please enter up to 10 characters" data-val-length-max="10">
+                @Html.ValidationMessage("UserName")
             </div>
 
             <div class="form-group">
-                <label for="email">Email</label>
-                <input name="email" class="form-control js-update-email" value="@Model.User.Email">
+                <label for="Email">Email</label>
+                <input name="Email" class="form-control js-update-email" value="@Model.User.Email"
+                       data-val="true" data-val-required
+                       data-val-regex="Please enter a valid email" data-val-regex-pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$" />
+                @Html.ValidationMessage("Email")
             </div>
             <button type="button" class="btn btn-primary js-update-profile-btn">Update Profile</button>
 
@@ -209,7 +216,7 @@
                 Your Profile has been updated
             </div>
 
-            <div class="alert alert-danger js-update-failed" style="display:none" role="alert">                
+            <div class="alert alert-danger js-update-failed" style="display:none" role="alert">
             </div>
         </form>
     </div>
