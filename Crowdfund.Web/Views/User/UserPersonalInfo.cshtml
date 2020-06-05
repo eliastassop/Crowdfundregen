@@ -2,13 +2,16 @@
 @{
     ViewData["Title"] = "UserPersonalInfo";
 }
-
+    <link rel="stylesheet" type="text/css" href="mycss.css">
+<script>src="https://kit.fontawesome.com/b99e675b6e.js"</script>
 <style>
     /*img {
         width: 80px;
         height: 80px;
     }*/
 
+    
+    /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     h2 {
         font: Rockwell;
     }
@@ -85,42 +88,51 @@
         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#fundedprojects-tab-area" role="tab" aria-controls="fundedprojects-area" aria-selected="false">Funded Projects</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#deleteprofile-tab-area" role="tab" aria-controls="deleteprofile-area" aria-selected="false">Update Profile</a>
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#updateprofile-tab-area" role="tab" aria-controls="deleteprofile-area" aria-selected="false">Update Profile</a>
     </li>
 </ul>
 <!-- Tab area -->
-<div class="tab-content" id="myTabContent"><br />
-    <!--Profile Tab Area-->
-    <div class="tab-pane fade show active" id="profile-tab-area" role="tabpanel" aria-labelledby="Profile">
-        <img src="~/css/content.jpg" alt="Not Found" /><br />
-        <form id="profile-form" class="profile page" method="post">
-            <div class="form-group">
-                <label for="Id">Unique Id</label>
-                <input name="Id" placeholder=""
-                 class="form-control" readonly value="@Model.User.UserId">
+<div class="tab-content" id="myTabContent">
+    <br />
+    <div class="tab-pane fade show active" id="profile-tab-area" style="margin-bottom:10px" role="tabpanel" aria-labelledby="Profile">
+        <div class="wrapper">
+            <div class="left">
+                <img src="~/css/content.jpg" alt="user" width="100">
+                <h4><i class="fa fa-user icon" style="color:black"></i> @Model.User.UserName</h4>
+                <div class="data">
+                    <h4 style="color:black">Account Created</h4>
+                    <p>@Model.User.UserCreated</p>
+                </div>
             </div>
-            <div class="form-group">
-                @*<label for="userName">UserName</label>*@
-                <i class="fa fa-user icon" style="color:black"></i>
-                <input name="userName" placeholder=""
-                       class="form-control" readonly value="@Model.User.UserName">
-            </div>
+            <div class="right">
+                <div class="info">
+                    <h3>Information</h3>
+                    <div class="info_data" style="justify-content:center">
+                        <div class="data">
+                            <h4><i class="fa fa-envelope icon" style="color:black"></i></h4>
+                            <p>@Model.User.Email</p>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                @*<label for="email">Email</label>*@
-                <i class="fa fa-envelope icon" style="color:black"></i>
-                <input name="email" class="form-control" readonly value="@Model.User.Email">
+                <div class="projects">
+                    <h3>Projects</h3>
+                    <div class="projects_data">
+                        <div class="data">
+                            <h4>Total Projects</h4>
+                            <p style="font-weight:bold">@Model.User.Projects.Count()</p>
+                        </div>
+                        <div class="data">
+                            <h4>Funded Projects</h4>
+                            <p>@Model.ProjectsBacked.Count()</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="projects" style="color:black">Total Projects</label>
-                <input name="projects" class="form-control" readonly value="@Model.User.Projects.Count()">
-            </div>
-            <div class="form-group">
-                <label for="fprojects" style="color:black">Total Funded Projects</label>
-                <input name="fprojects" class="form-control" readonly value="@Model.ProjectsBacked.Count()">
-            </div>
-        </form>
+        </div>
     </div>
+
+
 
 
     <!--My Projects Tab area-->
@@ -135,12 +147,11 @@
                             <img src="~/css/nba.jpg" class="card-img-top" alt="...">
                             <div class="card-body" style="background-color:#bbbbbb">
                                 <h5 class="card-title" style="color:brown">@p.Title</h5>
-                                <p class="card-text" style="color:#b80d57">@p.Description.</p>
                                 <p class="card-text" style="color:#b80d57">@p.Deadline</p>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@(p.CurrentFund/p.TotalFund * 100)"
                                          aria-valuemin="0" aria-valuemax="100" style="width:40%; background-color:forestgreen">
-                                        40%(Fund)
+                                        @(p.CurrentFund/p.TotalFund * 100)%
                                     </div>
                                 </div><br />
                                 <a href="@Url.Action("ProjectInfo","Project",new { projectId = p.ProjectId })" type="button" class="btn btn-primary">See more</a>
@@ -166,7 +177,6 @@
                             <img src="~/css/kick2.jpg" class="card-img-top" alt="...">
                             <div class="card-body" style="background-color:#bbbbbb">
                                 <h5 class="card-title" style="color:brown">@p.Title</h5>
-                                <p class="card-text" style="color:#b80d57">@p.Description.</p>
                                 <p class="card-text" style="color:#b80d57">@p.Deadline</p>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
@@ -183,20 +193,19 @@
         </div>
     </div>
 
-<!--Update Profile area-->
-    <div class="tab-pane fade" id="deleteprofile-tab-area" role="tabpanel" aria-labelledby="Update Profile">
+    <!--Update Profile area-->
+    <div class="tab-pane fade" id="updateprofile-tab-area" role="tabpanel" aria-labelledby="Update Profile">
         <form id="profile-form" class="profile page" method="post">
             <br />
-            <img src="~/css/content.jpg" alt="Not Found" />
             <div class="form-group">
                 <label for="Id">Unique Id</label>
-                <input name="Id" placeholder=""
-                       class="form-control" readonly value="@Model.User.UserId">
+                <input name="Id" size="10"
+                       class="form-control"  readonly value="@Model.User.UserId">
             </div>
             <div class="form-group">
                 <label for="userName">UserName</label>
-                <input name="userName" placeholder=""
-                       class="form-control js-update-username" value="@Model.User.UserName">
+                <input name="userName" size="10"
+                   class="form-control js-update-username" value="@Model.User.UserName">
             </div>
 
             <div class="form-group">
@@ -209,11 +218,11 @@
                 Your Profile has been updated
             </div>
 
-            <div class="alert alert-danger js-update-failed" style="display:none" role="alert">                
+            <div class="alert alert-danger js-update-failed" style="display:none" role="alert">
             </div>
         </form>
     </div>
-</div>
+</div>                                      
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

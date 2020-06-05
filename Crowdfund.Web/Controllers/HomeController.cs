@@ -37,12 +37,7 @@ namespace Crowdfund.Web.Controllers
         public IActionResult Index()
         {
             var trendingProjects = projectService_.SearchTrendingProjects().ToList();
-            //var user = userService_.GetUserById(1);
-            //var currentFund2 = projectService_.GetProjectById(1);
-            //if (!currentFund2.Success)
-            //{
-            //    return StatusCode((int)currentFund2.ErrorCode, currentFund2.ErrorText);
-            //}
+            
             return View(trendingProjects);
         }
 
