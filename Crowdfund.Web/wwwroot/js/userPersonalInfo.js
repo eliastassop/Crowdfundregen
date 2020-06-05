@@ -4,11 +4,12 @@ let updatefailed = $('.js-update-failed');
 
 UpdateProfileForm.submit(function (event) {
     event.preventDefault();
-    let userid = window.localStorage.getItem('userId');
-    
+    if (!UpdateProfileForm.valid()) { return; }
+
+    let userid = window.localStorage.getItem('userId');    
     let Email = $('.js-update-email');
     let UserName = $('.js-update-username');
-    //debugger;
+
 
     let data = {
         UserName: UserName.val(),

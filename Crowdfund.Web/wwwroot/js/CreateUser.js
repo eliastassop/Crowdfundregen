@@ -6,7 +6,8 @@ let createUserForm = $('.js-create-account-form');
 
 createUserForm.submit(function (event) {
     event.preventDefault();
-    
+    if (!createUserForm.valid()) { return; }
+
     let username = $('.js-create-userName');
     let email = $('.js-create-email');
 

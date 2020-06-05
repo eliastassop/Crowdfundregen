@@ -34,9 +34,7 @@ namespace Crowdfund.Core.Models
 
             email = email.Trim();
 
-            if (email.Contains("@") 
-                &&( email.EndsWith(".com") 
-                || email.EndsWith(".gr")))
+            if (email.Contains("@"))
             {
                 var count = email.Count(x => x == '@');
                 if (count == 1)

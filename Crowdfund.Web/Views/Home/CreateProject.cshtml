@@ -6,32 +6,44 @@
 
     <!-- Title-->
     <div class="form-group row">
-        <label for="title">Title</label>
-        <input name="title" placeholder="Enter the title of the project"
-               class="js-title form-control">
+        <label for="@Html.NameFor(c=>c.Title)">Title</label>
+        <input type ="text" name="Title" placeholder="Enter the title of the project"
+               class="js-title form-control" data-val="true"
+               data-val-required data-val-length="Please enter up to 50 characters" data-val-length-max="50">
+        @Html.ValidationMessageFor(c=>c.Title)
     </div>
 
     <!-- Description -->
     <div class="form-group row">
-        <label for="description">Description</label>
-        <textarea class="js-description form-control" placeholder="Enter description for your project" rows="5"></textarea>
+        <label for="@Html.NameFor(c=>c.Description)">Description</label>
+        <textarea name="Description" class="js-description form-control" placeholder="Enter description for your project" rows="5"
+                  data-val="true" data-val-required="please enter a description" data-val-length="Please add up to 10000 characters" data-val-length-min="1" 
+                  data-val-length-max="100000"></textarea> <!--mhn fugei to keno anamesa sta akoloutha ></textarea> xalaei to validation-->
+        @Html.ValidationMessageFor(c => c.Description)
     </div>
 
     <!-- Total Fund -->
     <div class="form-group row">
-        <label for="totalFund">Total Fund</label>
-        <input class="js-totalFund form-control" type="number">
+        <label for="@Html.NameFor(c=>c.TotalFund)">Total Fund</label>
+        <input name="TotalFund" class="js-totalFund form-control" type="number"
+               data-val="true" data-val-required="Please enter an estimated totalfund amount">
+        @Html.ValidationMessageFor(c => c.TotalFund)
+    </div>
+
+    <!--thelw custom function.-->
+    <div class="form-group row">
+        <label for="@Html.NameFor(c=>c.Deadline)">Deadline</label>
+        <input name="Deadline" class="js-deadline form-control" type="datetime-local" value=now id="example-datetime-local-input"
+               data-val="true" date-val-required="please enter a date" >
+        @Html.ValidationMessageFor(c => c.Deadline)
     </div>
 
     <div class="form-group row">
-        <label for="deadline">Deadline</label>
-        <input class="js-deadline form-control" type="datetime-local" value=now id="example-datetime-local-input">
-    </div>
-
-    <div class="form-group row">
-        <label for="image">Project Cover Photo</label>
-        <input name="title" placeholder="Enter the external url for the cover photo of the project"
-               class="js-media-input form-control">
+        <label for="@Html.NameFor(c=>c.MediaLink)">Project Cover Photo</label>
+        <input name="MediaLink" placeholder="Enter the external url for the cover photo of the project"
+               class="js-media-input form-control"
+               data-val="true" data-val-required data-val-url="Please enter a valid url format">
+        @Html.ValidationMessageFor(c => c.MediaLink)
     </div>
 
     @*<div class="form-group row">
@@ -39,15 +51,17 @@
     </div>*@
 
     <div class="form-group row">
-        <label for="category">Project Category</label>
-        <select id="inputCategory" class="js-category form-control">
-            <option selected>Pick a Category</option>
+        <label for="@Html.NameFor(c=>c.Category)">Project Category</label>
+        <select name="Category" data-val="true" data-val-required="Please pick a category" id="inputCategory" class="js-category form-control" placeholder="Pick a category">
+
+            <option value="" disabled selected hidden>Please choose a category</option>
             @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.ProjectCategory)))
                 {
                     <option>@cat</option>
                 }
             }
         </select>
+        @Html.ValidationMessageFor(c=>c.Category)
     </div>
     <div class="mb-3 pics animation all 2">
         <img src="https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/x17/16714-birthday-cake-600x600.jpg?ext=.jpg" alt="Girl in a jacket" width="150" height="150">

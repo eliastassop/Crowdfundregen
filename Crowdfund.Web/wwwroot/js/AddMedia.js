@@ -6,6 +6,7 @@
 let mediaCreateForm = $('.js-add-media-form');
 mediaCreateForm.submit(function (event) {
     event.preventDefault();
+    if (!mediaCreateForm.valid()) { return; }
 
     let mediaCreateSuccessAlert = $('.js-media-create-success-alert');
     let mediaCreateFailedAlert = $('.js-media-create-fail-alert');
@@ -48,15 +49,3 @@ mediaCreateForm.submit(function (event) {
     });
 });
 
-$('.js-add-media-form').keypress(function (e) {
-    if (e.which == 13) {
-        mediaCreateButton.click();
-        return false;    //<---- Add this line
-    }
-});
-
-//let gotoProjectButton = $('.js-goto-project-button');
-//gotoProjectButton.on('click', () => {
-//    //debugger;
-//    //window.location.href = "/project/" + projectId + "/viewproject";
-//}

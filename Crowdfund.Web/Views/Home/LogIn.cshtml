@@ -12,9 +12,13 @@
 
     <!-- Firstname-->
     <div class="form-group">
-        <label for="userName">User Name</label>
-        <input type="text" name="userName" placeholder="Enter your User Name"
-               class="js-userName form-control"/>
+
+        <label for="@Html.NameFor(c=>c.UserName)">User Name</label>
+        <input type="text" name="UserName" placeholder="Enter your User Name "
+               class="js-userName form-control"
+               data-val="true" data-val-required
+               data-val-length="Please enter up to 10 characters" data-val-length-max="10" />
+        @Html.ValidationMessageFor(c => c.UserName)
     </div>
 
     <!-- Submit -->
@@ -29,20 +33,28 @@
 
 </form>
 
+
 <h2>Create Account</h2>
 
 <form method="post" class="js-create-account-form">
     <!-- Create User Form-->
     <div class="second-login-form-group-username">
-        <label for="createUserName">UserName</label>
-        <input name="userName" placeholder="Enter your User Name"
-               class="js-create-userName form-control" />
+        <label for="@Html.NameFor(c => c.UserName)">UserName</label>
+        <input type="text" name="UserName" placeholder="Enter your User Name"
+               class="js-create-userName form-control"
+               data-val="true" data-val-required
+               data-val-length="Please enter up to 10 characters" data-val-length-max="10" />
+        @Html.ValidationMessageFor(c => c.UserName)
+
     </div>
 
     <div class="second-login-form-group-email">
-        <label for="createEmail">Email</label>
-        <input name="email" placeholder="Enter your Email"
-               class="js-create-email form-control" />
+        <label for="@Html.NameFor(c => c.Email)">Email</label>
+        <input name="Email" placeholder="Enter your Email"
+               class="js-create-email form-control"
+               data-val="true" data-val-required
+               data-val-regex="Please enter a valid email" data-val-regex-pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$" />
+        @Html.ValidationMessageFor(c => c.Email)
     </div>
     <button type="submit" class="btn btn-primary js-create-user-button">
         Create
@@ -53,11 +65,11 @@
     </div>
 
     <div class="alert alert-danger js-user-create-fail-alert" role="alert">
-        
+
     </div>
 </form>
 
-    @section Scripts {
-        <script src="~/js/loginAndOut.js" asp-append-version="true"></script>
-        <script src="~/js/CreateUser.js" asp-append-version="true"></script>
-    }
+@section Scripts {
+    <script src="~/js/Login.js" asp-append-version="true"></script>
+    <script src="~/js/CreateUser.js" asp-append-version="true"></script>
+}

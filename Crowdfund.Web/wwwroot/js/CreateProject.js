@@ -18,9 +18,9 @@
 
 // **Create Project javascript code**
 let projectForm = $('.js-create-project-form');
-
 projectForm.submit(function (event) {
     event.preventDefault();
+    if (!projectForm.valid()) { return; }
 
     let projectCreateSuccessAlert = $('.js-project-create-success-alert');
     projectCreateSuccessAlert.hide();

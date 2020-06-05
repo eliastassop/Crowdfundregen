@@ -1,39 +1,19 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-// Write your JavaScript code.
 
+//let iconyes = $('.js-icon-yes')
+//jQuery.validator.addMethod("domain", function (value, element) {
+//    if (value.includes('test')) {
 
-
-//let successAlert = $('.js-success-alert');
-//successAlert.hide();
-
-//let failedAlert = $('.js-login-fail-alert');
-//failedAlert.hide();
-
-//let loginFirstAlert = $('.js-login-first-alert');
-//loginFirstAlert.hide();
-
-
-
-// **Personal Info javascript code**
-
-
-
-//let profilepage = $('.profile page');
-//let UpdateInfoButton = $('.js-upinfo');
-
-//UpdateInfoButton.on('click', () => {
-//    window.location.href = "/home/login";
+//        return true;
+//    }
+//    return false;
 //});
+//jQuery.validator.unobtrusive.adapters.addBool('domain');
 
+//if (value.includes('test')) {
+//$('form#profile-form button.js-submit-profile-btn') ***** !!   
 
-
-
-
-
-
-
-//$('form#profile-form button.js-submit-profile-btn') ***** !!
-    
-
+//let form = $('.js-profile-page-form')
+//if (!form.valid()) { return; }

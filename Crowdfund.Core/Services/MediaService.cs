@@ -94,22 +94,21 @@ namespace Crowdfund.Core.Services
             return query;
         }
 
-
-        /*public IQueryable<Media> SearchMediaByProjectId(int? projectId)
+        // NULLABLE giati etsi to exoume sta searchmediaoptions den eixa kouragio na dw an odws xreiazete.??
+        public Result<Media> GetMediaByProjectId(int projectId)
         {
-            if (projectId == null)
-            {
-                return null;
-            }
-
-            var Query = SearchMedia(new SearchMediaOptions()
+            
+            var media = SearchMedia(new SearchMediaOptions()
             {
                 ProjectId = projectId,
-            });
-
-            return Query;
+            }).FirstOrDefault();
+            if (media == null)
+            {
+                return Result<Media>.CreateFailed(StatusCode.NotFound, "No such Media exists");
+            }
+            return Result<Media>.CreateSuccessful(media);
         }
-        */
+        
         public Result<Media> GetMediaById(int mediaId)
         {
             var media = SearchMedia(new SearchMediaOptions()

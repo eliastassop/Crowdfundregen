@@ -14,12 +14,6 @@ namespace Crowdfund.Core.Services
         Result<bool> DeleteMedia(int mediaId);
         IQueryable<Media> SearchMedia(SearchMediaOptions options);
         Result<Media> GetMediaById(int MediaId);
-
-        //IQueryable<Media> SearchMediaByProjectId(int? projectId);
-
-
-
-
-
+        Result<Media> GetMediaByProjectId(int projectId);
     }
 }

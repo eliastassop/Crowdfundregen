@@ -12,21 +12,30 @@
         </div>
         <!-- Title-->
         <div class="form-group row">
-            <label for="title">Title</label>
-            <input name="title" placeholder="Enter the title of the reward"
-                   class="js-reward-title form-control">
+            <label for="Title">Title</label>
+            <input name="Title" placeholder="Enter the title of the reward"class="js-reward-title form-control"
+                   data-val="true"data-val-required 
+                   data-val-length="Please enter up to 50 characters"data-val-length-max="50">
+            @Html.ValidationMessage("Title")
+                   
         </div>
 
         <!-- Description -->
         <div class="form-group row">
-            <label for="description">Description</label>
-            <textarea class="js-reward-description form-control" placeholder="Enter the description for your reward" rows="5"></textarea>
+            <label for="Description">Description</label>
+            <textarea name="Description" class="js-reward-description form-control" placeholder="Enter the description for your reward" rows="5"
+            data-val="true" data-val-required="Please enter a description" data-val-length="Please add up to 10000 characters" 
+            data-val-length-min="1" data-val-length-max="100000"></textarea>
+            @Html.ValidationMessage("Description")
         </div>
 
-        <!-- Total Fund -->
+        <!-- Price -->
         <div class="form-group row">
-            <label for="totalFund">Price</label>
-            <input class="js-reward-price form-control" placeholder="Enter the price of the reward" type="number">
+            <label for="Price">Price</label>
+            <input name="Price"class="js-reward-price form-control" placeholder="Enter the price of the reward" type="number"
+                   data-val="true" data-val-required 
+                   data-val-range="Please enter a positive number" data-val-range-min="0" data-val-range-max="99999999999999">
+            @Html.ValidationMessage("Price") 
         </div>
 
         <button type="submit" class="btn btn-primary js-create-reward-button">

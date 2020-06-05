@@ -6,6 +6,7 @@
 let statusUpdateCreateForm = $('.js-add-statusUpdate-form');
 statusUpdateCreateForm.submit(function (event) {
     event.preventDefault();
+    if (!statusUpdateCreateForm.valid()) { return; }
 
     let statusUpdateCreateSuccessAlert = $('.js-statusUpdate-create-success-alert');
     let statusUpdateCreateFailedAlert = $('.js-statusUpdate-create-fail-alert');

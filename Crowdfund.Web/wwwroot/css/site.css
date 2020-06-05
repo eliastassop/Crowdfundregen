@@ -65,7 +65,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-  color: darkgray;
+  color: darkgray; 
 }
 .footer {
   position: absolute;
@@ -137,6 +137,27 @@ body {
 .js-user-create-fail-alert {
     display: none;
 }
+
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    border-color: red;
+   
+   
+}
+
+.valid {
+    color: green;
+    border-color:green;
+    
+}
+
+/*content: "\f153";
+font-family: FontAwesome;*/
+
+
 
 .js-user-navbar{
     display:none;

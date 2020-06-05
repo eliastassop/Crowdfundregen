@@ -199,18 +199,25 @@
             <br />
             <div class="form-group">
                 <label for="Id">Unique Id</label>
-                <input name="Id" size="10"
-                       class="form-control"  readonly value="@Model.User.UserId">
+                <input type="text" name="UserId" placeholder="" size="10"
+                       class="form-control" readonly value="@Model.User.UserId">
+               
             </div>
-            <div class="form-group">
-                <label for="userName">UserName</label>
-                <input name="userName" size="10"
-                   class="form-control js-update-username" value="@Model.User.UserName">
+            <div class="form-group js-update-user-form" >
+                <label for="UserName">UserName</label>
+                <input name="UserName" placeholder=""
+                       class="form-control js-update-username" value="@Model.User.UserName" size="10"
+                        data-val="true" data-val-required
+                       data-val-length="Please enter up to 10 characters" data-val-length-max="10">
+                @Html.ValidationMessage("UserName")
             </div>
 
             <div class="form-group">
-                <label for="email">Email</label>
-                <input name="email" class="form-control js-update-email" value="@Model.User.Email">
+                <label for="Email">Email</label>
+                <input name="Email" class="form-control js-update-email" value="@Model.User.Email"
+                       data-val="true" data-val-required
+                       data-val-regex="Please enter a valid email" data-val-regex-pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$" />
+                @Html.ValidationMessage("Email")
             </div>
             <button type="submit" class="btn btn-primary js-update-profile-btn">Update Profile</button>
 
@@ -229,7 +236,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 @section Scripts {
-    <script src="~/js/userPersonalInfo.js" asp-append-version="true"></script>
+    <script src="~/js/UserPersonalInfo.js" asp-append-version="true"></script>
 }
 
 

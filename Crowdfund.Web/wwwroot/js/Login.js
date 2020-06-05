@@ -2,6 +2,8 @@
 let loginForm = $('.js-login-form');
 loginForm.submit(function (event) {
     event.preventDefault();  
+    if (!loginForm.valid()) { return; }
+
     let loginFailedAlert = $('.js-login-fail-alert');
     let username = $('.js-userName').val();
     
