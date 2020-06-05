@@ -37,13 +37,13 @@ mediaCreateForm.submit(function (event) {
         //let projectId = project.projectId;
 
         mediaCreateSuccessAlert.html(`Media created succesfully`);
-        mediaCreateSuccessAlert.show();
+        mediaCreateSuccessAlert.show().fadeOut(1500);;
         $('.js-add-media-form').trigger("reset");
         $('.js-media-category').prop('selectedIndex', 0);
 
     }).fail(errorCode => {
         mediaCreateFailedAlert.html(`${errorCode.responseText}`);
-        mediaCreateFailedAlert.show();
+        mediaCreateFailedAlert.show().fadeOut(1500);
 
     });
 });
