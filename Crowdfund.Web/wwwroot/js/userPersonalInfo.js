@@ -1,9 +1,9 @@
-﻿let UpdateProfileButton = $('.js-update-profile-btn');
+﻿let UpdateProfileForm = $('.js-update-user-form');
 let updatesuccess = $('.js-update-success');
 let updatefailed = $('.js-update-failed');
 
-UpdateProfileButton.on('click', () => {
-
+UpdateProfileForm.submit(function (event) {
+    event.preventDefault();
     let userid = window.localStorage.getItem('userId');
     
     let Email = $('.js-update-email');
@@ -27,8 +27,8 @@ UpdateProfileButton.on('click', () => {
 
     }).fail(failureResponse => {
         updatefailed.html(`${failureResponse.responseText}`);
-        updatefailed.show().delay(1500);
-        updatefailed.fadeOut();
+        updatefailed.show();
+        updatefailed.fadeOut(1500);
 
     });
 

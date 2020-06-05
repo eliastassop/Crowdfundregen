@@ -126,17 +126,10 @@ body {
     display: none;
 }
 
-.js-user-pi {
-    display: none;
-}
-
 .user-login {
     display: none;
 }
 
-.js-user-logout {
-    display: none;
-}
 .js-user-create-success-alert { 
     display: none;
 }
@@ -166,5 +159,14 @@ font-family: FontAwesome;*/
 
 
 
+.js-user-navbar{
+    display:none;
+}
 
+.js-must-login-first{
+    display:none;
+}
 
+.js-create-project-form{
+    display:none;
+}

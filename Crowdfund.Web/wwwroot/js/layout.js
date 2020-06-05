@@ -2,15 +2,17 @@
     // debugger;
 
     let userId = window.localStorage.getItem('userId');
+    let username = window.localStorage.getItem('username');
 
     if (userId) {        
-        $('.user-login').hide();
-        $('.js-user-pi').show();
-        $('.js-user-logout').show();
+        $('.user-login').hide();      
+        document.querySelector('.js-user-toggle').textContent   = 'Hi '+ username;
+        $('.js-user-navbar').show();
+        //$('.js-user-logout').show();
     } else {
         $('.user-login').show();
-        $('.js-user-pi').hide();
-        $('.js-user-logout').hide();
+        $('.js-user-navbar').hide();
+        //$('.js-user-logout').hide();
     }
 });
 
@@ -19,7 +21,7 @@ let logoutbutton = $('.js-user-logout');
 logoutbutton.on('click', () => {
 
     window.localStorage.removeItem('userId');
-
+    window.localStorage.removeItem('username');
     window.location.href = "/Home/index";
 
 });
@@ -36,14 +38,3 @@ PersonalInfoButton.on('click', () => {
         window.location.href = "/home/login";
     }
 });
-
-
-//let searchtext = $('.js-search-bar-text');
-//let searchbutton = $('.js-search-bar-go');
-
-
-//searchbutton.on('click', () => {
-//    let text = searchtext.val()
-   
-//    window.location.href = '/project/' + text + '/searchbytext';
-// });

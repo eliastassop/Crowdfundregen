@@ -8,8 +8,11 @@
         Welcome to Project Info Page
     </h1>
 </div>
-
-
+<style>
+    ul#opt li {
+        display: inline;
+    }
+</style>
 
 <div class="container-fluid bg-3 text-center">
 
@@ -30,7 +33,7 @@
                             <li data-target="#carouselExampleIndicators" data-slide-to="@i"></li>
                         }
                     }
-                    </ol>
+                </ol>
                 <div class="carousel-inner">
                     @foreach (var m in Model.Media)
                     {
@@ -39,7 +42,7 @@
                             if (Model.Media.First() == m)
                             {
                                 <div class="carousel-item active">
-                                    <img src=@m.MediaLink class="d-block w-100"  height="250">
+                                    <img src=@m.MediaLink class="d-block w-100" height="250">
                                 </div>
                             }
                             else
@@ -53,7 +56,7 @@
                         {
                             <div class="carousel-item">
                                 <iframe height="250" class="embed-responsive-item" src=@m.MediaLink allowfullscreen></iframe>
-                             </div>
+                            </div>
                         }
 
                     }
@@ -77,86 +80,86 @@
                     <b>
                         @Model.Title
                     </b>
-                    <a href="@Url.Action("UpdateProject","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary js-projectinfo-edit-button" style="float:right; width: 120px; height:45px;">
-                        Edit
-                    </a>
-                    <a href="@Url.Action("AddReward","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary js-projectinfo-addreward-button" style="float:right; width: 120px; height:45px;">
-                        add reward
-                    </a>
-                    <a href="@Url.Action("AddMedia","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary js-projectinfo-addmedia-button" style="float:right; width: 120px; height:45px;">
-                        add media
-                    </a>
-                    
-                </div>
-
-                <div class="card-body">
-                    <div class="progress " style="background-color:grey">
-                        <div @*id=".js-progress-bar"*@ class="progress-bar bg-success" role="progressbar" aria-valuenow="0"
-                             aria-valuemin="0" aria-valuemax="100"
-                             style="width:@(Model.CurrentFund/Model.TotalFund * 100)%">@(Model.CurrentFund/Model.TotalFund * 100)%</div>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <div class="row">
+                            <ul id="opt">
+                                <li>
+                                    <a href="@Url.Action("UpdateProject","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary js-projectinfo-edit-button" style="margin-right:15px; padding-bottom:4px; justify-content:center; text-align:center">
+                                        Edit
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("AddReward","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary js-projectinfo-addreward-button" style=" margin-right:15px; text-align:center">
+                                        Add reward
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("AddMedia","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary js-projectinfo-addmedia-button" style=" text-align:center">
+                                        Add media
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="card-body">
+                        <div class="progress " style="background-color:grey">
+                            <div @*id=".js-progress-bar"*@ class="progress-bar bg-success" role="progressbar" aria-valuenow="0"
+                                 aria-valuemin="0" aria-valuemax="100"
+                                 style="width:@(Model.CurrentFund/Model.TotalFund * 100)%">@(Model.CurrentFund/Model.TotalFund * 100)%</div>
+                        </div>
+                        <h5 class="card-title ">
+                            <span class="tab-space" style="word-spacing:5px;">
+                                Funded:@Model.CurrentFund$ Goal: @Model.TotalFund$
+                            </span>
+                        </h5>
                     </div>
-                    <h5 class="card-title ">
-                        Funded:
-                        <span class="tab-space" style="word-spacing:30px;">
-                            @Model.CurrentFund$
-                        </span>Goal: @Model.TotalFund$
-
-                    </h5>
-                    @*<param name=".js-current-fund" value="@Model.CurrentFund" />
-                        <param name=".js-total-fund" value="@Model.TotalFund" />*@
-
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
-            </div>
-           
 
         </div>
-    </div>
 
-    <!--Deyterh grammh-->
-    <div class="row">
-        <ul class="nav nav-pills" style="padding-top:15px; padding-left: 350px;">
-            <li class="nav-item">
-                <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description-tab-area" role="tab" aria-controls="profile-tab-area" aria-selected="false">
-                    Description
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="statusupdate-tab" data-toggle="tab" href="#statusupdate-tab-area" role="tab" aria-controls="statusupdates-area" aria-selected="false">
-                    Recent Updates
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" id="reward-tab" data-toggle="tab" href="#reward-tab-area" role="tab" aria-controls="rewards" aria-selected="false">
-                    Rewards
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="reward-tab" data-toggle="tab" href="#updateproject-tab-area" role="tab" aria-controls="updateproject" aria-selected="false">
-                    Update Project 
-                </a>
-            </li>
-        </ul>
 
     </div>
 </div>
+
+<!--Deyterh grammh-->
+<div class="row">
+    <ul class="nav nav-pills" style="padding-top:15px; padding-left: 350px;">
+        <li class="nav-item">
+            <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description-tab-area" role="tab" aria-controls="profile-tab-area" aria-selected="false">
+                Description
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="statusupdate-tab" data-toggle="tab" href="#statusupdate-tab-area" role="tab" aria-controls="statusupdates-area" aria-selected="false">
+                Recent Updates
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="reward-tab" data-toggle="tab" href="#reward-tab-area" role="tab" aria-controls="rewards" aria-selected="false">
+                Rewards
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="reward-tab" data-toggle="tab" href="#updateproject-tab-area" role="tab" aria-controls="updateproject" aria-selected="false">
+                Update Project
+            </a>
+        </li>
+    </ul>
+
+</div>
+</div>
 <div class="tab-content" id="myTabContent">
-    <br />
     <!--Description Tab Area-->
-    <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description" >
+    <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description">
         <div class="jumbotron">
-            <h1 class="display-4">Welcome to project Description Panel</h1>
-            <p class="lead">@Model.Description</p>
-            
-            <!--isws scrollbar gia megala description-->
-           
+            <textarea class="test" cols="100" rows="5" style="margin-top:4px; justify-content:center">@Model.Description</textarea>
         </div>
     </div>
 
 
     <!--StatusUpdate Tab area-->
-    <div class="tab-pane fade" id="statusupdate-tab-area" role="tabpanel" aria-labelledby="Recent Updates"  >
+    <div class="tab-pane fade" id="statusupdate-tab-area" role="tabpanel" aria-labelledby="Recent Updates">
         <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description">
             <div class="jumbotron">
                 <!--edw to button add statusupdate-->
@@ -222,8 +225,6 @@
     <div class="tab-pane fade" id="updateproject-tab-area" role="tabpanel" aria-labelledby="Update Project">
         <div class="container">
             <form id="profile-form" class="js-profile-page-form" method="post">
-                <br />
-                <img src="~/css/content.jpg" alt="Not Found" />
                 <div class="form-group">
                     <label for="Id">Project Id</label>
                     <input name="Id" placeholder=""
@@ -274,11 +275,11 @@
                     @Html.ValidationMessageFor(c => c.Category)
                 </div>
 
-                <button type="button" class="btn btn-primary js-update-project">Update</button>
+                <button type="submit" class="btn btn-primary js-update-project-btn">Update</button>
                 <div class="alert alert-success js-updateproject-success" style="display:none" role="alert">                    
                 </div>
 
-                <div class="alert alert-danger js-updateproject-failed" style="display:none" role="alert">                    
+                <div class="alert alert-danger js-updateproject-failed" style="display:none" role="alert">
                 </div>
 
 
@@ -291,8 +292,8 @@
 
 
 
-    @section Scripts {
-            <script src="~/js/FundProjects.js" asp-append-version="true"></script>
-            <script src="~/js/UpdateProject.js" asp-append-version="true"></script>
-        }
+@section Scripts {
+    <script src="~/js/FundProjects.js" asp-append-version="true"></script>
+    <script src="~/js/UpdateProject.js" asp-append-version="true"></script>
+}
 

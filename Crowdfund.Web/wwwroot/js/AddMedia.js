@@ -3,8 +3,10 @@
 
 
 
-let mediaCreateButton = $('.js-create-media-button');
-mediaCreateButton.on('click', () => {
+let mediaCreateForm = $('.js-add-media-form');
+mediaCreateForm.submit(function (event) {
+    event.preventDefault();
+
     let mediaCreateSuccessAlert = $('.js-media-create-success-alert');
     let mediaCreateFailedAlert = $('.js-media-create-fail-alert');
     let MediaLink = $('.js-media-url');
@@ -35,13 +37,13 @@ mediaCreateButton.on('click', () => {
         //let projectId = project.projectId;
 
         mediaCreateSuccessAlert.html(`Media created succesfully`);
-        mediaCreateSuccessAlert.show();
+        mediaCreateSuccessAlert.show().fadeOut(1500);;
         $('.js-add-media-form').trigger("reset");
         $('.js-media-category').prop('selectedIndex', 0);
 
     }).fail(errorCode => {
         mediaCreateFailedAlert.html(`${errorCode.responseText}`);
-        mediaCreateFailedAlert.show();
+        mediaCreateFailedAlert.show().fadeOut(1500);
 
     });
 });

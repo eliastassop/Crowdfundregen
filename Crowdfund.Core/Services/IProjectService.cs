@@ -17,5 +17,6 @@ namespace Crowdfund.Core.Services
         Result<Project> GetProjectByRewardId(int rewardId);
         Result<bool> UpdateCurrentFund(Project project);
         IQueryable<Project> SearchTrendingProjects();
+        IQueryable<Project> SearchLatestProjects();
     }
 }

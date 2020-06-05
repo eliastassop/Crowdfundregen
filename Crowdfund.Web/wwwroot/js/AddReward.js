@@ -3,8 +3,9 @@
 
 
 
-let rewardCreateButton = $('.js-create-reward-button');
-rewardCreateButton.on('click', () => {
+let rewardCreateForm = $('.js-add-reward-form');
+rewardCreateForm.submit(function (event) {
+    event.preventDefault();
 
     let rewardCreateSuccessAlert = $('.js-reward-create-success-alert');
     let rewardCreateFailedAlert = $('.js-reward-create-fail-alert');
@@ -12,7 +13,7 @@ rewardCreateButton.on('click', () => {
     let Description = $('.js-reward-description');
     let Price = $('.js-reward-price');
     let ProjectId = $('.js-reward-projectId');
-    //debugger;
+
     rewardCreateSuccessAlert.hide();    
     rewardCreateFailedAlert.hide();  
 
@@ -28,30 +29,14 @@ rewardCreateButton.on('click', () => {
         url: '/reward/create',
         contentType: 'application/json',
         data: JSON.stringify(data)
-    }).done(reward => {
-        //debugger;
-        //let projectId = project.projectId;
+    }).done(reward => {       
         $('.js-add-reward-form').trigger("reset");
         rewardCreateSuccessAlert.html(`Reward ${reward.title} created succesfully`);
-        rewardCreateSuccessAlert.show();
-        success.fadeOut(1500);
+        rewardCreateSuccessAlert.show().fadeOut(1500);
 
     }).fail(errorCode => {
         rewardCreateFailedAlert.html(`Adding reward failed due to error: ${errorCode.statusText}`);
-        rewardCreateFailedAlert.show();
+        rewardCreateFailedAlert.show().fadeOut(1500);
 
     });
 });
-
-$('.js-add-reward-form').keypress(function (e) {
-    if (e.which == 13) {
-        rewardCreateButton.click();
-        return false;    //<---- Add this line
-    }
-});
-
-//let gotoProjectButton = $('.js-goto-project-button');
-//gotoProjectButton.on('click', () => {
-//    //debugger;
-//    //window.location.href = "/project/" + projectId + "/viewproject";
-//}

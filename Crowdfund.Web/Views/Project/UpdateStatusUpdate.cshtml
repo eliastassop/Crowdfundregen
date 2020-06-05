@@ -1,7 +1,7 @@
 ﻿@model Crowdfund.Core.Models.StatusUpdate
 <h1> @Model.Title</h1>
 
-<form method="post" class="js-update-statusUpdate-form">
+<form method="post" class="js-update-statusUpdate-form" id=@Model.StatusUpdateId>
     <h2>Update Status Update</h2>
     <br />
     <!-- ProjectId-->
@@ -31,7 +31,7 @@
     </div>
 
 
-    <button type="button" id=@Model.StatusUpdateId class="btn btn-primary js-update-statusUpdate-button">
+    <button type="submit"  class="btn btn-primary js-update-statusUpdate-button">
         Update Status Update
     </button>
 

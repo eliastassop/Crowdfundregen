@@ -21,11 +21,15 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarText">
+            <div class="collapse navbar-collapse " id="navbarText">
                 <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-inverse navbar-btn" style="color:#083f88" href="#" title="Search" data-toggle="collapse" data-target="#nav2">
+                            <span class="fa fa-fw fa-search"></span>
+                        </a>
+                    </li>
                     <li class="dropdown">
-                        <button style="background-color:#083f88; color:#fdb813" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-fw fa-search"></i>
+                        <button style="background-color:#083f88; color:#fdb813" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                            
                             Explore
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -37,8 +41,8 @@
                         </div>
                     </li>
                     @*<li class="nav-item js-user-pi" type="button">
-                            <a class="nav-link text-dark "> Hi User</a>
-                        </li>*@
+                        <a class="nav-link text-dark "> Hi User</a>
+                    </li>*@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CreateProject">Start a Project</a>
                     </li>
@@ -46,44 +50,37 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn"><i class="fa fa-fw fa-user"></i>Log In</a>
                     </li>
 
-                    <li class="nav-item js-user-logout" type="button">
-                        <a class="nav-link text-dark">Log Out</a>
-                    </li>
-                    @*<li class="form-inline">
-                            <input class="form-control mr-sm-2 js-search-bar-text" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" type="button">Search</button>
-                        </li>*@
+
                     <li class="nav-item user-logo" style="margin-left:240px">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/css/Logo_230x30.png" /></a>
                     </li>
-                    <!--Search bar-->
-                    <li>
-                        <form class="form-inline" method="get" action="/project/searchbytext">
-                            <input class="form-control" type="search" name="text" value="" style="float:right" placeholder="Search Projects"><br>
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </form>
-                    </li>
-                    @*<li class="form-inline" >
-
-                            <input class="form-control mr-sm-2 js-search-bar-text" id="searchbox" type="search" placeholder="Search" aria-label="Search" style="float:right">
-
-
-                            <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" href="@Url.Action("SearchProjectsByText","Project",new { projectId = form })"  type="button" >Search</button>
-                        </li>*@
-
+                               
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0 js-user-pi">
-                    <a href="#" class="nav-link text-dark " type="button"><i class="fa fa-fw fa-user"></i>Hi User</a>
-                </form>
+                <div class="dropdown js-user-navbar">
+                    <button style="background-color:#083f88; color:#fdb813" class="btn btn-secondary dropdown-toggle js-user-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="userinfobutton">
+                        <a href="#" class="dropdown-item text-dark js-user-pi " type="button"><i class="fa fa-fw fa-user"></i> Info</a>
+                        <a href="#" class="dropdown-item text-dark js-user-logout" type="button">Log Out</a>
+                    </div>
+                </div>                
             </div>
         </nav>
-        <div>
-            <form class="form-inline my-2 my-lg-0" style="margin-left:380px; margin-bottom:25px">
-                <input class="form-control mr-sm-2 js-search-bar-text" style="width:500px" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-primary my-2 my-sm-0 js-search-bar-go" type="button">Search</button>
+      
+        <!--Colapsible Search Bar-->
+        <div class="collapse " id="nav2">
+            <form class="navbar-form" role="search" id="srch-frm" method="get" action="/project/searchbytext">
+                <div class="input-group">
+                    <input class="form-control typeahead" placeholder="Search Projects" name="text" id="srch-term" type="text" style="float:right"><br>
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="fa fa-fw fa-search"></i></button>
+                    </div>
+                </div>
             </form>
-        </div>
+        </div><!--/.nav-collapse -->
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
