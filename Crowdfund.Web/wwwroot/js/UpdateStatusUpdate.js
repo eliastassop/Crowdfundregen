@@ -3,8 +3,9 @@
 
 
 
-let statusUpdateUpdateButton = $('.js-update-statusUpdate-button');
-statusUpdateUpdateButton.click(function() {
+let statusUpdateUpdateForm = $('.js-update-statusUpdate-form');
+statusUpdateUpdateForm.submit(function (event) {
+    event.preventDefault();
     //let test = this.id;
     let statusUpdateUpdateSuccessAlert = $('.js-statusUpdate-update-success-alert');
     let statusUpdateUpdateFailedAlert = $('.js-statusUpdate-update-fail-alert');
@@ -26,24 +27,18 @@ statusUpdateUpdateButton.click(function() {
         url: '/statusUpdate/update',
         contentType: 'application/json',
         data: JSON.stringify(data)
-    }).done(statusUpdate => {
+    }).done(successResponse => {
         //debugger;
         //let projectId = project.projectId;
 
-        statusUpdateUpdateSuccessAlert.html(`statusUpdate ${statusUpdate.title} updated succesfully`);
-        statusUpdateUpdateSuccessAlert.show();
-        $('.js-update-statusUpdate-form').trigger("reset");
+        statusUpdateUpdateSuccessAlert.html(`Status updated succesfully`);
+        statusUpdateUpdateSuccessAlert.show();    
+        statusUpdateUpdateSuccessAlert.fadeOut(1500);
 
-    }).fail(error => {
-        statusUpdateUpdateFailedAlert.html(`Updating statusUpdate failed due to error: ${error.responseText}`);
+    }).fail(failureResponse => {
+        statusUpdateUpdateFailedAlert.html(`${failureResponse.responseText}`);
         statusUpdateUpdateFailedAlert.show();
+        statusUpdateUpdateFailedAlert.fadeOut(1500);
 
     });
-});
-
-$('.js-update-statusUpdate-form').keypress(function (e) {
-    if (e.which == 13) {
-        statusUpdateUpdateButton.click();
-        return false;    //<---- Add this line
-    }
 });

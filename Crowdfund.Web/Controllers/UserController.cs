@@ -30,7 +30,7 @@ namespace Crowdfund.Web.Controllers
             rewardService_ = new RewardService(context, projectService_);
             rewardUserService_ = new RewardUserService(context, userService_, projectService_, rewardService_);
         }
-        [HttpPost]
+        [HttpPost("idfromuser")]
         public IActionResult LogInUsernameId([FromBody]string username)
         {
             var userid = userService_.GetIdByUserName(username);
