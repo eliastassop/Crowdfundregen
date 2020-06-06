@@ -97,7 +97,7 @@ namespace Crowdfund.Core.Services
             context_.Remove(statusUpdate);
             if (context_.SaveChanges() == 0)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Status Update could not be deleted");
             }
 
             return Result<bool>.CreateSuccessful(true);
@@ -129,7 +129,7 @@ namespace Crowdfund.Core.Services
 
             if (context_.SaveChanges() == 0)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "No changes were made to the database");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Status update could not be updated");
             }
 
             return Result<bool>.CreateSuccessful(true);

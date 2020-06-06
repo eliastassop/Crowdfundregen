@@ -56,7 +56,7 @@ namespace Crowdfund.Core.Services
                 || !project.IsValidTotalFund(options.TotalFund)
                 || string.IsNullOrWhiteSpace(options.MediaLink))
             {
-                return Result<Project>.CreateFailed(StatusCode.BadRequest, "Please check the validations");
+                return Result<Project>.CreateFailed(StatusCode.BadRequest, "Please check the information is valid");
 
             }
             //validation prin mpei sti vasi
@@ -189,7 +189,7 @@ namespace Crowdfund.Core.Services
             .SingleOrDefault();
             if (project == null)
             {
-                return Result<Project>.CreateFailed(StatusCode.NotFound, "No such Project exists");
+                return Result<Project>.CreateFailed(StatusCode.NotFound, "Project could not be found");
             }
             return Result<Project>.CreateSuccessful(project);
         }
@@ -246,7 +246,7 @@ namespace Crowdfund.Core.Services
 
             if (context_.SaveChanges() == 0)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Project could not be updated");
             }
 
             return Result<bool>.CreateSuccessful(true);
@@ -264,7 +264,7 @@ namespace Crowdfund.Core.Services
             context_.Remove(project);
             if (context_.SaveChanges() == 0)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Project could not be deleted");
             }
 
             return Result<bool>.CreateSuccessful(true);
@@ -282,7 +282,7 @@ namespace Crowdfund.Core.Services
                 .SingleOrDefault();
             if (project == null)
             {
-                return Result<Project>.CreateFailed(StatusCode.NotFound, "No such Project exists");
+                return Result<Project>.CreateFailed(StatusCode.NotFound, "Project could not be found");
             }
             return Result<Project>.CreateSuccessful(project);
         }
@@ -292,7 +292,7 @@ namespace Crowdfund.Core.Services
            
             if (project == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.NotFound, $"Project was not found");
+                return Result<bool>.CreateFailed(StatusCode.NotFound, $"Project could not be found");
             }
 
             decimal sum = 0m;
@@ -308,7 +308,7 @@ namespace Crowdfund.Core.Services
             {
                 return Result<bool>.CreateSuccessful(true);
             }
-            return Result<bool>.CreateFailed(StatusCode.InternalServerError,"Current Fund was not updated");
+            return Result<bool>.CreateFailed(StatusCode.InternalServerError,"Current Fund could not be updated");
         }
 
         public IQueryable<Project> SearchTrendingProjects()

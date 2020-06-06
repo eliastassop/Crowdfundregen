@@ -50,7 +50,7 @@ namespace Crowdfund.Core.Services
 
                 if (!projectService_.UpdateCurrentFund(project).Success)
                 {
-                    return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                    return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Reward could not be bought");
                 }
 
                 return Result<bool>.CreateSuccessful(true);
@@ -62,7 +62,7 @@ namespace Crowdfund.Core.Services
                 var project = projectService_.GetProjectByRewardId(options.RewardId).Data;
                 if (user == null || reward == null || project == null)
                 {
-                    return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                    return Result<bool>.CreateFailed(StatusCode.BadRequest, "User, project or reward could not be found");
                 }
 
 
@@ -75,7 +75,7 @@ namespace Crowdfund.Core.Services
 
                 if (!rewardUser.IsValidQuantity(options.Quantity))
                 {
-                    return Result<bool>.CreateFailed(StatusCode.BadRequest, "Please check the options for quantity");
+                    return Result<bool>.CreateFailed(StatusCode.BadRequest, "Please check the quantity is valid");
                 }
 
 
@@ -83,7 +83,7 @@ namespace Crowdfund.Core.Services
 
                 if (!projectService_.UpdateCurrentFund(project).Success)
                 {
-                    return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                    return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Reward could not be bought");
                 }
 
                 return Result<bool>.CreateSuccessful(true);
@@ -114,36 +114,10 @@ namespace Crowdfund.Core.Services
                  .SingleOrDefault();
             if (rewardUser == null)
             {
-                return Result<RewardUser>.CreateFailed(StatusCode.NotFound, "No such Reward exists");
+                return Result<RewardUser>.CreateFailed(StatusCode.NotFound, "Reward could not be found");
             }
             return Result<RewardUser>.CreateSuccessful(rewardUser);
         }
-
-        //public Result<bool> UpdateRewardUser(CreateRewardUserOptions options)
-        //{
-            
-        //    var rewardUser = GetRewardUserById(options.UserId, options.RewardId).Data;
-        //    var project = projectService_.GetProjectByRewardId(options.RewardId).Data;
-
-        //    if (rewardUser == null)
-        //    {
-        //        return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Backer with {options.UserId} was not found");
-        //    }
-            
-        //    if (rewardUser.IsValidQuantity(options.Quantity))
-        //    {
-        //        rewardUser.Quantity = options.Quantity + rewardUser.Quantity;
-        //    }
-
-        //    projectService_.UpdateCurrentFund(project);
-
-        //    if (context_.SaveChanges() == 0)
-        //    {
-        //        return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
-        //    }
-
-        //    return Result<bool>.CreateSuccessful(true);
-        //}
 
         public Result<bool> DeleteRewardUser(int userId, int rewardId) // refund
         {
@@ -163,7 +137,7 @@ namespace Crowdfund.Core.Services
 
             if (!projectService_.UpdateCurrentFund(project).Success)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "RewardUser could not be deleted");
             }
 
             return Result<bool>.CreateSuccessful(true);

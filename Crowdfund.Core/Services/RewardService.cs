@@ -112,7 +112,7 @@ namespace Crowdfund.Core.Services
             }).SingleOrDefault();
             if (reward == null)
             {
-                return Result<Reward>.CreateFailed(StatusCode.NotFound, "No such Reward exists");
+                return Result<Reward>.CreateFailed(StatusCode.NotFound, "The Reward could not be found");
             }
             return Result<Reward>.CreateSuccessful(reward);
         }
@@ -129,7 +129,7 @@ namespace Crowdfund.Core.Services
             context_.Remove(reward);
             if (context_.SaveChanges() == 0)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "The reward could not be deleted");
             }
 
             return Result<bool>.CreateSuccessful(true);
@@ -165,7 +165,7 @@ namespace Crowdfund.Core.Services
 
             if (context_.SaveChanges() == 0)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Reward could not be updated");
             }
 
             return Result<bool>.CreateSuccessful(true);

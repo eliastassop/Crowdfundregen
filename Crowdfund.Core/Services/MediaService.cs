@@ -28,12 +28,12 @@ namespace Crowdfund.Core.Services
             var project = projectService_.GetProjectById(options.ProjectId).Data;
             if (project == null)
             {
-                return Result<Media>.CreateFailed(StatusCode.BadRequest, $"Project with {options.ProjectId} was not found");
+                return Result<Media>.CreateFailed(StatusCode.BadRequest, $"Project with {options.ProjectId} could not be found");
             }
             MediaCategory cat;
             if(!Enum.TryParse(options.Category, true, out cat))
             {
-                return Result<Media>.CreateFailed(StatusCode.BadRequest, "Please check the available categories");
+                return Result<Media>.CreateFailed(StatusCode.BadRequest, "Please check the media category");
             }        
 
             var media = new Media()
@@ -44,12 +44,12 @@ namespace Crowdfund.Core.Services
             
             if(string.IsNullOrWhiteSpace(options.MediaLink))
             {
-                return Result<Media>.CreateFailed(StatusCode.BadRequest, "The link  was incorrect");
+                return Result<Media>.CreateFailed(StatusCode.BadRequest, "No Media Link");
             }
 
             if (!media.IsValidCategory(cat))
             {
-                return Result<Media>.CreateFailed(StatusCode.BadRequest, "Please check the available categories");
+                return Result<Media>.CreateFailed(StatusCode.BadRequest, "Please check the media category");
             }
 
             project.Media.Add(media);
@@ -104,7 +104,7 @@ namespace Crowdfund.Core.Services
             }).FirstOrDefault();
             if (media == null)
             {
-                return Result<Media>.CreateFailed(StatusCode.NotFound, "No such Media exists");
+                return Result<Media>.CreateFailed(StatusCode.NotFound, "Media could not be found");
             }
             return Result<Media>.CreateSuccessful(media);
         }
@@ -117,7 +117,7 @@ namespace Crowdfund.Core.Services
             }).SingleOrDefault();
             if (media == null)
             {
-                return Result<Media>.CreateFailed(StatusCode.NotFound, "No such Media exists");
+                return Result<Media>.CreateFailed(StatusCode.NotFound, "Media could not be found");
             }
             return Result<Media>.CreateSuccessful(media);
         }
@@ -127,13 +127,13 @@ namespace Crowdfund.Core.Services
             var media = GetMediaById(mediaId);
             if (media == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Media with {mediaId} was not found");
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Media with {mediaId} could not be found");
             }
 
             context_.Remove(media);
             if (context_.SaveChanges() == 0)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Media could not be deleted");
             }
 
             return Result<bool>.CreateSuccessful(true);
@@ -150,7 +150,7 @@ namespace Crowdfund.Core.Services
 
             if (media == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Media with {mediaId} was not found");
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, $"Media with {mediaId} could not be found");
             }
 
             if (!string.IsNullOrWhiteSpace(options.MediaLink))
@@ -164,7 +164,7 @@ namespace Crowdfund.Core.Services
             }
             if (context_.SaveChanges() == 0)
             {
-                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Something went wrong");
+                return Result<bool>.CreateFailed(StatusCode.InternalServerError, "Media Could not be updated");
             }
 
             return Result<bool>.CreateSuccessful(true);
