@@ -15,49 +15,44 @@ else
 
 
 
-<div class="container-fluid bg-3 text-center">
-    <div class="row">
-
-
-
-
+<div class="container-fluid ">
+    <div class="row ">
         @foreach (var p in Model.ProjectList)
         {
 
 
-            <div class="col-sm-3" style="margin-right:90px">
-                <div class="card border-secondary mb-3" style="width: 18rem;">
-                    <img src="~/css/nba.jpg" class="card-img-top" alt="...">
-                    <div class="card-body" style="background-color:#bbbbbb">
-                        <h5 class="card-title" style="color:brown">@p.Title</h5>
-                        <p class="card-text" style="color:#b80d57">@p.Description.</p>
-                        <p class="card-text" style="color:#b80d57">@p.Deadline</p>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                 aria-valuemin="0" aria-valuemax="100" style="width:40%; background-color:forestgreen">
-                                40%(Fund)
-                            </div>
-                        </div><br />
-                        <a href="@Url.Action("ProjectInfo", "Project", new { projectId = p.ProjectId })" type="button" class="btn btn-primary">See more</a>
-                    </div>
+            <div class="card border general-card-css mx-auto ">
+                <img src="@p.Media.First().MediaLink" class="card-img-top general-css" alt="...">
+                <div class="card-body-general-css">
+                    <h5 class="card-title general-css">@p.Title</h5>
+                    <p class="card-text general-css">@p.Deadline</p>
+                    <div class="progress">
+                        <div class="progress-bar general-css" role="progressbar" aria-valuenow="@((int)(p.CurrentFund / p.TotalFund * 100))%"
+                             aria-valuemin="0" aria-valuemax="100" style="width: @(p.CurrentFund / p.TotalFund * 100)%;">
+                            @((int)(p.CurrentFund / p.TotalFund * 100))%
+                        </div>
+                    </div><br />
+                    <a href="@Url.Action("projectinfo", "project", new { projectId = p.ProjectId })" type="button" class="btn btn-primary">See more</a>
                 </div>
-            </div>
-        }
-
-
-        @if (!Model.ProjectList.Any())
-        {
-
-            <div class="jumbotron">
-                <h1 class="display-4">Sorry no projects found matching your search criteria.</h1>
-                <p class="lead">maybe create your own</p>
-                <a class="btn btn-primary btn-lg js-explore-none-button" href="@Url.Action("createproject","home")" role="button">Create your dream project.</a>
-
-
-
             </div>
 
         }
     </div>
-    <br><br>
+
+    @if (!Model.ProjectList.Any())
+    {
+
+        <div class="jumbotron">
+            <h1 class="display-4">Sorry no projects found matching your search criteria.</h1>
+            <p class="lead">maybe create your own</p>
+            <a class="btn btn-primary btn-lg js-explore-none-button" href="@Url.Action("createproject","home")" role="button">Create your dream project.</a>
+
+
+
+        </div>
+
+    }
 </div>
+<br>
+<br>
+

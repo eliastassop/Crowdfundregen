@@ -129,7 +129,7 @@ namespace Crowdfund.Core.Services
             var user= SearchUser(new SearchUserOptions()
             {
                 UserId = userId
-            }).Include(c => c.Projects)
+            }).Include(c => c.Projects).ThenInclude(c=>c.Media)
               .SingleOrDefault();
             if (user == null)
             {

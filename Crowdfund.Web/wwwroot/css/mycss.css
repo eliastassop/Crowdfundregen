@@ -5,12 +5,10 @@
     padding: 0;
     box-sizing: border-box;
     list-style: none;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: ' sans-serif';
 }
 
-/*body {
-    background-color: #f3f3f3;
-}*/
+
 
 .wrapper {
     position: absolute;
@@ -120,9 +118,7 @@
 /*Edo stamtoun oi dokimes*/
 
 
-body {
-    background-color: #eeeeee;
-}
+
 
 #Browsing {
     text-align: center;

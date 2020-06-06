@@ -110,16 +110,18 @@
                         </div>
                     </nav>
                     <div class="card-body">
-                        <div class="progress " style="background-color:grey">
-                            <div @*id=".js-progress-bar"*@ class="progress-bar bg-success" role="progressbar" aria-valuenow="@(Model.CurrentFund/Model.TotalFund*100)%"
-                                 aria-valuemin="0" aria-valuemax="100"
-                                 style="width:@(Model.CurrentFund/Model.TotalFund*100)%">@(Model.CurrentFund/Model.TotalFund*100)%</div>
+                        <div class="progress">
+                            <div class="progress-bar general-css" role="progressbar" aria-valuenow="@((int) (Model.CurrentFund/Model.TotalFund * 100))%"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: @(Model.CurrentFund/Model.TotalFund * 100)%;">
+                                @((int) (Model.CurrentFund/Model.TotalFund * 100))%
+                            </div>
                         </div>
-                        <h5 class="card-title ">
-                            <span class="tab-space" style="word-spacing:5px;">
-                                Funded:@((int)Model.CurrentFund)$ Goal: @((int)Model.TotalFund)$
-                            </span>
-                        </h5>
+                        <div class="tab-space">
+                            <h4 style="color: #083f88">Funded:@((int)Model.CurrentFund)$</h4>
+                        </div>
+                        <div>
+                            <h4 style="color: #fab414; font-weight:400"> Goal: @((int)Model.TotalFund)$</h4>
+                        </div>
                     </div>
                 </div>
 
@@ -215,16 +217,16 @@
                 {
                     <div class="col-sm-4">
                         <div class="card border-fix-from-css mb-3">
-                            <div class="card-header bg-transparent border-success " style="color:dimgrey">@r.Title</div>
+                            <div class="card-header bg-transparent border-primary " style="color:dimgrey">@r.Title</div>
 
                             <input class="js-rewardid @r.RewardId" type="number" value="@r.RewardId" style="display:none">
 
-                            <div class="card-body text-success ex2">
+                            <div class="card-body text-primary ex2">
                                 <p class="card-text @r.RewardId" style="color:dimgrey; text-align:left; padding-left:0px">@r.Description.</p>
                             </div>
 
                             <form method="post" class="js-buy-reward-form @r.RewardId" id=@r.RewardId>
-                                <div class="card-footer bg-transparent border-success" style="color:dimgrey">
+                                <div class="card-footer bg-transparent border-primary" style="color:dimgrey">
                                     Quantity
                                     <div class="form-group row">
                                         <input name="Quantity" class="js-quantity @r.RewardId form-control" type="number"
@@ -233,8 +235,8 @@
                                         @Html.ValidationMessage("Quantity")
                                     </div>
                                 </div>
-                                    <div class="card-footer bg-transparent border-success" style="color:darkgreen; font-weight: bold">Price: @r.Price $</div>
-                                    <button type="submit" class="btn btn-primary js-pledge-button">Pledge</button>
+                                <div class="card-footer bg-transparent border-primary" style="color:#083f88; font-weight: bold">Price: @r.Price $</div>
+                                <button type="submit" class="btn btn-primary js-pledge-button">Pledge</button>
                             </form>
                         </div>
                     </div>
@@ -288,7 +290,7 @@
                            data-val="true" data-val-required data-val-datevalid="Please enter a future date"/>
                     @Html.ValidationMessageFor(c => c.Deadline)
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                     <label for="@Html.NameFor(c => c.Category)">Project Category</label>
                     <select name="Category" id="inputCategory" class="js-update-category form-control"
                             data-val="true"data-val-required="Please pick a category">

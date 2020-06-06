@@ -10,60 +10,64 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/mycss.css" />
     <style>
-        body {
+        /*body {
             text-align: center;
-        }
+        }*/
     </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color:#fdb813" ;>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarText">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="btn btn-inverse navbar-btn" style="color:#083f88" href="#" title="Search" data-toggle="collapse" data-target="#nav2">
-                            <span class="fa fa-fw fa-search"></span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <button style="background-color:#083f88; color:#fdb813" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                            
-                            Explore
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.ProjectCategory)))
-                                {
-                                    <a style="color:#083f88" class="dropdown-item" href="@Url.Action("Explore", "Home", new { category = cat })">@cat</a>
+        <nav class="navbar navbar-expand-lg navbar navbar-light " style="background-color:#fab414;">
+            <div class="container col-xl-12 col-lg-10 col-md-8 col-sm-6 justify-content-center">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarText">
+
+                    <ul class="navbar-nav flex-fill w-100 flex-nowrap">
+                        <li class="nav-item">
+                            <a class="btn btn-inverse navbar-btn" style="color:#083f88" href="#" title="Search" data-toggle="collapse" data-target="#nav2">
+                                <span class="fa fa-fw fa-search"></span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <button style="background-color:#083f88; color:#fdb813" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Explore
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.ProjectCategory)))
+                                    {
+                                        <a style="color:#083f88" class="dropdown-item" href="@Url.Action("Explore", "Home", new { category = cat })">@cat</a>
+                                    }
                                 }
-                            }
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CreateProject">Start a Project</a>
-                    </li>
-                    <li class="nav-item user-login">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn"><i class="fa fa-fw fa-user"></i>Log In</a>
-                    </li>
-
-
-                    <li class="nav-item user-logo" style="margin-left:240px">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/css/Logo_230x30.png" /></a>
-                    </li>
-                               
-
-                </ul>
-                <div class="dropdown js-user-navbar">
-                    <button style="background-color:#083f88; color:#fdb813" class="btn btn-secondary dropdown-toggle js-user-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="userinfobutton">
-                        <a href="#" class="dropdown-item text-dark js-user-pi " type="button"><i class="fa fa-fw fa-user"></i> Info</a>
-                        <a href="#" class="dropdown-item text-dark js-user-logout" type="button">Log Out</a>
-                    </div>
-                </div>                
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CreateProject">Start a Project</a>
+                        </li>
+                        <li class="nav-item user-login">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn"><i class="fa fa-fw fa-user"></i>Log In</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav flex-fill justify-content-center">
+                        <li class="nav-item user-logo">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/css/Logo_230x30.png" /></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav flex-fill w-100 justify-content-end">
+                        <li class="dropdown js-user-navbar">
+                            <button style="background-color:#083f88; color:#fdb813" class="btn btn-secondary dropdown-toggle js-user-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="userinfobutton">
+                                <a href="#" class="dropdown-item text-dark js-user-pi " type="button"><i class="fa fa-fw fa-user"></i> Info</a>
+                                <a href="#" class="dropdown-item text-dark js-user-logout" type="button"><i class="fa fa-sign-out"></i>Log Out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
         </nav>
       
         <!--Colapsible Search Bar-->
@@ -79,6 +83,7 @@
         </div><!--/.nav-collapse -->
 
     </header>
+    
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

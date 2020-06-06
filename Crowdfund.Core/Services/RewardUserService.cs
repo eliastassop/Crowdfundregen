@@ -99,7 +99,8 @@ namespace Crowdfund.Core.Services
                 .AsQueryable()
                 //.Include(a => a.RewardUsers)
                 //.ThenInclude(b=>b.Reward)
-                .Where(c => c.RewardUsers.Any(i => i.UserId == userId));
+                .Where(c => c.RewardUsers.Any(i => i.UserId == userId))
+                .Include(c=>c.Media);
 
             return query;
         }

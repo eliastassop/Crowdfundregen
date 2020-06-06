@@ -169,7 +169,7 @@ namespace Crowdfund.Core.Services
                     .Where(c => c.StatusUpdates.Any(a => a.StatusUpdateId == options.StatusUpdateId.Value));
             }
 
-            query = query.Take(500);
+            query = query.Include(m=>m.Media).Take(500);
             return query;            
         }
 
