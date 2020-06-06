@@ -26,7 +26,7 @@
     <div class="form-group row">
         <label for="@Html.NameFor(c=>c.TotalFund)">Total Fund</label>
         <input name="TotalFund" class="js-totalFund form-control" type="number"
-               data-val="true" data-val-required="Please enter an estimated totalfund amount">
+               data-val="true" data-val-required data-val-numberpositive="Please enter a positive number">
         @Html.ValidationMessageFor(c => c.TotalFund)
     </div>
 

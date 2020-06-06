@@ -6,7 +6,6 @@
         <br />
         <!-- ProjectId-->
         <div class="form-group row">
-            <label for="projectId">Project Id</label>
             <input name="projectId"
                    class="js-reward-projectId form-control" style="display:none" value="@Model.ProjectId" readonly>
         </div>
@@ -34,7 +33,7 @@
             <label for="Price">Price</label>
             <input name="Price"class="js-reward-price form-control" placeholder="Enter the price of the reward" type="number"
                    data-val="true" data-val-required 
-                   data-val-range="Please enter a positive number" data-val-range-min="0" data-val-range-max="99999999999999">
+                   data-val-numberpositive="Please enter a positive number">
             @Html.ValidationMessage("Price") 
         </div>
 

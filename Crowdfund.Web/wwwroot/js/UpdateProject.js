@@ -65,3 +65,14 @@ jQuery.validator.addMethod('datevalid', function (value, element) {
     return false;
 });
 jQuery.validator.unobtrusive.adapters.addBool('datevalid');
+
+jQuery.validator.addMethod('numberpositive', function (value, element) {
+
+
+    if (value > 0) {
+        return true;
+    }
+
+    return false;
+});
+jQuery.validator.unobtrusive.adapters.addBool('numberpositive');

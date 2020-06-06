@@ -41,3 +41,14 @@ rewardCreateForm.submit(function (event) {
 
     });
 });
+
+jQuery.validator.addMethod('numberpositive', function (value, element) {
+
+
+    if (value > 0) {
+        return true;
+    }
+
+    return false;
+});
+jQuery.validator.unobtrusive.adapters.addBool('numberpositive');
