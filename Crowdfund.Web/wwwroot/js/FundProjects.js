@@ -4,10 +4,12 @@ let pledgeForm = $('.js-buy-reward-form');
 
 pledgeForm.submit(function (event) {
     event.preventDefault();
-    if (!pledgeForm.valid()) { return; }
+    let test = this.id;
+    let testForm = $('.js-buy-reward-form.'+test);
+    if (!testForm.valid()) { return; }
 
     let buyRewardFailedAlert = $('.js-buy-reward-failed');
-    let test = this.id;                                    // εδω με τη βοηθεια του this.id περνουμε περνουμε το σωστο @rewardid
+                                        // εδω με τη βοηθεια του this.id περνουμε περνουμε το σωστο @rewardid
     let id = window.localStorage.getItem('userId');        
     let RewardId = $('.js-rewardid.'+test);              
     let Quantity = $('.js-quantity.'+test);            
@@ -32,3 +34,14 @@ pledgeForm.submit(function (event) {
 
     });
 });
+
+jQuery.validator.addMethod('numberpositive', function (value, element) {
+
+
+    if (value > 0) {
+        return true;
+    }
+
+    return false;
+});
+jQuery.validator.unobtrusive.adapters.addBool('numberpositive');

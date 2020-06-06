@@ -213,19 +213,19 @@
                                 <p class="card-text @r.RewardId" style="color:dimgrey">@r.Description.</p>
                             </div>
 
-                            <form method="post" class="js-buy-reward-form" id=@r.RewardId>
+                            <form method="post" class="js-buy-reward-form @r.RewardId" id=@r.RewardId>
                                 <div class="card-footer bg-transparent border-success" style="color:dimgrey">
                                     Quantity
                                     <div class="form-group row">
                                         <input name="Quantity" class="js-quantity @r.RewardId form-control" type="number"
                                                data-val="true" data-val-required
-                                               data-val-range="Please enter a positive number" data-val-range-min="1" data-val-range-max="99999999999999">
+                                               data-val-numberpositive="Please enter a positive number">
                                         @Html.ValidationMessage("Quantity")
                                     </div>
                                 </div>
                                     <div class="card-footer bg-transparent border-success" style="color:darkgreen; font-weight: bold">Price: @r.Price $</div>
                                     <button type="submit" class="btn btn-primary js-pledge-button">Pledge</button>
-</form>
+                            </form>
                         </div>
                     </div>
                 }
