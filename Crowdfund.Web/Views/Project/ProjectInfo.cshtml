@@ -12,6 +12,22 @@
     ul#opt li {
         display: inline;
     }
+    div.ex2 {
+        background-color: white;
+        width: auto;
+        height: 110px;
+        overflow: scroll;
+        overflow-x: hidden;
+        text-align:justify
+    }
+    /*div.ex3 {
+        background-color: white;
+        width: auto;
+        height: auto;
+        overflow: scroll;
+        overflow-x: hidden
+    }*/
+
 </style>
 
 <input class="js-project-creatorid " type="number" value="@Model.CreatorId" style="display:none">
@@ -19,7 +35,7 @@
 <div class="container-fluid bg-3 text-center">
 
     <div class="row">
-        <div class="col-lg-5" style="padding-left: 150px;">
+        <div class="col-lg-5" style="        padding-left: 150px;">
 
             <!-- Carousel -->
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -149,8 +165,8 @@
 <div class="tab-content" id="myTabContent">
     <!-----Description Tab Area----->
     <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description">
-        <div class="jumbotron">
-            <textarea class="test" cols="100" rows="5" style="margin-top:4px; justify-content:center">@Model.Description</textarea>
+        <div class="jumbotron ex3">
+            <p class="test" style="margin-top:4px; text-align:justify">@Model.Description</p>
         </div>
     </div>
 
@@ -208,9 +224,8 @@
 
                             <input class="js-rewardid @r.RewardId" type="number" value="@r.RewardId" style="display:none">
 
-                            <div class="card-body text-success">
-                                <h5 class="card-title" style="color:dimgrey">Description</h5>
-                                <p class="card-text @r.RewardId" style="color:dimgrey">@r.Description.</p>
+                            <div class="card-body text-success ex2">
+                                <p class="card-text @r.RewardId" style="color:dimgrey; text-align:left; padding-left:0px">@r.Description.</p>
                             </div>
 
                             <form method="post" class="js-buy-reward-form" id=@r.RewardId>
