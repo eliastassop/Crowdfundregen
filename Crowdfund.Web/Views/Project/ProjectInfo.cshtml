@@ -12,30 +12,25 @@
     ul#opt li {
         display: inline;
     }
+
     div.ex2 {
         background-color: white;
         width: auto;
         height: 110px;
         overflow: scroll;
         overflow-x: hidden;
-        text-align:justify
+        text-align: justify
     }
-    /*div.ex3 {
-        background-color: white;
-        width: auto;
-        height: auto;
-        overflow: scroll;
-        overflow-x: hidden
-    }*/
-
 </style>
 
-<input class="js-project-creatorid " type="number" value="@Model.CreatorId" style="display:none">
-
-<div class="container-fluid bg-3 text-center">
-
+<div class="container-fluid">
     <div class="row">
-        <div class="col-lg-5" style="        padding-left: 150px;">
+        <input class="js-project-creatorid " type="number" value="@Model.CreatorId" style="display:none">
+
+
+
+
+        <div class="col-lg-6">
 
             <!-- Carousel -->
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -73,7 +68,7 @@
                         else
                         {
                             <div class="carousel-item">
-                                <iframe height="250" class="embed-responsive-item" src=@m.MediaLink allowfullscreen></iframe>
+                                <iframe height="250" width="510" class="embed-responsive-item" src=@m.MediaLink allowfullscreen></iframe>
                             </div>
                         }
 
@@ -90,163 +85,192 @@
                 </a>
             </div>
         </div>
+
+
         <!--Project card-->
-        <div class="col-lg-5  ">
-            <div class="card bg-light mb-3" style="width: 25rem; height: 250px;">
+        
+            <div class="col-lg-6  ">
+                <div class="card" >
 
-                <div class="card-header" style="font-size: 30px; text-align: left;">
-                    <b>
-                        @Model.Title
-                    </b>
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <div class="row">
-                            <ul id="opt">                                
-                                <li>
-                                    <a href="@Url.Action("AddMedia","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addmedia-button" style=" text-align:center">
-                                        Add media
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                    <div class="card-body">
-                        <div class="progress">
-                            <div class="progress-bar general-css" role="progressbar" aria-valuenow="@((int) (Model.CurrentFund/Model.TotalFund * 100))%"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: @(Model.CurrentFund/Model.TotalFund * 100)%;">
-                                @((int) (Model.CurrentFund/Model.TotalFund * 100))%
+                    <div class="card-header" style="height:250px;">
+                        <b>
+                            @Model.Title
+                        </b>
+
+
+                        <div class="card-body">
+
+                            <div class="progress">
+                                <div class="progress-bar general-css" role="progressbar" aria-valuenow="@((int) (@Model.CurrentFund/@Model.TotalFund * 100))%"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: @(@Model.CurrentFund/@Model.TotalFund * 100)%">
+                                    @((int) (@Model.CurrentFund / @Model.TotalFund * 100))%
+                                </div>
                             </div>
-                        </div>
-                        <div class="tab-space">
-                            <h4 style="color: #083f88">Funded:@((int)Model.CurrentFund)$</h4>
-                        </div>
-                        <div>
-                            <h4 style="color: #fab414; font-weight:400"> Goal: @((int)Model.TotalFund)$</h4>
-                        </div>
-                    </div>
-                </div>
 
+
+                            <div class="row">
+                                <h4 style="color: #083f88;margin-left:0 auto;">Funded:@((int)Model.CurrentFund)$</h4>
+                                <h4 style="color: #083f88;margin-right:0 auto;">Total Backers:@Model.RewardUsers.Count()</h4>
+                            </div>
+                                
+                                <div class="row ">
+
+                                    <h4 style="color: #fab414;margin-left:0 auto; "> Goal: @((int)Model.TotalFund)$</h4>
+                                    <h4 style="color: darkred;margin-right:0 auto; "> Deadline:@Model.Deadline.ToString("dd/MM/yyyy")</h4>
+
+                                </div>
+
+                            <div class="row">
+
+                                <a href="@Url.Action("AddMedia","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addmedia-button" >
+                                    Add media
+                                </a>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
         </div>
 
-
     </div>
-</div>
+
+
+
+
+
+
 
 <!--Deyterh grammh-->
-<div class="row">
-    <ul class="nav nav-pills" style="padding-top:15px; padding-left: 350px;">
-        <li class="nav-item">
-            <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description-tab-area" role="tab" aria-controls="profile-tab-area" aria-selected="false">
-                Description
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="statusupdate-tab" data-toggle="tab" href="#statusupdate-tab-area" role="tab" aria-controls="statusupdates-area" aria-selected="false">
-                Recent Updates
-            </a>
-        </li>
+<div class="container-fluid " style="margin-top:1.2rem;">
 
-        <li class="nav-item">
-            <a class="nav-link" id="reward-tab" data-toggle="tab" href="#reward-tab-area" role="tab" aria-controls="rewards" aria-selected="false">
-                Rewards
-            </a>
-        </li>
-        <li class="nav-item creator-hidden-items">
-            <a class="nav-link" id="update-tab" data-toggle="tab" href="#updateproject-tab-area" role="tab" aria-controls="updateproject" aria-selected="false">
-                Update Project
-            </a>
-        </li>
-    </ul>
+    <div class="row col-lg-12">
+
+        <ul class="nav nav-pills flex-fill justify-content-center " @*style="margin-top:1rem;"*@>
+            <li class="nav-item">
+                <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description-tab-area" role="tab" aria-controls="profile-tab-area" aria-selected="false">
+                    Description
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="statusupdate-tab" data-toggle="tab" href="#statusupdate-tab-area" role="tab" aria-controls="statusupdates-area" aria-selected="false">
+                    Recent Updates
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="reward-tab" data-toggle="tab" href="#reward-tab-area" role="tab" aria-controls="rewards" aria-selected="false">
+                    Rewards
+                </a>
+            </li>
+            <li class="nav-item creator-hidden-items">
+                <a class="nav-link" id="update-tab" data-toggle="tab" href="#updateproject-tab-area" role="tab" aria-controls="updateproject" aria-selected="false">
+                    Update Project
+                </a>
+            </li>
+        </ul>
+
+    </div>
 
 </div>
-</div>
+
 <div class="tab-content" id="myTabContent">
     <!-----Description Tab Area----->
     <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description">
         <div class="jumbotron ex3">
-            <p class="test" style="margin-top:4px; text-align:justify">@Model.Description</p>
+            <p class="test" style=" text-align:justify">@Model.Description</p>
         </div>
     </div>
 
     <!-----StatusUpdate Tab area----->
     <div class="tab-pane fade" id="statusupdate-tab-area" role="tabpanel" aria-labelledby="Recent Updates">
-        <div class="tab-pane fade show active" id="description-tab-area" role="tabpanel" aria-labelledby="Description">
-            <div class="jumbotron">
-                <!--edw to button add statusupdate-->
-                <h1 class="display-4">Status Updates for Project</h1>
-                <a href="@Url.Action("AddStatusUpdate","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addstatusUpdate-button" style=" width: 120px; height:45px;">
-                    New Update
-                </a>
-                <br />
-                <br />
-                @if (Model.StatusUpdates.Any())
-                {
-                    foreach (var p in Model.StatusUpdates.OrderByDescending(o=>o.UpdateCreated))
-                    {
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5 class="card-title">@p.Title</h5>
-                                <p class="card-text">@p.Description</p>
-                                <a href="@Url.Action("UpdateStatusUpdate","Project",new { statusUpdateId = p.StatusUpdateId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-updateStatusUpdate-button" style="width: 120px; height:45px;">
-                                    Edit
-                                </a>
-                            </div>
-                            <div class="card-footer text-muted">
-                                @p.UpdateCreated
-                            </div>
-                        </div>
-                        <br />
-                    }
-                }
-                else
-                {
-                    <h1 class="display-4">not welcome to project StatusUpdates Panel</h1>
-                }
 
-            </div>
+        <div class="jumbotron">
+            <!--edw to button add statusupdate-->
+
+            <a href="@Url.Action("AddStatusUpdate","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addstatusUpdate-button" style=" width: 120px; height:45px;">
+                New Update
+            </a>
+            <br />
+            <br />
+            @if (Model.StatusUpdates.Any())
+            {
+                foreach (var p in Model.StatusUpdates.OrderByDescending(o => o.UpdateCreated))
+                {
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">@p.Title</h5>
+                            <p class="card-text">@p.Description</p>
+                            <a href="@Url.Action("UpdateStatusUpdate","Project",new { statusUpdateId = p.StatusUpdateId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-updateStatusUpdate-button" style="width: 120px; height:45px;">
+                                Edit
+                            </a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            @p.UpdateCreated
+                        </div>
+                    </div>
+                    <br />
+                }
+            }
+            else
+            {
+                <h1 class="display-4">There are currently no updates from the project creator to display</h1>
+            }
+
         </div>
+
     </div>
 
     <!--Rewards-->
     <div class="tab-pane fade js-reward-section" id="reward-tab-area" role="tabpanel" aria-labelledby="Rewards">
-        <div class="container ">
-            <div class="alert alert-danger js-buy-reward-failed" style="display:none" role="alert">
+        <div class="jumbotron ex3">
+            <div>
+                <a href="@Url.Action("AddReward","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addreward-button" style=" margin-right:15px; text-align:center">
+                    Add a new reward
+                </a>
+                <br />
+                <br />
             </div>
-            <div class="row">
+            <div class="container ">
+                <div class="alert alert-danger js-buy-reward-failed" style="display:none" role="alert">
+                </div>
+                <div class="row">
 
-                @foreach (var r in Model.AvailableRewards.OrderBy(c=>c.Price))
-                {
-                    <div class="col-sm-4">
-                        <div class="card border-fix-from-css mb-3">
-                            <div class="card-header bg-transparent border-primary " style="color:dimgrey">@r.Title</div>
+                    @foreach (var r in Model.AvailableRewards.OrderBy(c => c.Price))
+                    {
+                        <div class="col-sm-4">
+                            <div class="card fix-from-css mb-3">
+                                <div class="card-header bg-transparent fix-from-css " style="color:black">@r.Title</div>
 
-                            <input class="js-rewardid @r.RewardId" type="number" value="@r.RewardId" style="display:none">
+                                <input class="js-rewardid @r.RewardId" type="number" value="@r.RewardId" style="display:none">
 
-                            <div class="card-body text-primary ex2">
-                                <p class="card-text @r.RewardId" style="color:dimgrey; text-align:left; padding-left:0px">@r.Description.</p>
-                            </div>
-
-                            <form method="post" class="js-buy-reward-form @r.RewardId" id=@r.RewardId>
-                                <div class="card-footer bg-transparent border-primary" style="color:dimgrey">
-                                    Quantity
-                                    <div class="form-group row">
-                                        <input name="Quantity" class="js-quantity @r.RewardId form-control" type="number"
-                                               data-val="true" data-val-required
-                                               data-val-numberpositive="Please enter a positive number">
-                                        @Html.ValidationMessage("Quantity")
-                                    </div>
+                                <div class="card-body text-primary ex2">
+                                    <p class="card-text @r.RewardId" style="color:black; text-align:left; padding-left:0px">@r.Description.</p>
                                 </div>
-                                <div class="card-footer bg-transparent border-primary" style="color:#083f88; font-weight: bold">Price: @r.Price $</div>
-                                <button type="submit" class="btn btn-primary js-pledge-button">Pledge</button>
-                            </form>
+
+                                <form method="post" class="js-buy-reward-form @r.RewardId" id=@r.RewardId>
+                                    <div class="card-footer bg-transparent fix-from-css" style="color:black">
+                                        Quantity
+                                        <div class="form-group row">
+                                            <input name="Quantity" class="js-quantity @r.RewardId form-control" type="number"
+                                                   data-val="true" data-val-required
+                                                   data-val-numberpositive="Please enter a positive number">
+                                            @Html.ValidationMessage("Quantity")
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-transparent fix-from-css" style="color:#083f88; font-weight: bold">Price: @r.Price $</div>
+                                    <button type="submit" class="btn btn-primary js-pledge-button">Pledge</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
-        </div>
-        <div>
-            <a href="@Url.Action("AddReward","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addreward-button" style=" margin-right:15px; text-align:center">
-                Add a new reward
-            </a>
+
         </div>
     </div>
 
@@ -262,14 +286,14 @@
                     <label for="@Html.NameFor(c=>c.Title)">Title</label>
                     <input name="Title" placeholder=""
                            class="form-control js-update-title" type="text" value="@Model.Title"
-                           data-val="true" data-val-required data-val-length="Please enter up to 50 characters" 
+                           data-val="true" data-val-required data-val-length="Please enter up to 50 characters"
                            data-val-length-max="50">
-                    @Html.ValidationMessageFor(c=>c.Title)
+                    @Html.ValidationMessageFor(c => c.Title)
                 </div>
 
                 <div class="form-group">
                     <label for="@Html.NameFor(c=>c.Description)">Description</label>
-                    <textarea name="Description"class="form-control js-update-description" type="text" rows="5"
+                    <textarea name="Description" class="form-control js-update-description" type="text" rows="5"
                               data-val="true" data-val-required
                               data-val-length data-val-length-max="100000">@Model.Description</textarea>
                     @Html.ValidationMessageFor(c => c.Description)
@@ -286,14 +310,14 @@
                 <div class="form-group">
                     <label for="@Html.NameFor(c=>c.Deadline)">Deadline</label>
                     <input name="Deadline" placeholder=""
-                           class="form-control js-update-deadline" type="datetime-local" value="@Model.Deadline.ToString("s")" 
-                           data-val="true" data-val-required data-val-datevalid="Please enter a future date"/>
+                           class="form-control js-update-deadline" type="datetime-local" value="@Model.Deadline.ToString("s")"
+                           data-val="true" data-val-required data-val-datevalid="Please enter a future date" />
                     @Html.ValidationMessageFor(c => c.Deadline)
                 </div>
                 <div class="form-group">
                     <label for="@Html.NameFor(c => c.Category)">Project Category</label>
                     <select name="Category" id="inputCategory" class="js-update-category form-control"
-                            data-val="true"data-val-required="Please pick a category">
+                            data-val="true" data-val-required="Please pick a category">
                         <option value="" disabled selected hidden>Please choose your new category</option>
                         @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.ProjectCategory)))
                             {
@@ -305,7 +329,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary js-update-project-btn">Update</button>
-                <div class="alert alert-success js-updateproject-success" style="display:none" role="alert">                    
+                <div class="alert alert-success js-updateproject-success" style="display:none" role="alert">
                 </div>
 
                 <div class="alert alert-danger js-updateproject-failed" style="display:none" role="alert">
@@ -317,7 +341,6 @@
         </div>
     </div>
 </div>
-
 
 
 

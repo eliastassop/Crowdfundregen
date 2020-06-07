@@ -25,24 +25,28 @@
 
 <div class="container-fluid">
     <div class="row">
-        @foreach (var p in Model.TrendingProjects)
+        @foreach (var p in Model.LatestProjects)
         {
-           
-                <div class="card border general-card-css mx-auto">
-                    <img src="@p.Media.First().MediaLink" class="card-img-top general-css" alt="Not Found">
-                    <div class="card-body-general-css">
+
+            <div class="card general-card-css mx-auto">
+                <img src="@p.Media.First().MediaLink" class="card-img-top general-css" alt="Not Found">
+                <div class="card-body general-css">
+                    <div class="fix-the-bot-of-card">
                         <h6 class="card-title  general-css">@p.Title</h6>
-                        <p class="card-text general-css">@p.Deadline.ToString("dd/MM/yyyy")</p>
-                        <div class="progress">
-                            <div class="progress-bar general-css" role="progressbar" aria-valuenow="@((int) (p.CurrentFund/p.TotalFund * 100))%"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: @(p.CurrentFund/p.TotalFund * 100)%;">
-                                @((int) (p.CurrentFund/p.TotalFund * 100))%
-                            </div>
-                        </div><br />
-                        <a href="@Url.Action("ProjectInfo","Project",new { projectId = p.ProjectId })" type="button" class="btn btn-primary">See more</a>
                     </div>
+                    <div class="fix-the-bot-card">
+                        <p class="card-text general-css">@p.Deadline.ToString("dd/MM/yyyy")</p>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar general-css" role="progressbar" aria-valuenow="@((int) (p.CurrentFund/p.TotalFund * 100))%"
+                             aria-valuemin="0" aria-valuemax="100" style="width: @(p.CurrentFund/p.TotalFund * 100)%;">
+                            @((int) (p.CurrentFund/p.TotalFund * 100))%
+                        </div>
+                    </div>
+                    <a href="@Url.Action("ProjectInfo","Project",new { projectId = p.ProjectId })" type="button" class="btn btn-primary">See more</a>
                 </div>
-           
+            </div>
+
         }
     </div>
 </div>
@@ -53,17 +57,21 @@
         @foreach (var p in Model.LatestProjects)
         {
 
-            <div class="card border general-card-css mx-auto">
+            <div class="card general-card-css mx-auto">
                 <img src="@p.Media.First().MediaLink" class="card-img-top general-css" alt="Not Found">
-                <div class="card-body-general-css">
-                    <h6 class="card-title  general-css">@p.Title</h6>
-                    <p class="card-text general-css">@p.Deadline.ToString("dd/MM/yyyy")</p>
+                <div class="card-body general-css">
+                    <div class="fix-the-bot-of-card">
+                        <h6 class="card-title  general-css">@p.Title</h6>
+                    </div>
+                    <div class="fix-the-bot-card">
+                        <p class="card-text general-css">@p.Deadline.ToString("dd/MM/yyyy")</p>
+                    </div>
                     <div class="progress">
                         <div class="progress-bar general-css" role="progressbar" aria-valuenow="@((int) (p.CurrentFund/p.TotalFund * 100))%"
                              aria-valuemin="0" aria-valuemax="100" style="width: @(p.CurrentFund/p.TotalFund * 100)%;">
                             @((int) (p.CurrentFund/p.TotalFund * 100))%
                         </div>
-                    </div><br />
+                    </div>
                     <a href="@Url.Action("ProjectInfo","Project",new { projectId = p.ProjectId })" type="button" class="btn btn-primary">See more</a>
                 </div>
             </div>

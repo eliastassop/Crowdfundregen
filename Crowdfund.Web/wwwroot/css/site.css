@@ -18,7 +18,7 @@ a {
     /*border-color: #083f88;*/
 }
 /*pledge card*/
-.border-fix-from-css {
+.fix-from-css {
     border-color: #083f88;
     max-width: 15rem;
 }
@@ -146,6 +146,7 @@ body {
     display: none;
 }
 
+/* Validation Animations*/
 .field-validation-error {
     color: red;
 }
@@ -188,11 +189,18 @@ font-family: FontAwesome;*/
 /*.general-card-spacing-css {
     margin-right: 6rem;
 }*/
-
+.fix-the-bot-of-card {
+    height: 1.875rem;
+    margin-bottom: 1rem;
+}
+.fix-the-bot-card {
+    margin-top: 1.75rem;
+}
 .general-card-css {
     width: 15rem;
     /*margin-right:3rem;*/
     margin-bottom: 2rem;
+    /*height:auto;*/
 }
 .card-title.general-css {
     color: #083f88;
@@ -201,12 +209,15 @@ font-family: FontAwesome;*/
     color: #b80d57;
 }
 .card-body.general-css {
-    background-color:#bbbbbb
+    background-color:#fff;
 }
 .card-img-top.general-css {
     width: 100%;
     height: 192px;
     object-fit: cover;
+}
+.progress {
+    margin-bottom: 1.125rem;
 }
 .progress-bar.general-css {
     background-color: #fab414;
