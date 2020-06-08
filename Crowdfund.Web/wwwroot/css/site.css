@@ -206,7 +206,7 @@ font-family: FontAwesome;*/
     color: #083f88;
 }
 .card-text.general-css {
-    color: #b80d57;
+    color: darkred;
 }
 .card-body.general-css {
     background-color:#fff;
@@ -225,4 +225,7 @@ font-family: FontAwesome;*/
 }
 .jumbotron{
     background-color:whitesmoke;
+}
+.form-group {
+    width:70%
 }

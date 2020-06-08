@@ -1,56 +1,61 @@
 ﻿@model Crowdfund.Core.Models.Project
-<h1> @Model.Title</h1>
 
-    <form method="post" class="js-add-reward-form">
-        <h2>Add Reward</h2>
-        <br />
-        <!-- ProjectId-->
-        <div class="form-group row">
-            <input name="projectId"
-                   class="js-reward-projectId form-control" style="display:none" value="@Model.ProjectId" readonly>
-        </div>
-        <!-- Title-->
-        <div class="form-group row">
+<h2>Add Reward Item to @Model.Title Project</h2>
+
+<form method="post" class="js-add-reward-form">
+
+    <!-- ProjectId-->
+    <div class="form-group">
+        <input name="projectId"
+               class="js-reward-projectId form-control" style="display:none" value="@Model.ProjectId" readonly>
+    </div>
+    <!-- Title-->
+    <div class="d-flex justify-content-center">
+        <div class="form-group">
             <label for="Title">Title</label>
-            <input name="Title" placeholder="Enter the title of the reward"class="js-reward-title form-control"
-                   data-val="true"data-val-required 
-                   data-val-length="Please enter up to 50 characters"data-val-length-max="50">
+            <input name="Title" placeholder="Enter the title of the reward" class="js-reward-title form-control"
+                   data-val="true" data-val-required
+                   data-val-length="Please enter up to 50 characters" data-val-length-max="50">
             @Html.ValidationMessage("Title")
-                   
-        </div>
 
-        <!-- Description -->
-        <div class="form-group row">
+        </div>
+    </div>
+    <!-- Description -->
+    <div class="d-flex justify-content-center">
+        <div class="form-group">
             <label for="Description">Description</label>
             <textarea name="Description" class="js-reward-description form-control" placeholder="Enter the description for your reward" rows="5"
-            data-val="true" data-val-required="Please enter a description" data-val-length="Please add up to 10000 characters" 
-            data-val-length-min="1" data-val-length-max="500"></textarea>
+                      data-val="true" data-val-required="Please enter a description" data-val-length="Please add up to 10000 characters"
+                      data-val-length-min="1" data-val-length-max="500"></textarea>
             @Html.ValidationMessage("Description")
         </div>
-
-        <!-- Price -->
-        <div class="form-group row">
+    </div>
+    <!-- Price -->
+    <div class="d-flex justify-content-center">
+        <div class="form-group">
             <label for="Price">Price</label>
-            <input name="Price"class="js-reward-price form-control" placeholder="Enter the price of the reward" type="number"
-                   data-val="true" data-val-required 
+            <input name="Price" class="js-reward-price form-control" placeholder="Enter the price of the reward" type="number"
+                   data-val="true" data-val-required
                    data-val-numberpositive="Please enter a positive number">
-            @Html.ValidationMessage("Price") 
+            @Html.ValidationMessage("Price")
         </div>
+    </div>
 
-        <button type="submit" class="btn btn-primary js-create-reward-button">
-            Add Reward
-        </button>
+    <button type="submit" class="btn btn-primary js-create-reward-button" style="margin-top:2rem;">
+        Add Reward
+    </button>
 
-        <a href="@Url.Action("ProjectInfo","Project",new { projectId = Model.ProjectId})" type="button" class="btn btn-primary js-goto-project-button">
-            Go to project page </a>        
+    <a href="@Url.Action("ProjectInfo","Project",new { projectId = Model.ProjectId})" type="button" class="btn btn-primary js-goto-project-button" style="margin-top:2rem;">
+        Go to project page
+    </a>
 
-        <div class="alert alert-success js-reward-create-success-alert" role="alert">
-        </div>
+    <div class="alert alert-success js-reward-create-success-alert" role="alert">
+    </div>
 
-        <div class="alert alert-danger js-reward-create-fail-alert" role="alert">
-        </div>
+    <div class="alert alert-danger js-reward-create-fail-alert" role="alert">
+    </div>
 
-    </form>
+</form>
 
 @section Scripts {
     <script src="~/js/AddReward.js" asp-append-version="true"></script>

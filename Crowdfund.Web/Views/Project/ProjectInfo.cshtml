@@ -2,12 +2,12 @@
 @{
     ViewData["Title"] = "Project Info";
 }
-<link rel="stylesheet" href="~/css/site.css" />
-<div class="d-flex justify-content-center" style="margin-bottom: 50px;">
+
+@*<div class="d-flex justify-content-center" style="margin-bottom: 50px;">*@
     <h1>
         Welcome to Project Info Page
     </h1>
-</div>
+@*</div>*@
 <style>
     ul#opt li {
         display: inline;
@@ -68,7 +68,7 @@
                         else
                         {
                             <div class="carousel-item">
-                                <iframe height="250" width="510" class="embed-responsive-item" src=@m.MediaLink allowfullscreen></iframe>
+                                <iframe height="251" width="530" class="embed-responsive-item" src=@m.MediaLink allowfullscreen></iframe>
                             </div>
                         }
 
@@ -88,54 +88,62 @@
 
 
         <!--Project card-->
-        
-            <div class="col-lg-6  ">
-                <div class="card" >
 
-                    <div class="card-header" style="height:250px;">
-                        <b>
-                            @Model.Title
-                        </b>
+        <div class="col-lg-6  ">
+            <div class="card">
+
+                <div class="card-header" style="height:250px;">
+                    <b>
+                        @Model.Title
+                    </b>
+
+                    <!--ta price theloun int64 ama baloume megales times skaei-->
+                    <div class="card-body">
+
+                        <div class="progress">
+                            <div class="progress-bar general-css" role="progressbar" aria-valuenow="@((int) (@Model.CurrentFund/@Model.TotalFund * 100))%"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: @(@Model.CurrentFund/@Model.TotalFund * 100)%">
+                                @((int) (@Model.CurrentFund / @Model.TotalFund * 100))%
+                            </div>
+                        </div>
 
 
-                        <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h4 style="color: #083f88;">Funded:@((int)Model.CurrentFund)$</h4>
+                            </div>
+                            <div class="col">
+                                <h4 style="color: #083f88;">Total Backers:@Model.RewardUsers.Count()</h4>
+                            </div>
+                        </div>
 
-                            <div class="progress">
-                                <div class="progress-bar general-css" role="progressbar" aria-valuenow="@((int) (@Model.CurrentFund/@Model.TotalFund * 100))%"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: @(@Model.CurrentFund/@Model.TotalFund * 100)%">
-                                    @((int) (@Model.CurrentFund / @Model.TotalFund * 100))%
-                                </div>
+                        <div class="row ">
+                            <div class="col">
+                                <h4 style="color: #fab414; ">Goal: @((int)Model.TotalFund)$</h4>
+                            </div>
+                            <div class="col">
+                                <h4 style="color: darkred; ">Deadline:@Model.Deadline.ToString("dd/MM/yyyy")</h4>
                             </div>
 
+                        </div>
 
-                            <div class="row">
-                                <h4 style="color: #083f88;margin-left:0 auto;">Funded:@((int)Model.CurrentFund)$</h4>
-                                <h4 style="color: #083f88;margin-right:0 auto;">Total Backers:@Model.RewardUsers.Count()</h4>
-                            </div>
-                                
-                                <div class="row ">
+                        @*<div class="row">*@
+                            <div class="d-flex justify-content-center">
 
-                                    <h4 style="color: #fab414;margin-left:0 auto; "> Goal: @((int)Model.TotalFund)$</h4>
-                                    <h4 style="color: darkred;margin-right:0 auto; "> Deadline:@Model.Deadline.ToString("dd/MM/yyyy")</h4>
-
-                                </div>
-
-                            <div class="row">
-
-                                <a href="@Url.Action("AddMedia","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addmedia-button" >
+                                <a href="@Url.Action("AddMedia","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addmedia-button">
                                     Add media
                                 </a>
 
                             </div>
-
-
-                        </div>
+                        @*</div>*@
 
                     </div>
 
                 </div>
+
             </div>
         </div>
+    </div>
 
     </div>
 
@@ -192,7 +200,7 @@
         <div class="jumbotron">
             <!--edw to button add statusupdate-->
 
-            <a href="@Url.Action("AddStatusUpdate","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addstatusUpdate-button" style=" width: 120px; height:45px;">
+            <a href="@Url.Action("AddStatusUpdate","Project",new { projectId = Model.ProjectId })" type="button" class="btn btn-primary creator-hidden-items js-projectinfo-addstatusUpdate-button" >
                 New Update
             </a>
             <br />
@@ -255,7 +263,7 @@
                                 <form method="post" class="js-buy-reward-form @r.RewardId" id=@r.RewardId>
                                     <div class="card-footer bg-transparent fix-from-css" style="color:black">
                                         Quantity
-                                        <div class="form-group row">
+                                        <div class="form-group" style="width:100%">
                                             <input name="Quantity" class="js-quantity @r.RewardId form-control" type="number"
                                                    data-val="true" data-val-required
                                                    data-val-numberpositive="Please enter a positive number">
@@ -282,53 +290,60 @@
                     <input name="Id" placeholder=""
                            class="form-control js-up-projectid" style="display:none" readonly value="@Model.ProjectId">
                 </div>
-                <div class="form-group">
-                    <label for="@Html.NameFor(c=>c.Title)">Title</label>
-                    <input name="Title" placeholder=""
-                           class="form-control js-update-title" type="text" value="@Model.Title"
-                           data-val="true" data-val-required data-val-length="Please enter up to 50 characters"
-                           data-val-length-max="50">
-                    @Html.ValidationMessageFor(c => c.Title)
+                <div class="d-flex justify-content-center">
+                    <div class="form-group">
+                        <label for="@Html.NameFor(c=>c.Title)">Title</label>
+                        <input name="Title" placeholder="Enter a title for your project"
+                               class="form-control js-update-title" type="text" value="@Model.Title"
+                               data-val="true" data-val-required data-val-length="Please enter up to 50 characters"
+                               data-val-length-max="50">
+                        @Html.ValidationMessageFor(c => c.Title)
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="@Html.NameFor(c=>c.Description)">Description</label>
-                    <textarea name="Description" class="form-control js-update-description" type="text" rows="5"
-                              data-val="true" data-val-required
-                              data-val-length data-val-length-max="100000">@Model.Description</textarea>
-                    @Html.ValidationMessageFor(c => c.Description)
+                <div class="d-flex justify-content-center">
+                    <div class="form-group">
+                        <label for="@Html.NameFor(c=>c.Description)">Description</label>
+                        <textarea name="Description" class="form-control js-update-description" type="text"placeholder="Enter a description for your project" rows="5"
+                                  data-val="true" data-val-required
+                                  data-val-length data-val-length-max="100000">@Model.Description</textarea>
+                        @Html.ValidationMessageFor(c => c.Description)
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="@Html.NameFor(c=>c.TotalFund)">Total Fund</label>
-                    <input name="Totalfund" placeholder=""
-                           class="form-control js-update-totalfund" type="number" value="@decimal.ToDouble(Model.TotalFund)"
-                           data-val="true" data-val-required="Please your new estimated totalfund amount">
-                    @Html.ValidationMessageFor(c => c.TotalFund)
+                <div class="d-flex justify-content-center">
+                    <div class="form-group">
+                        <label for="@Html.NameFor(c=>c.TotalFund)">Total Fund</label>
+                        <input name="Totalfund" placeholder="Enter an estimated budget for your project"
+                               class="form-control js-update-totalfund" type="number" value="@decimal.ToDouble(Model.TotalFund)"
+                               data-val="true" data-val-required="Please your new estimated totalfund amount">
+                        @Html.ValidationMessageFor(c => c.TotalFund)
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="@Html.NameFor(c=>c.Deadline)">Deadline</label>
-                    <input name="Deadline" placeholder=""
-                           class="form-control js-update-deadline" type="datetime-local" value="@Model.Deadline.ToString("s")"
-                           data-val="true" data-val-required data-val-datevalid="Please enter a future date" />
-                    @Html.ValidationMessageFor(c => c.Deadline)
+                <div class="d-flex justify-content-center">
+                    <div class="form-group">
+                        <label for="@Html.NameFor(c=>c.Deadline)">Deadline</label>
+                        <input name="Deadline" placeholder=""
+                               class="form-control js-update-deadline" type="datetime-local" value="@Model.Deadline.ToString("s")"
+                               data-val="true" data-val-required data-val-datevalid="Please enter a future date" />
+                        @Html.ValidationMessageFor(c => c.Deadline)
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="@Html.NameFor(c => c.Category)">Project Category</label>
-                    <select name="Category" id="inputCategory" class="js-update-category form-control"
-                            data-val="true" data-val-required="Please pick a category">
-                        <option value="" disabled selected hidden>Please choose your new category</option>
-                        @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.ProjectCategory)))
-                            {
-                                <option>@cat</option>
+                <div class="d-flex justify-content-center">
+                    <div class="form-group">
+                        <label for="@Html.NameFor(c => c.Category)">Project Category</label>
+                        <select name="Category" id="inputCategory" class="js-update-category form-control"
+                                data-val="true" data-val-required="Please pick a category">
+                            <option value="" disabled selected hidden>Please choose your new category</option>
+                            @{ foreach (var cat in Enum.GetNames(typeof(Crowdfund.Core.Models.ProjectCategory)))
+                                {
+                                    <option>@cat</option>
+                                }
                             }
-                        }
-                    </select>
-                    @Html.ValidationMessageFor(c => c.Category)
+                        </select>
+                        @Html.ValidationMessageFor(c => c.Category)
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary js-update-project-btn">Update</button>
+                <button type="submit" class="btn btn-primary js-update-project-btn" style="margin-top:2rem;">Update</button>
                 <div class="alert alert-success js-updateproject-success" style="display:none" role="alert">
                 </div>
 

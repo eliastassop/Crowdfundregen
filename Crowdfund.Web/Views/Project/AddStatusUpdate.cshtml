@@ -1,40 +1,44 @@
 ﻿@model Crowdfund.Core.Models.Project
-<h1> @Model.Title</h1>
+
 
 <form method="post" class="js-add-statusUpdate-form">
-    <h2>Add Status Update</h2>
+    <h2>Add Status Update Item to @Model.Title Project</h2>
     <br />
     <!-- ProjectId-->
-    <div class="form-group row">
+
+    <div class="form-group">
         <input name="projectId"
                class="js-statusUpdate-projectId form-control" style="display:none" value="@Model.ProjectId" readonly>
     </div>
     <!-- Title-->
-    <div class="form-group row">
-        <label for="@Html.NameFor(c=>c.Title)">Title</label>
-        <input type="text"name="Title" placeholder="Enter the title of the status update"
-               class="js-statusUpdate-title form-control"
-               data-val="true"data-val-required data-val-length="Please add up to 50 characters" data-val-length-max="50">
-        @Html.ValidationMessageFor(c=>c.Title)
+    <div class="d-flex justify-content-center">
+        <div class="form-group">
+            <label for="@Html.NameFor(c=>c.Title)">Title</label>
+            <input type="text" name="Title" placeholder="Enter the title of the status update"
+                   class="js-statusUpdate-title form-control"
+                   data-val="true" data-val-required data-val-length="Please add up to 50 characters" data-val-length-max="50">
+            @Html.ValidationMessageFor(c => c.Title)
+        </div>
     </div>
 
     <!-- Description -->
-    <div class="form-group row">
-        <label for="@Html.NameFor(c=>c.Description)">Description</label>
-        <textarea name="Description" class="js-statusUpdate-description form-control"
-                  placeholder="Enter the description for your status update" rows="5"
-                  data-val="true" data-val-required data-val-length="Please  to 10000 characters"
-                  data-val-length-min="1"
-                  data-val-length-max="10000"></textarea> <!--mhn fugei to keno anamesa sta akoloutha ></textarea> xalaei to validation-->
-        @Html.ValidationMessageFor(c => c.Description)
+    <div class="d-flex justify-content-center">
+        <div class="form-group">
+            <label for="@Html.NameFor(c=>c.Description)">Description</label>
+            <textarea name="Description" class="js-statusUpdate-description form-control"
+                      placeholder="Enter the description for your status update" rows="5"
+                      data-val="true" data-val-required data-val-length="Please  to 10000 characters"
+                      data-val-length-min="1"
+                      data-val-length-max="10000"></textarea> <!--mhn fugei to keno anamesa sta akoloutha ></textarea> xalaei to validation-->
+            @Html.ValidationMessageFor(c => c.Description)
+        </div>
     </div>
 
-
-    <button type="submit" class="btn btn-primary js-create-statusUpdate-button">
+    <button type="submit" class="btn btn-primary js-create-statusUpdate-button" style="margin-top:2rem;">
         Add Status Update
     </button>
 
-    <a href="@Url.Action("ProjectInfo","Project",new { projectId = Model.ProjectId})" type="button" class="btn btn-primary js-goto-project-button">
+    <a href="@Url.Action("ProjectInfo","Project",new { projectId = Model.ProjectId})" type="button" class="btn btn-primary js-goto-project-button" style="margin-top:2rem;">
         Go to project page
     </a>
 
