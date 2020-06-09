@@ -229,3 +229,11 @@ font-family: FontAwesome;*/
 .form-group {
     width:70%
 }
+
+.carousel-control-next-icon {
+    filter: invert(13%) sepia(27%) saturate(5045%) hue-rotate(347deg) brightness(99%) contrast(98%);
+}
+
+.carousel-control-prev-icon {
+    filter: invert(13%) sepia(27%) saturate(5045%) hue-rotate(347deg) brightness(99%) contrast(98%);
+}

@@ -33,7 +33,7 @@
         <div class="col-lg-6">
 
             <!-- Carousel -->
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
                 <ol class="carousel-indicators">
                     @for (int i = 0; i < Model.Media.Count; i++)
                     {
@@ -55,20 +55,20 @@
                             if (Model.Media.First() == m)
                             {
                                 <div class="carousel-item active">
-                                    <img src=@m.MediaLink class="d-block w-100" height="250">
+                                    <img src=@m.MediaLink class="d-block w-100" height="251" style="object-fit:contain">
                                 </div>
                             }
                             else
                             {
                                 <div class="carousel-item">
-                                    <img src=@m.MediaLink class="d-block w-100" height="250">
+                                    <img src=@m.MediaLink class="d-block w-100" height="251" style="object-fit:contain">
                                 </div>
                             }
                         }
                         else
                         {
                             <div class="carousel-item">
-                                <iframe height="251" width="530" class="embed-responsive-item" src=@m.MediaLink allowfullscreen></iframe>
+                                <iframe height="250" width="530" class="embed-responsive-item" src=@m.MediaLink allowfullscreen></iframe>
                             </div>
                         }
 
@@ -113,7 +113,7 @@
                                 <h4 style="color: #083f88;">Funded:@((int)Model.CurrentFund)$</h4>
                             </div>
                             <div class="col">
-                                <h4 style="color: #083f88;">Total Backers:@Model.RewardUsers.Count()</h4>
+                                <h4 style="color: #083f88;">Total Backers:@Model.RewardUsers.Select(x=>x.UserId).Distinct().Count()</h4>
                             </div>
                         </div>
 

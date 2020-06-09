@@ -28,7 +28,7 @@ namespace Crowdfund.Core.Services
         {
             if (options == null)
             {
-                return Result<bool>.CreateFailed(StatusCode.BadRequest, "Null options");
+                return Result<bool>.CreateFailed(StatusCode.BadRequest, "You have to login first");
             }
             var rewardUserTest = GetRewardUserById(options.UserId, options.RewardId);
             if (rewardUserTest.Success) //update

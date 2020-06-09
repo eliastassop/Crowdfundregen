@@ -22,6 +22,7 @@ UpdateProfileForm.submit(function (event) {
         contentType: 'application/json',
         data: JSON.stringify(data)
     }).done(successResponse => {
+        localStorage.setItem('username', UserName.val());
         updatesuccess.show().fadeOut(1200);
         setTimeout(() => { window.location.reload(); },1000)
         //window.location.reload();
